@@ -20,18 +20,11 @@ body {
 
 .container { padding: 10px; max-width: 1200px; margin: 0 auto; }
 
-/* HEADER MOBILE FRIENDLY */
+/* HEADER */
 header {
-    background-color: var(--primary);
-    color: white;
-    padding: 15px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    background-color: var(--primary); color: white; padding: 15px 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;
 }
 .header-title h1 { font-size: 1.2rem; margin-bottom: 5px; }
 .status-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 12px; font-weight: bold; }
@@ -39,10 +32,7 @@ header {
 .status-badge.admin { background: var(--success); }
 
 /* BOUTONS */
-.btn {
-    padding: 8px 12px; border: none; border-radius: 6px; font-weight: bold;
-    font-size: 0.9rem; cursor: pointer; transition: 0.2s;
-}
+.btn { padding: 8px 12px; border: none; border-radius: 6px; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
 .btn-primary { background: var(--secondary); color: white; width: 100%; padding: 15px; font-size: 1.1rem;}
 .btn-outline { background: transparent; border: 1px solid white; color: white; }
 .btn-danger { background: var(--danger); color: white; }
@@ -51,122 +41,58 @@ header {
 /* CARTES ET GRILLES */
 .pools-grid { display: grid; gap: 15px; grid-template-columns: 1fr; }
 @media (min-width: 768px) { .pools-grid { grid-template-columns: 1fr 1fr; } }
-
-.card {
-    background: var(--card); border-radius: 10px; padding: 15px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px;
-}
+.card { background: var(--card); border-radius: 10px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; }
 .card h2 { color: var(--primary); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 5px;}
 
-/* TABLEAUX RESPONSIVES (Scroll horizontal sur mobile) */
+/* TABLEAUX */
 .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 500px; }
 th, td { padding: 10px 5px; text-align: center; border-bottom: 1px solid var(--border); }
 th { background: #f8fafc; color: #475569; font-weight: 600; }
 .team-name { text-align: left; font-weight: bold; width: 35%; }
-.qualif-row { background-color: #ecfdf5; }
 
-/* MATCHES (Adapté aux gros doigts) */
-.match-card {
-    background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;
-    padding: 10px; margin-bottom: 10px;
-}
+/* COULEURS DES QUALIFICATIONS */
+.qualif-cl { background-color: #d1fae5 !important; } /* Vert : Champions League */
+.qualif-el { background-color: #e0f2fe !important; } /* Bleu : League Europe */
+.qualif-cdl { background-color: #ffedd5 !important; } /* Orange : Coupe de la Ligue */
+
+/* MATCHES */
+.match-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 10px; }
 .match-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;}
-.match-ref { color: #d97706; font-weight: bold; }
 .match-body { display: flex; align-items: center; justify-content: space-between; font-weight: bold; font-size: 0.95rem; }
 .match-team { flex: 1; text-align: center; word-break: break-word; }
 
 /* INPUTS SCORES */
 .score-inputs { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 10px; }
-.score-inputs input {
-    width: 45px; height: 40px; text-align: center; font-size: 1.1rem;
-    font-weight: bold; border: 2px solid var(--border); border-radius: 6px;
-    background: white; outline: none;
-}
+.score-inputs input { width: 45px; height: 40px; text-align: center; font-size: 1.1rem; font-weight: bold; border: 2px solid var(--border); border-radius: 6px; background: white; outline: none; }
 .score-inputs input:focus { border-color: var(--secondary); }
 .score-display { font-size: 1.2rem; padding: 0 15px; color: var(--primary); }
 
-/* FORMULAIRE SETUP */
-.setup-group { margin-bottom: 15px; }
-.setup-group textarea {
-    width: 100%; height: 120px; padding: 10px; border: 1px solid var(--border);
-    border-radius: 8px; font-family: inherit; font-size: 1rem; resize: none;
-}
-
 /* --- REGLES ET LEGENDE --- */
-.info-section {
-    margin-bottom: 20px;
-    background: var(--card);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    overflow: hidden;
-}
+.info-section { margin-bottom: 20px; background: var(--card); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
+details summary { padding: 15px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; display: flex; align-items: center; font-size: 1.05rem; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "▼"; margin-left: auto; font-size: 0.8rem; transition: transform 0.2s ease; }
+details[open] summary::after { transform: rotate(180deg); }
+.info-content { padding: 0 15px 15px 15px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 20px; }
+.info-block { flex: 1; min-width: 200px; }
+.info-block h3 { font-size: 1rem; color: var(--secondary); margin: 15px 0 10px 0; }
+.info-block ul { list-style-type: none; padding-left: 0; }
+.info-block li, .legend-grid div { margin-bottom: 5px; font-size: 0.9rem; color: #475569; }
+.tie-breaker { font-size: 0.8rem; color: #64748b; margin-top: 10px; line-height: 1.4; }
+.legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.color-legend li { display: flex; align-items: center; }
+.color-box { display: inline-block; width: 16px; height: 16px; border: 1px solid #cbd5e1; border-radius: 4px; margin-right: 8px; }
 
-details summary {
-    padding: 15px;
-    font-weight: bold;
-    color: var(--primary);
-    cursor: pointer;
-    list-style: none; /* Enlève la petite flèche par défaut sur certains navigateurs */
-    display: flex;
-    align-items: center;
-    font-size: 1.05rem;
-}
+/* ONGLETS */
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.tab-btn { flex: 1; padding: 12px; background: #e2e8f0; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; color: #475569; transition: 0.2s; }
+.tab-btn.active { background: var(--primary); color: white; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-details summary::-webkit-details-marker {
-    display: none;
-}
-
-details summary::after {
-    content: "▼";
-    margin-left: auto;
-    font-size: 0.8rem;
-    transition: transform 0.2s ease;
-}
-
-details[open] summary::after {
-    transform: rotate(180deg);
-}
-
-.info-content {
-    padding: 0 15px 15px 15px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.info-block {
-    flex: 1;
-    min-width: 250px;
-}
-
-.info-block h3 {
-    font-size: 1rem;
-    color: var(--secondary);
-    margin: 15px 0 10px 0;
-}
-
-.info-block ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.info-block li, .legend-grid div {
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-    color: #475569;
-}
-
-.tie-breaker {
-    font-size: 0.8rem;
-    color: #64748b;
-    margin-top: 10px;
-    line-height: 1.4;
-}
-
-.legend-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px;
-}
+/* TIRS AU BUT */
+.tab-inputs { margin-top: 8px; font-size: 0.85rem; color: #64748b; font-weight: normal; display: flex; justify-content: center; align-items: center; gap: 5px;}
+.tab-inputs input { width: 35px; height: 30px; text-align: center; border: 1px solid var(--border); border-radius: 4px; font-weight: bold;}
+.tab-display { font-size: 0.85rem; color: #ef4444; font-weight: bold; margin-top: 5px; }
+.phase-title { background: var(--primary); color: white; padding: 10px; border-radius: 8px; margin: 30px 0 15px 0; text-align: center;}

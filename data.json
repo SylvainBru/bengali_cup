@@ -37,8 +37,8 @@
         "team1": "\u00c9quipe 1",
         "team2": "\u00c9quipe 2",
         "referee": "\u00c9quipe 8",
-        "score1": 1,
-        "score2": 5
+        "score1": null,
+        "score2": null
       },
       {
         "id": "01-1",
@@ -399,5 +399,7 @@
       }
     ]
   },
-  "isSetup": true
+  "isSetup": true,
+  "finalsMatches": [],
+  "isFinalsSetup": false
 }

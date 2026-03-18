@@ -33,24 +33,36 @@
                         </ul>
                         <p class="tie-breaker"><i>En cas d'égalité, le départage se fait sur la différence de buts, puis sur les buts marqués.</i></p>
                     </div>
+                    
+                    <div class="info-block">
+                        <h3>🎨 Qualification</h3>
+                        <ul class="color-legend">
+                            <li><span class="color-box qualif-cl"></span> <b>1er et 2ème :</b> Champions League</li>
+                            <li><span class="color-box qualif-el"></span> <b>3ème et 4ème :</b> League Europe</li>
+                            <li><span class="color-box qualif-cdl"></span> <b>5ème :</b> Coupe de la Ligue</li>
+                        </ul>
+                    </div>
+
                     <div class="info-block">
                         <h3>📊 Légende du tableau</h3>
                         <div class="legend-grid">
-                            <div><b>Pts :</b> Points totaux</div>
-                            <div><b>J :</b> Matchs joués</div>
-                            <div><b>V :</b> Victoires</div>
-                            <div><b>N :</b> Matchs nuls</div>
-                            <div><b>D :</b> Défaites</div>
-                            <div><b>BP :</b> Buts pour (marqués)</div>
-                            <div><b>BC :</b> Buts contre (encaissés)</div>
-                            <div><b>Diff :</b> Différence de buts</div>
+                            <div><b>Pts:</b> Points</div><div><b>J:</b> Joués</div>
+                            <div><b>V:</b> Victoires</div><div><b>N:</b> Nuls</div>
+                            <div><b>D:</b> Défaites</div><div><b>BP:</b> Buts Pour</div>
+                            <div><b>BC:</b> Buts Contre</div><div><b>Diff:</b> Différence</div>
                         </div>
                     </div>
                 </div>
             </details>
         </div>
 
-        <div id="app-content"></div>
+        <div class="tabs">
+            <button id="tab-poules" class="tab-btn active" onclick="switchTab('poules')">Phase de Poules</button>
+            <button id="tab-finales" class="tab-btn" onclick="switchTab('finales')">Phases Finales</button>
+        </div>
+
+        <div id="content-poules" class="tab-content active"></div>
+        <div id="content-finales" class="tab-content"></div>
 
     </main>
 
