@@ -24,43 +24,74 @@ header { background-color: var(--primary); color: white; padding: 15px 10px; dis
 @media (min-width: 768px) { .pools-grid { grid-template-columns: 1fr 1fr; } }
 .card { background: var(--card); border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; border: 1px solid var(--border); }
 .card h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 3px solid var(--secondary); padding-bottom: 8px;}
+.section-title { text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-size: 0.9rem; font-weight: bold; margin: 25px 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom: 5px;}
 
-/* =========================================
-   TABLEAU CROISÉ (MATRICE) DES POULES
-   ========================================= */
+/* TABLEAU CROISÉ POULES */
 .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 25px; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid var(--border); }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 600px; }
 th, td { padding: 8px 5px; text-align: center; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
 th { background: #f8fafc; color: #475569; font-weight: 700; }
 .team-name { text-align: left; font-weight: bold; white-space: nowrap; padding-left: 10px; }
-
-/* En-têtes verticaux pour les noms d'équipes en haut */
 .matrix-header-name { writing-mode: vertical-rl; transform: rotate(180deg); height: 110px; text-align: left; padding: 10px 5px; white-space: nowrap; font-size: 0.8rem; color: var(--primary); }
 .matrix-self { background-color: #475569 !important; }
 .matrix-score { font-weight: 900; font-size: 0.95rem; color: var(--primary); background: rgba(255,255,255,0.5); }
 .matrix-empty { color: #cbd5e1; }
-
 .qualif-cl { background-color: #d1fae5 !important; } .qualif-el { background-color: #e0f2fe !important; } .qualif-cdl { background-color: #ffedd5 !important; }
 
-/* =========================================
-   ZONE DE SAISIE DE MATCH (CLEAN & MODERNE)
-   ========================================= */
+/* ZONE DE SAISIE MODERNE (POULES & FINALES) */
 .modern-match-card { background: white; border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); overflow: hidden; }
 .modern-match-header { display: flex; justify-content: space-between; padding: 10px 15px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; color: #64748b; font-weight: 600; }
-.modern-match-body { display: flex; align-items: center; justify-content: space-between; padding: 15px 10px; gap: 10px; }
+.modern-match-body { display: flex; flex-direction: column; align-items: center; padding: 15px 10px; gap: 10px; }
+.modern-match-main { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 10px;}
 .team-left { flex: 1; text-align: right; font-weight: bold; font-size: 0.95rem; color: var(--primary); word-break: break-word;}
 .team-right { flex: 1; text-align: left; font-weight: bold; font-size: 0.95rem; color: var(--primary); word-break: break-word;}
-
 .modern-score-inputs { display: flex; align-items: center; justify-content: center; gap: 8px; background: #e2e8f0; padding: 8px 12px; border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
 .modern-score-inputs input { width: 45px; height: 45px; text-align: center; font-size: 1.3rem; font-weight: 900; border: 2px solid transparent; border-radius: 8px; outline: none; transition: 0.2s; background: white; color: var(--text); }
 .modern-score-inputs input:focus { border-color: var(--secondary); transform: scale(1.05); box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2); }
 .score-divider { font-weight: 900; color: #64748b; font-size: 1.2rem; }
-
 .modern-score-display { display: flex; align-items: center; justify-content: center; gap: 10px; background: #f8fafc; padding: 8px 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
 .score-box { font-size: 1.4rem; font-weight: 900; color: var(--primary); min-width: 25px; text-align: center; }
 
+/* TIRS AU BUT (FINALES) */
+.tab-section { margin-top: 5px; font-size: 0.85rem; color: #64748b; background: #f8fafc; padding: 5px 15px; border-radius: 20px; border: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 5px;}
+.tab-section input { width: 35px; height: 30px; text-align: center; border: 1px solid var(--border); border-radius: 4px; font-weight: bold; outline: none;}
+.tab-section input:focus { border-color: var(--danger); }
+.tab-display { color: #ef4444; font-weight: bold; }
 
-/* ONGLETS SCROLLABLES */
+/* =========================================
+   ARBRE DE TOURNOI (BRACKET)
+   ========================================= */
+.bracket-wrapper { overflow-x: auto; padding: 20px 0; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--border); box-shadow: inset 0 0 10px rgba(0,0,0,0.02); -webkit-overflow-scrolling: touch;}
+.bracket { display: flex; flex-direction: row; align-items: stretch; justify-content: flex-start; min-width: max-content; }
+
+.b-round { display: flex; flex-direction: column; justify-content: center; flex: 1; }
+.b-match-wrapper { display: flex; flex-direction: column; justify-content: center; flex: 1; position: relative; padding: 10px 30px; }
+
+/* Lignes de connexion de l'arbre (Magie Flexbox !) */
+.b-round:not(:first-child) .b-match-wrapper::before { content: ''; position: absolute; left: 0; top: 50%; width: 30px; border-top: 2px solid #94a3b8; }
+.b-round:not(:last-child) .b-match-wrapper:nth-child(odd)::after { content: ''; position: absolute; right: 0; top: 50%; height: 50%; width: 30px; border-top: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-top-right-radius: 4px; }
+.b-round:not(:last-child) .b-match-wrapper:nth-child(even)::after { content: ''; position: absolute; right: 0; bottom: 50%; height: 50%; width: 30px; border-bottom: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-bottom-right-radius: 4px; }
+
+/* Style des matchs dans l'arbre */
+.b-match { background: white; border: 2px solid #cbd5e1; border-radius: 8px; width: 170px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; position: relative; z-index: 2; }
+.b-label { font-size: 0.65rem; text-transform: uppercase; color: #94a3b8; text-align: center; padding: 4px 0; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; font-weight: bold; letter-spacing: 1px;}
+.b-team { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; font-size: 0.85rem; border-bottom: 1px solid #e2e8f0; }
+.b-team:last-child { border-bottom: none; }
+.b-team.winner { font-weight: bold; background: #f0fdf4; color: #166534; }
+.b-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
+.b-score { font-weight: bold; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;}
+.b-team.winner .b-score { background: #166534; color: white; }
+
+/* === LIGNE ET STYLE PETITE FINALE === */
+.petite-finale-wrapper { display: flex; flex-direction: column; align-items: center; position: relative; margin-top: -10px; }
+.pf-line { height: 40px; border-left: 3px dashed #f59e0b; margin-bottom: 5px; }
+.pf-title { color: #d97706; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 5px; background: #fef3c7; padding: 4px 12px; border-radius: 20px; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);}
+.pf-container .b-match-wrapper { padding: 5px 0; }
+.pf-container .b-match-wrapper::before, .pf-container .b-match-wrapper::after { display: none !important; } /* On retire les lignes standards pour la petite finale */
+.pf-match .b-match { border-color: #f59e0b; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2); }
+.pf-match .b-label { background: #f59e0b; color: white; border-bottom-color: #d97706; }
+
+/* RÈGLES ET ONGLETS */
 .tabs-container { margin-bottom: 20px; border-bottom: 2px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .tabs { display: flex; gap: 5px; width: max-content; padding-bottom: 5px; }
 .tab-btn { padding: 12px 20px; background: transparent; border: none; font-weight: bold; font-size: 1.05rem; cursor: pointer; color: #64748b; border-bottom: 3px solid transparent; transition: 0.2s; }
@@ -68,29 +99,6 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeIn 0.3s; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-/* STYLE "TV BROADCAST" PHASES FINALES */
-.tv-container { background: radial-gradient(circle at top, #1e293b, #020617); padding: 15px; border-radius: 12px; color: white; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 20px;}
-.tv-title { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; margin: 10px 0 25px 0; font-size: 1.4rem; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-.tv-group-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; font-size: 0.85rem; margin: 25px 0 10px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
-.tv-match { background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9)); border: 1px solid #334155; border-radius: 8px; margin-bottom: 12px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); overflow: hidden;}
-.tv-match-header { background: rgba(0,0,0,0.5); padding: 6px 12px; font-size: 0.75rem; color: #cbd5e1; display: flex; justify-content: space-between; font-weight: 600; letter-spacing: 1px;}
-.tv-match-body { display: flex; align-items: center; padding: 15px 10px; justify-content: space-between;}
-.tv-team { flex: 1; text-align: center; font-weight: bold; font-size: 1.05rem; text-shadow: 0 1px 3px rgba(0,0,0,0.8); word-break: break-word;}
-.tv-team.placeholder { color: #64748b; font-style: italic; font-weight: 500; font-size: 0.95rem; }
-.tv-scorebox { background: #000; border: 2px solid #334155; border-radius: 6px; padding: 5px 15px; font-size: 1.4rem; font-weight: 900; margin: 0 10px; text-align: center; box-shadow: inset 0 0 10px rgba(255,255,255,0.1); }
-.tv-vs { font-size: 0.9rem; color: #475569; font-weight: 900; margin: 0 10px; }
-.tv-cl .tv-title { color: #fbbf24; } .tv-cl .tv-match { border-left: 5px solid #fbbf24; } .tv-cl .tv-scorebox { color: #fbbf24; border-color: #b45309; }
-.tv-el .tv-title { color: #38bdf8; } .tv-el .tv-match { border-left: 5px solid #38bdf8; } .tv-el .tv-scorebox { color: #38bdf8; border-color: #0369a1; }
-.tv-cdl .tv-title { color: #10b981; } .tv-cdl .tv-match { border-left: 5px solid #10b981; } .tv-cdl .tv-scorebox { color: #10b981; border-color: #047857; }
-.tv-input-group { display: flex; align-items: center; justify-content: center; gap: 5px; }
-.tv-input { background: #1e293b; color: white; border: 1px solid #475569; border-radius: 4px; width: 45px; height: 35px; text-align: center; font-size: 1.2rem; font-weight: bold; }
-.tv-input:focus { outline: none; border-color: white; }
-.tv-tab-container { text-align: center; margin-top: 8px; font-size: 0.8rem; color: #94a3b8; }
-.tv-tab-input { background: #0f172a; color: #ef4444; border: 1px solid #334155; width: 35px; padding: 4px; text-align: center; font-weight: bold; border-radius: 3px; }
-.tv-tab-display { font-size: 0.85rem; color: #ef4444; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-
-/* RÈGLES */
 .info-section { margin-bottom: 20px; background: var(--card); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 details summary { padding: 12px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; font-size: 1rem; }
 details summary::-webkit-details-marker { display: none; }
