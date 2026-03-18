@@ -1,98 +1,102 @@
 :root {
-    --primary: #1e3a8a;
-    --secondary: #2563eb;
-    --bg: #f3f4f6;
-    --card: #ffffff;
-    --text: #1f2937;
-    --border: #e5e7eb;
-    --success: #10b981;
-    --danger: #ef4444;
+    --primary: #1e3a8a; --secondary: #2563eb; --bg: #f3f4f6;
+    --card: #ffffff; --text: #1f2937; --border: #e5e7eb;
+    --success: #10b981; --danger: #ef4444;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-}
-
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
 .container { padding: 10px; max-width: 1200px; margin: 0 auto; }
 
 /* HEADER */
-header {
-    background-color: var(--primary); color: white; padding: 15px 10px;
-    display: flex; justify-content: space-between; align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;
-}
+header { background-color: var(--primary); color: white; padding: 15px 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
 .header-title h1 { font-size: 1.2rem; margin-bottom: 5px; }
 .status-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 12px; font-weight: bold; }
 .status-badge.spectateur { background: rgba(255,255,255,0.2); }
 .status-badge.admin { background: var(--success); }
 
-/* BOUTONS */
+/* BOUTONS & CARTES */
 .btn { padding: 8px 12px; border: none; border-radius: 6px; font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
-.btn-primary { background: var(--secondary); color: white; width: 100%; padding: 15px; font-size: 1.1rem;}
+.btn-primary { background: var(--secondary); color: white; width: 100%; padding: 15px; font-size: 1.1rem; }
 .btn-outline { background: transparent; border: 1px solid white; color: white; }
 .btn-danger { background: var(--danger); color: white; }
-.btn:active { transform: scale(0.95); }
-
-/* CARTES ET GRILLES */
-.pools-grid { display: grid; gap: 15px; grid-template-columns: 1fr; }
+.pools-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
 @media (min-width: 768px) { .pools-grid { grid-template-columns: 1fr 1fr; } }
-.card { background: var(--card); border-radius: 10px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; }
-.card h2 { color: var(--primary); font-size: 1.3rem; margin-bottom: 15px; border-bottom: 2px solid var(--border); padding-bottom: 5px;}
+.card { background: var(--card); border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; border: 1px solid var(--border); }
+.card h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 3px solid var(--secondary); padding-bottom: 8px;}
 
-/* TABLEAUX */
-.table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 20px; -webkit-overflow-scrolling: touch; }
-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 500px; }
-th, td { padding: 10px 5px; text-align: center; border-bottom: 1px solid var(--border); }
-th { background: #f8fafc; color: #475569; font-weight: 600; }
-.team-name { text-align: left; font-weight: bold; width: 35%; }
+/* =========================================
+   TABLEAU CROISÉ (MATRICE) DES POULES
+   ========================================= */
+.table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 25px; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 600px; }
+th, td { padding: 8px 5px; text-align: center; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+th { background: #f8fafc; color: #475569; font-weight: 700; }
+.team-name { text-align: left; font-weight: bold; white-space: nowrap; padding-left: 10px; }
 
-/* COULEURS DES QUALIFICATIONS */
-.qualif-cl { background-color: #d1fae5 !important; } /* Vert : Champions League */
-.qualif-el { background-color: #e0f2fe !important; } /* Bleu : League Europe */
-.qualif-cdl { background-color: #ffedd5 !important; } /* Orange : Coupe de la Ligue */
+/* En-têtes verticaux pour les noms d'équipes en haut */
+.matrix-header-name { writing-mode: vertical-rl; transform: rotate(180deg); height: 110px; text-align: left; padding: 10px 5px; white-space: nowrap; font-size: 0.8rem; color: var(--primary); }
+.matrix-self { background-color: #475569 !important; }
+.matrix-score { font-weight: 900; font-size: 0.95rem; color: var(--primary); background: rgba(255,255,255,0.5); }
+.matrix-empty { color: #cbd5e1; }
 
-/* MATCHES */
-.match-card { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 10px; margin-bottom: 10px; }
-.match-header { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;}
-.match-body { display: flex; align-items: center; justify-content: space-between; font-weight: bold; font-size: 0.95rem; }
-.match-team { flex: 1; text-align: center; word-break: break-word; }
+.qualif-cl { background-color: #d1fae5 !important; } .qualif-el { background-color: #e0f2fe !important; } .qualif-cdl { background-color: #ffedd5 !important; }
 
-/* INPUTS SCORES */
-.score-inputs { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 10px; }
-.score-inputs input { width: 45px; height: 40px; text-align: center; font-size: 1.1rem; font-weight: bold; border: 2px solid var(--border); border-radius: 6px; background: white; outline: none; }
-.score-inputs input:focus { border-color: var(--secondary); }
-.score-display { font-size: 1.2rem; padding: 0 15px; color: var(--primary); }
+/* =========================================
+   ZONE DE SAISIE DE MATCH (CLEAN & MODERNE)
+   ========================================= */
+.modern-match-card { background: white; border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); overflow: hidden; }
+.modern-match-header { display: flex; justify-content: space-between; padding: 10px 15px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; color: #64748b; font-weight: 600; }
+.modern-match-body { display: flex; align-items: center; justify-content: space-between; padding: 15px 10px; gap: 10px; }
+.team-left { flex: 1; text-align: right; font-weight: bold; font-size: 0.95rem; color: var(--primary); word-break: break-word;}
+.team-right { flex: 1; text-align: left; font-weight: bold; font-size: 0.95rem; color: var(--primary); word-break: break-word;}
 
-/* --- REGLES ET LEGENDE --- */
-.info-section { margin-bottom: 20px; background: var(--card); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
-details summary { padding: 15px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; display: flex; align-items: center; font-size: 1.05rem; }
-details summary::-webkit-details-marker { display: none; }
-details summary::after { content: "▼"; margin-left: auto; font-size: 0.8rem; transition: transform 0.2s ease; }
-details[open] summary::after { transform: rotate(180deg); }
-.info-content { padding: 0 15px 15px 15px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 20px; }
-.info-block { flex: 1; min-width: 200px; }
-.info-block h3 { font-size: 1rem; color: var(--secondary); margin: 15px 0 10px 0; }
-.info-block ul { list-style-type: none; padding-left: 0; }
-.info-block li, .legend-grid div { margin-bottom: 5px; font-size: 0.9rem; color: #475569; }
-.tie-breaker { font-size: 0.8rem; color: #64748b; margin-top: 10px; line-height: 1.4; }
-.legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-.color-legend li { display: flex; align-items: center; }
-.color-box { display: inline-block; width: 16px; height: 16px; border: 1px solid #cbd5e1; border-radius: 4px; margin-right: 8px; }
+.modern-score-inputs { display: flex; align-items: center; justify-content: center; gap: 8px; background: #e2e8f0; padding: 8px 12px; border-radius: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+.modern-score-inputs input { width: 45px; height: 45px; text-align: center; font-size: 1.3rem; font-weight: 900; border: 2px solid transparent; border-radius: 8px; outline: none; transition: 0.2s; background: white; color: var(--text); }
+.modern-score-inputs input:focus { border-color: var(--secondary); transform: scale(1.05); box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2); }
+.score-divider { font-weight: 900; color: #64748b; font-size: 1.2rem; }
 
-/* ONGLETS */
-.tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-.tab-btn { flex: 1; padding: 12px; background: #e2e8f0; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; color: #475569; transition: 0.2s; }
-.tab-btn.active { background: var(--primary); color: white; }
+.modern-score-display { display: flex; align-items: center; justify-content: center; gap: 10px; background: #f8fafc; padding: 8px 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+.score-box { font-size: 1.4rem; font-weight: 900; color: var(--primary); min-width: 25px; text-align: center; }
+
+
+/* ONGLETS SCROLLABLES */
+.tabs-container { margin-bottom: 20px; border-bottom: 2px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabs { display: flex; gap: 5px; width: max-content; padding-bottom: 5px; }
+.tab-btn { padding: 12px 20px; background: transparent; border: none; font-weight: bold; font-size: 1.05rem; cursor: pointer; color: #64748b; border-bottom: 3px solid transparent; transition: 0.2s; }
+.tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
 .tab-content { display: none; }
-.tab-content.active { display: block; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* TIRS AU BUT */
-.tab-inputs { margin-top: 8px; font-size: 0.85rem; color: #64748b; font-weight: normal; display: flex; justify-content: center; align-items: center; gap: 5px;}
-.tab-inputs input { width: 35px; height: 30px; text-align: center; border: 1px solid var(--border); border-radius: 4px; font-weight: bold;}
-.tab-display { font-size: 0.85rem; color: #ef4444; font-weight: bold; margin-top: 5px; }
-.phase-title { background: var(--primary); color: white; padding: 10px; border-radius: 8px; margin: 30px 0 15px 0; text-align: center;}
+/* STYLE "TV BROADCAST" PHASES FINALES */
+.tv-container { background: radial-gradient(circle at top, #1e293b, #020617); padding: 15px; border-radius: 12px; color: white; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 20px;}
+.tv-title { text-align: center; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; margin: 10px 0 25px 0; font-size: 1.4rem; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+.tv-group-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; color: #94a3b8; font-size: 0.85rem; margin: 25px 0 10px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+.tv-match { background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9)); border: 1px solid #334155; border-radius: 8px; margin-bottom: 12px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); overflow: hidden;}
+.tv-match-header { background: rgba(0,0,0,0.5); padding: 6px 12px; font-size: 0.75rem; color: #cbd5e1; display: flex; justify-content: space-between; font-weight: 600; letter-spacing: 1px;}
+.tv-match-body { display: flex; align-items: center; padding: 15px 10px; justify-content: space-between;}
+.tv-team { flex: 1; text-align: center; font-weight: bold; font-size: 1.05rem; text-shadow: 0 1px 3px rgba(0,0,0,0.8); word-break: break-word;}
+.tv-team.placeholder { color: #64748b; font-style: italic; font-weight: 500; font-size: 0.95rem; }
+.tv-scorebox { background: #000; border: 2px solid #334155; border-radius: 6px; padding: 5px 15px; font-size: 1.4rem; font-weight: 900; margin: 0 10px; text-align: center; box-shadow: inset 0 0 10px rgba(255,255,255,0.1); }
+.tv-vs { font-size: 0.9rem; color: #475569; font-weight: 900; margin: 0 10px; }
+.tv-cl .tv-title { color: #fbbf24; } .tv-cl .tv-match { border-left: 5px solid #fbbf24; } .tv-cl .tv-scorebox { color: #fbbf24; border-color: #b45309; }
+.tv-el .tv-title { color: #38bdf8; } .tv-el .tv-match { border-left: 5px solid #38bdf8; } .tv-el .tv-scorebox { color: #38bdf8; border-color: #0369a1; }
+.tv-cdl .tv-title { color: #10b981; } .tv-cdl .tv-match { border-left: 5px solid #10b981; } .tv-cdl .tv-scorebox { color: #10b981; border-color: #047857; }
+.tv-input-group { display: flex; align-items: center; justify-content: center; gap: 5px; }
+.tv-input { background: #1e293b; color: white; border: 1px solid #475569; border-radius: 4px; width: 45px; height: 35px; text-align: center; font-size: 1.2rem; font-weight: bold; }
+.tv-input:focus { outline: none; border-color: white; }
+.tv-tab-container { text-align: center; margin-top: 8px; font-size: 0.8rem; color: #94a3b8; }
+.tv-tab-input { background: #0f172a; color: #ef4444; border: 1px solid #334155; width: 35px; padding: 4px; text-align: center; font-weight: bold; border-radius: 3px; }
+.tv-tab-display { font-size: 0.85rem; color: #ef4444; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* RÈGLES */
+.info-section { margin-bottom: 20px; background: var(--card); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+details summary { padding: 12px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; font-size: 1rem; }
+details summary::-webkit-details-marker { display: none; }
+.info-content { padding: 0 15px 15px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 15px; }
+.info-block { flex: 1; min-width: 150px; font-size: 0.9rem; }
+.info-block h3 { color: var(--secondary); margin: 10px 0; font-size: 0.95rem;}
+.color-legend { list-style: none; }
+.color-legend li { display: flex; align-items: center; margin-bottom: 5px; }
+.color-box { width: 14px; height: 14px; border: 1px solid #cbd5e1; border-radius: 3px; margin-right: 8px; }

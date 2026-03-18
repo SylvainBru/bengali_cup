@@ -56,13 +56,19 @@
             </details>
         </div>
 
-        <div class="tabs">
-            <button id="tab-poules" class="tab-btn active" onclick="switchTab('poules')">Phase de Poules</button>
-            <button id="tab-finales" class="tab-btn" onclick="switchTab('finales')">Phases Finales</button>
+        <div class="tabs-container">
+            <div class="tabs">
+                <button id="tab-poules" class="tab-btn active" onclick="switchTab('poules')">Phase de Poules</button>
+                <button id="tab-cl" class="tab-btn" onclick="switchTab('cl')">Champions League</button>
+                <button id="tab-el" class="tab-btn" onclick="switchTab('el')">Europa League</button>
+                <button id="tab-cdl" class="tab-btn" onclick="switchTab('cdl')">Coupe de la Ligue</button>
+            </div>
         </div>
 
         <div id="content-poules" class="tab-content active"></div>
-        <div id="content-finales" class="tab-content"></div>
+        <div id="content-cl" class="tab-content"></div>
+        <div id="content-el" class="tab-content"></div>
+        <div id="content-cdl" class="tab-content"></div>
 
     </main>
 
