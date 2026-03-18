@@ -111,7 +111,10 @@ function resolveTeam(code) {
         let st = calculateStandings(poolId);
         let poolFinished = tournamentData.matches[poolId].every(m => m.score1 !== null && m.score2 !== null);
         if (poolFinished && st[rank]) return st[rank].name;
-        return `${rank + 1}er Poule ${poolId}`;
+        
+        // Correction "1er" et "ème"
+        let suffixe = rank === 0 ? "er" : "ème";
+        return `${rank + 1}${suffixe} Poule ${poolId}`;
     }
     if (code.startsWith("W:") || code.startsWith("L:")) {
         let matchId = code.substring(2);
@@ -331,16 +334,39 @@ function buildBracketNode(matchId, isPetiteFinale = false) {
     `;
 }
 
+
+
 function renderBracket(config) {
     if (!config) return '';
-    let html = `<div class="bracket-wrapper"><div class="bracket">`;
+    
+    // Un petit bloc invisible pour forcer la largeur des colonnes vides
+    let ghostNode = `<div class="b-match-wrapper" style="visibility:hidden; height:0; padding-top:0; padding-bottom:0; margin:0;"><div class="b-match"></div></div>`;
+    
+    // 1. L'arbre principal (Quarts, Demies, Finale)
+    let html = `<div class="bracket-wrapper">
+                    <div class="bracket">`;
     if (config.qf) { html += `<div class="b-round">`; config.qf.forEach(id => html += buildBracketNode(id)); html += `</div>`; }
     if (config.sf) { html += `<div class="b-round">`; config.sf.forEach(id => html += buildBracketNode(id)); html += `</div>`; }
     if (config.f) { html += `<div class="b-round">`; config.f.forEach(id => html += buildBracketNode(id)); html += `</div>`; }
+    html += `       </div>`;
+    
+    // 2. La Petite Finale avec ses colonnes fantômes pour l'aligner à droite
+    if (config.third) { 
+        html += `   <div class="bracket" style="margin-top: 15px;">`;
+        if (config.qf) { html += `<div class="b-round">${ghostNode}</div>`; } // Colonne invisible Quarts
+        if (config.sf) { html += `<div class="b-round">${ghostNode}</div>`; } // Colonne invisible Demies
+        html += `       <div class="b-round">
+                            <div class="pf-container">
+                                ${buildBracketNode(config.third, true)}
+                            </div>
+                        </div>
+                    </div>`; 
+    }
+    
     html += `</div>`;
-    if (config.third) { html += `<div class="petite-finale-wrapper"><div class="pf-line"></div><div class="pf-title">🥉 Petite Finale</div><div class="pf-container">${buildBracketNode(config.third, true)}</div></div>`; }
-    return html + `</div>`;
+    return html;
 }
+
 
 function renderLeagueTab(leagueId) {
     const config = getLeagueConfig(leagueId);
