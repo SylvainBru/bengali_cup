@@ -51,28 +51,28 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .score-divider { font-weight: 900; color: #64748b; font-size: 1.2rem; }
 .modern-score-display { display: flex; align-items: center; justify-content: center; gap: 10px; background: #f8fafc; padding: 8px 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
 .score-box { font-size: 1.4rem; font-weight: 900; color: var(--primary); min-width: 25px; text-align: center; }
-
-/* TIRS AU BUT (FINALES) */
 .tab-section { margin-top: 5px; font-size: 0.85rem; color: #64748b; background: #f8fafc; padding: 5px 15px; border-radius: 20px; border: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 5px;}
 .tab-section input { width: 35px; height: 30px; text-align: center; border: 1px solid var(--border); border-radius: 4px; font-weight: bold; outline: none;}
 .tab-section input:focus { border-color: var(--danger); }
 .tab-display { color: #ef4444; font-weight: bold; }
 
 /* =========================================
-   ARBRE DE TOURNOI (BRACKET)
+   MON EQUIPE (NOUVEAU)
    ========================================= */
+.team-selector { width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 8px; border: 2px solid var(--primary); margin-bottom: 15px; font-weight: bold; color: var(--primary); background-color: #f8fafc; outline: none; cursor: pointer; text-align: center;}
+.team-selector:focus { border-color: var(--secondary); box-shadow: 0 0 8px rgba(37,99,235,0.2); }
+.badge-play { background-color: var(--primary); color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+.badge-ref { background-color: #d97706; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+.schedule-empty { text-align: center; color: #64748b; padding: 20px; font-style: italic; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;}
+
+/* ARBRE DE TOURNOI (BRACKET) */
 .bracket-wrapper { overflow-x: auto; padding: 20px 0; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--border); box-shadow: inset 0 0 10px rgba(0,0,0,0.02); -webkit-overflow-scrolling: touch;}
 .bracket { display: flex; flex-direction: row; align-items: stretch; justify-content: flex-start; min-width: max-content; }
-
 .b-round { display: flex; flex-direction: column; justify-content: center; flex: 1; }
 .b-match-wrapper { display: flex; flex-direction: column; justify-content: center; flex: 1; position: relative; padding: 10px 30px; }
-
-/* Lignes de connexion de l'arbre (Magie Flexbox !) */
 .b-round:not(:first-child) .b-match-wrapper::before { content: ''; position: absolute; left: 0; top: 50%; width: 30px; border-top: 2px solid #94a3b8; }
 .b-round:not(:last-child) .b-match-wrapper:nth-child(odd)::after { content: ''; position: absolute; right: 0; top: 50%; height: 50%; width: 30px; border-top: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-top-right-radius: 4px; }
 .b-round:not(:last-child) .b-match-wrapper:nth-child(even)::after { content: ''; position: absolute; right: 0; bottom: 50%; height: 50%; width: 30px; border-bottom: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-bottom-right-radius: 4px; }
-
-/* Style des matchs dans l'arbre */
 .b-match { background: white; border: 2px solid #cbd5e1; border-radius: 8px; width: 170px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; position: relative; z-index: 2; }
 .b-label { font-size: 0.65rem; text-transform: uppercase; color: #94a3b8; text-align: center; padding: 4px 0; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; font-weight: bold; letter-spacing: 1px;}
 .b-team { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; font-size: 0.85rem; border-bottom: 1px solid #e2e8f0; }
@@ -81,15 +81,23 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .b-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
 .b-score { font-weight: bold; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;}
 .b-team.winner .b-score { background: #166534; color: white; }
-
-/* === LIGNE ET STYLE PETITE FINALE === */
 .petite-finale-wrapper { display: flex; flex-direction: column; align-items: center; position: relative; margin-top: -10px; }
 .pf-line { height: 40px; border-left: 3px dashed #f59e0b; margin-bottom: 5px; }
 .pf-title { color: #d97706; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 5px; background: #fef3c7; padding: 4px 12px; border-radius: 20px; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);}
 .pf-container .b-match-wrapper { padding: 5px 0; }
-.pf-container .b-match-wrapper::before, .pf-container .b-match-wrapper::after { display: none !important; } /* On retire les lignes standards pour la petite finale */
+.pf-container .b-match-wrapper::before, .pf-container .b-match-wrapper::after { display: none !important; }
 .pf-match .b-match { border-color: #f59e0b; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.2); }
 .pf-match .b-label { background: #f59e0b; color: white; border-bottom-color: #d97706; }
+
+/* CLASSEMENT GÉNÉRAL */
+.ranking-container { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
+.ranking-item { display: flex; align-items: center; padding: 12px 15px; border-radius: 8px; background: #f8fafc; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.ranking-item.pending { opacity: 0.6; font-style: italic; background: #ffffff;}
+.rank-number { font-size: 1.3rem; font-weight: 900; width: 45px; color: #475569; }
+.rank-team { font-size: 1.1rem; font-weight: bold; flex: 1; color: var(--primary); }
+.league-cl { border-left: 5px solid #10b981; } .league-cl .rank-number { color: #10b981; }
+.league-el { border-left: 5px solid #38bdf8; } .league-el .rank-number { color: #38bdf8; }
+.league-cdl { border-left: 5px solid #f59e0b; } .league-cdl .rank-number { color: #f59e0b; }
 
 /* RÈGLES ET ONGLETS */
 .tabs-container { margin-bottom: 20px; border-bottom: 2px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
