@@ -5,7 +5,17 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+/* FIX MOBILE : Empêche la page entière de scroller horizontalement */
+html, body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+    background-color: var(--bg); 
+    color: var(--text); 
+    -webkit-font-smoothing: antialiased; 
+    max-width: 100vw; 
+    overflow-x: hidden; 
+}
+
 .container { padding: 10px; max-width: 1200px; margin: 0 auto; }
 
 /* HEADER */
@@ -20,13 +30,26 @@ header { background-color: var(--primary); color: white; padding: 15px 10px; dis
 .btn-primary { background: var(--secondary); color: white; width: 100%; padding: 15px; font-size: 1.1rem; }
 .btn-outline { background: transparent; border: 1px solid white; color: white; }
 .btn-danger { background: var(--danger); color: white; }
-.pools-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
-@media (min-width: 768px) { .pools-grid { grid-template-columns: 1fr 1fr; } }
-.card { background: var(--card); border-radius: 12px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 15px; border: 1px solid var(--border); }
+
+/* FIX GRID MOBILE : Empêche la grille d'exploser hors de l'écran */
+.pools-grid { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); width: 100%; }
+@media (min-width: 768px) { .pools-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* FIX CARD MOBILE : Contraint la carte à rester dans l'écran */
+.card { 
+    background: var(--card); 
+    border-radius: 12px; 
+    padding: 15px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    margin-bottom: 15px; 
+    border: 1px solid var(--border); 
+    max-width: 100%; 
+    min-width: 0; 
+}
 .card h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 15px; border-bottom: 3px solid var(--secondary); padding-bottom: 8px;}
 .section-title { text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-size: 0.9rem; font-weight: bold; margin: 25px 0 10px 0; border-bottom: 1px solid var(--border); padding-bottom: 5px;}
 
-/* TABLEAU CROISÉ POULES */
+/* TABLEAU CROISÉ POULES : Force le scroll uniquement ici */
 .table-wrapper { width: 100%; overflow-x: auto; margin-bottom: 25px; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid var(--border); }
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 600px; }
 th, td { padding: 8px 5px; text-align: center; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
@@ -49,12 +72,28 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .modern-score-inputs input { width: 45px; height: 45px; text-align: center; font-size: 1.3rem; font-weight: 900; border: 2px solid transparent; border-radius: 8px; outline: none; transition: 0.2s; background: white; color: var(--text); }
 .modern-score-inputs input:focus { border-color: var(--secondary); transform: scale(1.05); box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2); }
 .score-divider { font-weight: 900; color: #64748b; font-size: 1.2rem; }
-.modern-score-display { display: flex; align-items: center; justify-content: center; gap: 10px; background: #f8fafc; padding: 8px 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
+
+/* FIX MOBILE POUR LES SCORES DANS LES CARTES */
+.modern-score-display { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    background: #f8fafc; 
+    padding: 8px 15px; 
+    border-radius: 8px; 
+    border: 1px solid #e2e8f0; 
+}
+.score-box-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .score-box { font-size: 1.4rem; font-weight: 900; color: var(--primary); min-width: 25px; text-align: center; }
+
 .tab-section { margin-top: 5px; font-size: 0.85rem; color: #64748b; background: #f8fafc; padding: 5px 15px; border-radius: 20px; border: 1px dashed #cbd5e1; display: flex; align-items: center; gap: 5px;}
 .tab-section input { width: 35px; height: 30px; text-align: center; border: 1px solid var(--border); border-radius: 4px; font-weight: bold; outline: none;}
 .tab-section input:focus { border-color: var(--danger); }
-.tab-display { color: #ef4444; font-weight: bold; }
+.tab-display { color: #ef4444; font-weight: bold; font-size: 0.8rem; margin-top: 2px;}
 
 /* =========================================
    MON EQUIPE (NOUVEAU)
@@ -65,24 +104,41 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .badge-ref { background-color: #d97706; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
 .schedule-empty { text-align: center; color: #64748b; padding: 20px; font-style: italic; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;}
 
-/* ARBRE DE TOURNOI (BRACKET) */
+/* ARBRE DE TOURNOI (BRACKET) - STYLE COMPACT D'ORIGINE */
 .bracket-wrapper { overflow-x: auto; padding: 20px 0; margin-bottom: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--border); box-shadow: inset 0 0 10px rgba(0,0,0,0.02); -webkit-overflow-scrolling: touch;}
 .bracket { display: flex; flex-direction: row; align-items: stretch; justify-content: flex-start; min-width: max-content; }
 .b-round { display: flex; flex-direction: column; justify-content: center; flex: 1; }
 .b-match-wrapper { display: flex; flex-direction: column; justify-content: center; flex: 1; position: relative; padding: 10px 30px; }
+
+/* Lignes de connexion - Gardé à l'identique */
 .b-round:not(:first-child) .b-match-wrapper::before { content: ''; position: absolute; left: 0; top: 50%; width: 30px; border-top: 2px solid #94a3b8; }
 .b-round:not(:last-child) .b-match-wrapper:nth-child(odd)::after { content: ''; position: absolute; right: 0; top: 50%; height: 50%; width: 30px; border-top: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-top-right-radius: 4px; }
 .b-round:not(:last-child) .b-match-wrapper:nth-child(even)::after { content: ''; position: absolute; right: 0; bottom: 50%; height: 50%; width: 30px; border-bottom: 2px solid #94a3b8; border-right: 2px solid #94a3b8; border-bottom-right-radius: 4px; }
+
 .b-match { background: white; border: 2px solid #cbd5e1; border-radius: 8px; width: 170px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; position: relative; z-index: 2; }
 .b-label { font-size: 0.65rem; text-transform: uppercase; color: #94a3b8; text-align: center; padding: 4px 0; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; font-weight: bold; letter-spacing: 1px;}
 .b-team { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; font-size: 0.85rem; border-bottom: 1px solid #e2e8f0; }
 .b-team:last-child { border-bottom: none; }
 .b-team.winner { font-weight: bold; background: #f0fdf4; color: #166534; }
 .b-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
+
+/* FIX MOBILE POUR LES SCORES DANS L'ARBRE (TABS EN DESSOUS) */
+.b-score-container { display: flex; flex-direction: column; align-items: flex-end;}
 .b-score { font-weight: bold; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem;}
 .b-team.winner .b-score { background: #166534; color: white; }
-.petite-finale-wrapper { display: flex; flex-direction: column; align-items: center; position: relative; margin-top: -10px; }
-.pf-line { height: 40px; border-left: 3px dashed #f59e0b; margin-bottom: 5px; }
+.b-tab-score { font-size: 0.7rem; color: #ef4444; font-weight: bold; margin-top: 1px;}
+
+/* PETITE FINALE DECONNECTEE DE L'ARBRE */
+.petite-finale-wrapper { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    position: relative; 
+    margin-top: 20px; 
+    margin-bottom: 10px;
+    width: 100%;
+}
+.pf-line { display: none; } /* On retire la ligne pointillée trompeuse */
 .pf-title { color: #d97706; font-weight: 900; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 5px; background: #fef3c7; padding: 4px 12px; border-radius: 20px; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);}
 .pf-container .b-match-wrapper { padding: 5px 0; }
 .pf-container .b-match-wrapper::before, .pf-container .b-match-wrapper::after { display: none !important; }

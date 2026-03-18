@@ -1,9 +1,6 @@
 let adminPassword = localStorage.getItem('adminPwd') || null;
 let tournamentData = null;
 
-// ==========================================
-// CONFIGURATION DES ARBRES DE TOURNOIS
-// ==========================================
 const LEAGUES_CONFIG = {
     'cl': {
         title: "Champions League", dbPhase: "🥇 Champions League (Places 1 à 8)",
@@ -14,12 +11,25 @@ const LEAGUES_CONFIG = {
         title: "Europa League", dbPhase: "🥈 Europa League (Places 9 à 16)",
         bracketMain: { qf: ['EL-QF1', 'EL-QF2', 'EL-QF3', 'EL-QF4'], sf: ['EL-SF1', 'EL-SF2'], f: ['EL-F'], third: 'EL-11E' },
         bracketPlace: { title: "Matchs de Classement (13ème à 16ème place)", sf: ['EL-C1', 'EL-C2'], f: ['EL-13E'], third: 'EL-15E' }
-    },
-    'cdl': {
-        title: "Coupe de la Ligue", dbPhase: "🥉 Coupe de la Ligue (Places 17 à 20)",
-        bracketMain: { sf: ['CDL-SF1', 'CDL-SF2'], f: ['CDL-F'], third: 'CDL-3E' }
     }
 };
+
+function getLeagueConfig(leagueId) {
+    let teamCount = tournamentData ? tournamentData.teamCount : 20;
+    let config = { ...LEAGUES_CONFIG[leagueId] };
+    if (leagueId === 'cdl') {
+        if (teamCount === 24) {
+            config.title = "Coupe de la Ligue"; config.dbPhase = "🥉 Coupe de la Ligue (Places 17 à 24)";
+            config.bracketMain = { qf: ['CDL-QF1', 'CDL-QF2', 'CDL-QF3', 'CDL-QF4'], sf: ['CDL-SF1', 'CDL-SF2'], f: ['CDL-F'], third: 'CDL-19E' };
+            config.bracketPlace = { title: "Matchs de Classement (21ème à 24ème place)", sf: ['CDL-C1', 'CDL-C2'], f: ['CDL-21E'], third: 'CDL-23E' };
+        } else {
+            config.title = "Coupe de la Ligue"; config.dbPhase = "🥉 Coupe de la Ligue (Places 17 à 20)";
+            config.bracketMain = { sf: ['CDL-SF1', 'CDL-SF2'], f: ['CDL-F'], third: 'CDL-3E' };
+            config.bracketPlace = null;
+        }
+    }
+    return config;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
@@ -51,10 +61,7 @@ function updateHeader() {
     } else {
         badge.textContent = "Spectateur (Live)"; badge.className = "status-badge spectateur";
         btnLogin.textContent = "Admin"; btnReset.style.display = 'none';
-        if (tabAdmin) {
-            tabAdmin.style.display = 'none';
-            if (document.getElementById('content-admin').classList.contains('active')) switchTab('poules');
-        }
+        if (tabAdmin) { tabAdmin.style.display = 'none'; if (document.getElementById('content-admin').classList.contains('active')) switchTab('poules'); }
     }
 }
 
@@ -73,15 +80,12 @@ async function fetchData() {
     const data = await apiCall('/api/data');
     if (data) {
         tournamentData = data;
-        renderPoules();
-        renderMonEquipe();
+        renderPoules(); renderMonEquipe();
         renderLeagueTab('cl'); renderLeagueTab('el'); renderLeagueTab('cdl');
-        renderAdminSchedule();
-        renderClassement();
+        renderAdminSchedule(); renderClassement();
     }
 }
 
-// ================= MOTEUR MAGIQUE (RÉSOLUTION DES NOMS) =================
 function calculateStandings(poolId) {
     let teams = tournamentData.pools[poolId]; let matches = tournamentData.matches[poolId];
     let stats = {}; teams.forEach(t => stats[t] = { name: t, J: 0, V: 0, N: 0, D: 0, BP: 0, BC: 0, Pts: 0 });
@@ -99,156 +103,59 @@ function calculateStandings(poolId) {
     return standings;
 }
 
-// Transforme "P01-1" en "NomDeLeqipe" OU "W:CL-QF1" en "Vainqueur du Match"
 function resolveTeam(code) {
     if (!code) return "...";
-    
-    // Résolution d'une position de poule (ex: P01-1)
-    if (code.startsWith("P")) {
-        let poolId = code.substring(1, 3);
+    if (code.startsWith("P-")) {
+        let poolId = code.substring(2, 3);
         let rank = parseInt(code.substring(4)) - 1;
         let st = calculateStandings(poolId);
-        if (st[rank]) return st[rank].name;
+        let poolFinished = tournamentData.matches[poolId].every(m => m.score1 !== null && m.score2 !== null);
+        if (poolFinished && st[rank]) return st[rank].name;
         return `${rank + 1}er Poule ${poolId}`;
     }
-    
-    // Résolution d'un match de phase finale (Vainqueur = W:, Perdant = L:)
     if (code.startsWith("W:") || code.startsWith("L:")) {
         let matchId = code.substring(2);
         let m = tournamentData.finalsMatches.find(x => x.id === matchId);
-        
         if (m && m.score1 !== null && m.score2 !== null) {
             let winnerCode = null; let loserCode = null;
-            
-            if (m.score1 > m.score2 || (m.tab1 !== null && m.tab1 > m.tab2)) {
-                winnerCode = m.team1; loserCode = m.team2;
-            } else if (m.score2 > m.score1 || (m.tab2 !== null && m.tab2 > m.tab1)) {
-                winnerCode = m.team2; loserCode = m.team1;
-            }
-            
-            if (winnerCode && loserCode) {
-                return code.startsWith("W:") ? resolveTeam(winnerCode) : resolveTeam(loserCode);
-            }
+            if (m.score1 > m.score2 || (m.tab1 !== null && m.tab1 > m.tab2)) { winnerCode = m.team1; loserCode = m.team2; } 
+            else if (m.score2 > m.score1 || (m.tab2 !== null && m.tab2 > m.tab1)) { winnerCode = m.team2; loserCode = m.team1; }
+            if (winnerCode && loserCode) return code.startsWith("W:") ? resolveTeam(winnerCode) : resolveTeam(loserCode);
         }
         return code.startsWith("W:") ? `Vainq. ${matchId}` : `Perd. ${matchId}`;
     }
-    
-    return code; // Fallback par défaut
-}
-
-// ================= MON EQUIPE =================
-function renderMonEquipe() {
-    const app = document.getElementById('content-equipe');
-    if (!tournamentData || !tournamentData.isSetup) {
-        app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return;
-    }
-
-    if (!document.getElementById('team-select')) {
-        app.innerHTML = `
-            <div class="card">
-                <h2>🔎 Mon Programme</h2>
-                <p style="font-size:0.85rem; color:#64748b; margin-bottom:15px; text-align:center;">Sélectionnez votre équipe pour afficher vos heures de matchs et vos arbitrages.</p>
-                <select id="team-select" class="team-selector" onchange="renderMonEquipeMatches()"></select>
-                <div id="team-schedule-container"></div>
-            </div>
-        `;
-    }
-
-    const select = document.getElementById('team-select');
-    if (select.options.length <= 1) {
-        let allTeams = [];
-        for (let p in tournamentData.pools) allTeams = allTeams.concat(tournamentData.pools[p]);
-        allTeams.sort((a, b) => a.localeCompare(b));
-        select.innerHTML = `<option value="">-- Choisissez votre équipe --</option>` + allTeams.map(t => `<option value="${t}">${t}</option>`).join('');
-    }
-    renderMonEquipeMatches();
-}
-
-function renderMonEquipeMatches() {
-    const container = document.getElementById('team-schedule-container');
-    const select = document.getElementById('team-select');
-    if (!container || !select) return;
-
-    let selectedTeam = select.value;
-    if (!selectedTeam) {
-        container.innerHTML = `<div class="schedule-empty">Sélectionnez votre équipe dans la liste ci-dessus pour voir votre emploi du temps.</div>`; return;
-    }
-
-    let myMatches = [];
-    
-    for (let p in tournamentData.matches) {
-        tournamentData.matches[p].forEach(m => {
-            if (m.team1 === selectedTeam || m.team2 === selectedTeam || m.referee === selectedTeam) {
-                myMatches.push({ ...m, context: `Poule ${p}`, type: 'poule', poolId: p });
-            }
-        });
-    }
-
-    // Ajout dynamique des matchs de finales selon les résultats !
-    tournamentData.finalsMatches.forEach(m => {
-        let r1 = resolveTeam(m.team1);
-        let r2 = resolveTeam(m.team2);
-        
-        if (r1 === selectedTeam || r2 === selectedTeam || m.referee === selectedTeam) {
-            myMatches.push({ ...m, resolvedT1: r1, resolvedT2: r2, context: m.step, type: 'final' });
-        }
-    });
-
-    myMatches.sort((a, b) => a.time.localeCompare(b.time));
-
-    if (myMatches.length === 0) {
-        container.innerHTML = `<div class="schedule-empty">Aucun match trouvé.</div>`; return;
-    }
-
-    let html = `<div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">`;
-    myMatches.forEach(m => {
-        let t1 = m.type === 'poule' ? m.team1 : m.resolvedT1;
-        let t2 = m.type === 'poule' ? m.team2 : m.resolvedT2;
-        let isPlaying = t1 === selectedTeam || t2 === selectedTeam;
-        let badge = isPlaying ? `<span class="badge-play">Joueur</span>` : `<span class="badge-ref">Arbitre</span>`;
-        let borderStyle = isPlaying ? 'border-left: 4px solid var(--primary);' : 'border-left: 4px solid #d97706;';
-
-        html += `
-        <div class="modern-match-card" style="${borderStyle}">
-            <div class="modern-match-header"><span>⌚ ${m.time} | ${m.context}</span>${badge}</div>
-            <div class="modern-match-body">
-                <div class="modern-match-main">
-                    <div class="team-left" style="${t1 === selectedTeam ? 'text-decoration:underline;' : ''}">${t1}</div>
-                    <div class="modern-score-display">
-                        <span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span>
-                        <span class="score-divider">:</span>
-                        <span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span>
-                    </div>
-                    <div class="team-right" style="${t2 === selectedTeam ? 'text-decoration:underline;' : ''}">${t2}</div>
-                </div>
-                ${(m.type === 'final' && m.tab1 !== null) ? `<div class="tab-display" style="text-align:center; width:100%; margin-top:5px; font-size:0.8rem;">TAB (${m.tab1} - ${m.tab2})</div>` : ''}
-            </div>
-        </div>`;
-    });
-    html += `</div>`;
-    container.innerHTML = html;
+    return code;
 }
 
 // ================= POULES =================
+function renderSetupForm() {
+    let tc = parseInt(document.getElementById('setup-team-count').value);
+    let teamsPerPool = tc / 4;
+    let setupHtml = '';
+    ['A', 'B', 'C', 'D'].forEach((p, idx) => {
+        setupHtml += `<div class="setup-group" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px;"><label><b>Poule ${p} (Terrain ${idx+1})</b></label>`;
+        for(let i=0; i<teamsPerPool; i++) setupHtml += `<div style="display:flex; align-items:center; margin-bottom:8px;"><span style="width:25px;">${i+1}.</span><input type="text" id="setup-${p}-${i}" value="Équipe ${(idx*teamsPerPool)+i+1}" style="flex:1; padding:8px;"></div>`;
+        setupHtml += `</div>`; 
+    });
+    document.getElementById('setup-pools-container').innerHTML = setupHtml;
+}
+
 function renderPoules() {
     const app = document.getElementById('content-poules');
     if (!tournamentData.isSetup) {
         if (!adminPassword) { app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return; }
-        
-        let setupHtml = `<div class="card"><h2>⚙️ Configuration des Horaires</h2>
+        app.innerHTML = `<div class="card"><h2>⚙️ Configuration Globale du Tournoi</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                <div style="flex: 1;"><label>Nombre d'équipes</label><select id="setup-team-count" onchange="renderSetupForm()" style="width: 100%; padding: 8px; font-weight:bold; border-radius:4px;"><option value="20">20 Équipes (5 par Poule)</option><option value="24">24 Équipes (6 par Poule)</option></select></div>
+            </div>
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <div style="flex: 1;"><label>Début Poules</label><input type="time" id="setup-start" value="09:00" style="width: 100%; padding: 8px;"></div>
                 <div style="flex: 1;"><label>Reprise Finales</label><input type="time" id="setup-finals-start" value="14:00" style="width: 100%; padding: 8px;"></div>
                 <div style="flex: 1;"><label>Match (min)</label><input type="number" id="setup-duration" value="20" style="width: 100%; padding: 8px;"></div>
-                <div style="flex: 1;"><label>Pause</label><input type="number" id="setup-break" value="5" style="width: 100%; padding: 8px;"></div>
-            </div>`;
-        ['01', '02', '03', '04'].forEach((p, idx) => {
-            setupHtml += `<div class="setup-group" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px;"><label><b>Poule ${p}</b></label>`;
-            for(let i=0; i<5; i++) setupHtml += `<div style="display:flex; align-items:center; margin-bottom:8px;"><span style="width:25px;">${i+1}.</span><input type="text" id="setup-${p}-${i}" value="Équipe ${(idx*5)+i+1}" style="flex:1; padding:8px;"></div>`;
-            setupHtml += `</div>`; 
-        });
-        setupHtml += `<button class="btn btn-primary" onclick="submitSetup()">Lancer le Tournoi Complet !</button></div>`;
-        app.innerHTML = setupHtml; return;
+                <div style="flex: 1;"><label>Pause (min)</label><input type="number" id="setup-break" value="5" style="width: 100%; padding: 8px;"></div>
+            </div>
+            <div id="setup-pools-container"></div><button class="btn btn-primary" onclick="submitSetup()">Lancer le Tournoi Complet !</button></div>`;
+        renderSetupForm(); return;
     }
 
     let html = `<div class="pools-grid">`;
@@ -289,7 +196,7 @@ function renderPoules() {
             <div class="matches-list">
                 ${matches.map(m => `
                     <div class="modern-match-card">
-                        <div class="modern-match-header"><span>⌚ ${m.time}</span><span style="color: #d97706;">Arbitre: ${m.referee}</span></div>
+                        <div class="modern-match-header"><span>⌚ ${m.time} | 📍 ${m.terrain}</span><span style="color: #d97706;">Arbitre: ${m.referee}</span></div>
                         <div class="modern-match-body">
                             <div class="modern-match-main">
                                 <div class="team-left">${m.team1}</div>
@@ -299,9 +206,7 @@ function renderPoules() {
                                         <span class="score-divider">:</span>
                                         <input type="number" pattern="[0-9]*" id="s2-${m.id}" value="${m.score2 !== null ? m.score2 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
                                     </div>
-                                ` : `
-                                    <div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>
-                                `}
+                                ` : `<div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>`}
                                 <div class="team-right">${m.team2}</div>
                             </div>
                         </div>
@@ -313,23 +218,95 @@ function renderPoules() {
     app.innerHTML = html + `</div>`;
 }
 
-// ================= ARBRE DES FINALES =================
+// ================= MON EQUIPE =================
+function renderMonEquipe() {
+    const app = document.getElementById('content-equipe');
+    if (!tournamentData || !tournamentData.isSetup) { app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return; }
+
+    if (!document.getElementById('team-select')) {
+        app.innerHTML = `<div class="card"><h2>🔎 Mon Programme</h2><select id="team-select" class="team-selector" onchange="renderMonEquipeMatches()"></select><div id="team-schedule-container"></div></div>`;
+    }
+
+    const select = document.getElementById('team-select');
+    if (select.options.length <= 1) {
+        let allTeams = [];
+        for (let p in tournamentData.pools) allTeams = allTeams.concat(tournamentData.pools[p]);
+        allTeams.sort((a, b) => a.localeCompare(b));
+        select.innerHTML = `<option value="">-- Choisissez votre équipe --</option>` + allTeams.map(t => `<option value="${t}">${t}</option>`).join('');
+    }
+    renderMonEquipeMatches();
+}
+
+function renderMonEquipeMatches() {
+    const container = document.getElementById('team-schedule-container');
+    const select = document.getElementById('team-select');
+    if (!container || !select) return;
+
+    let selectedTeam = select.value;
+    if (!selectedTeam) { container.innerHTML = `<div class="schedule-empty">Sélectionnez votre équipe.</div>`; return; }
+
+    let myMatches = [];
+    for (let p in tournamentData.pools) tournamentData.matches[p].forEach(m => { 
+        if (m.team1 === selectedTeam || m.team2 === selectedTeam || m.referee === selectedTeam) 
+            myMatches.push({ ...m, context: `Poule ${p}`, type: 'poule', poolId: p }); 
+    });
+    
+    tournamentData.finalsMatches.forEach(m => {
+        let r1 = resolveTeam(m.team1); let r2 = resolveTeam(m.team2); let rRef = resolveTeam(m.referee);
+        if (r1 === selectedTeam || r2 === selectedTeam || rRef === selectedTeam) 
+            myMatches.push({ ...m, resolvedT1: r1, resolvedT2: r2, context: m.step, type: 'final' });
+    });
+
+    myMatches.sort((a, b) => a.time.localeCompare(b.time));
+    if (myMatches.length === 0) { container.innerHTML = `<div class="schedule-empty">Aucun match trouvé.</div>`; return; }
+
+    let html = `<div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">`;
+    myMatches.forEach(m => {
+        let t1 = m.type === 'poule' ? m.team1 : m.resolvedT1; 
+        let t2 = m.type === 'poule' ? m.team2 : m.resolvedT2;
+        let isPlaying = t1 === selectedTeam || t2 === selectedTeam;
+        let isRef = (m.type === 'poule' ? m.referee : resolveTeam(m.referee)) === selectedTeam;
+        
+        let badge = isPlaying ? `<span class="badge-play">Joueur</span>` : `<span class="badge-ref">Arbitre</span>`;
+        let borderStyle = isPlaying ? 'border-left: 4px solid var(--primary);' : 'border-left: 4px solid #d97706;';
+
+        let matchTitle = m.type === 'poule' ? `📋 Match de ${m.context}` : 
+            (m.id.startsWith("CL") ? `⭐ LDC - ${m.context}` : 
+            (m.id.startsWith("EL") ? `🌍 Europa - ${m.context}` : `🏆 Coupe - ${m.context}`));
+
+        html += `
+        <div class="modern-match-card" style="${borderStyle}">
+            <div class="modern-match-header" style="display:block;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                    <span style="color:var(--primary); font-weight:900; font-size:0.95rem;">${matchTitle}</span>${badge}
+                </div>
+                <div style="color:#64748b; font-size:0.85rem; font-weight:600;">⌚ ${m.time} &nbsp;|&nbsp; 📍 ${m.terrain}</div>
+            </div>
+            <div class="modern-match-body">
+                <div class="modern-match-main">
+                    <div class="team-left" style="${t1 === selectedTeam ? 'text-decoration:underline;' : ''}">${t1}</div>
+                    <div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>
+                    <div class="team-right" style="${t2 === selectedTeam ? 'text-decoration:underline;' : ''}">${t2}</div>
+                </div>
+                ${(m.type === 'final' && m.tab1 !== null) ? `<div class="tab-display" style="text-align:center; width:100%; margin-top:5px; font-size:0.8rem;">TAB (${m.tab1} - ${m.tab2})</div>` : ''}
+                ${(!isPlaying && isRef) ? `<div style="font-size:0.85rem; color:#d97706; margin-top:8px; text-align:center; font-weight:bold;">Sifflez bien ce match ! 哨</div>` : ''}
+            </div>
+        </div>`;
+    });
+    container.innerHTML = html + `</div>`;
+}
+
+// ================= PHASES FINALES =================
 function buildBracketNode(matchId, isPetiteFinale = false) {
     if(!matchId) return '';
     let m = tournamentData.finalsMatches.find(x => x.id === matchId);
-    if(!m) return `<div class="b-match-wrapper"><div class="b-match"><div class="b-label">À définir</div><div class="b-team"><span class="b-name">...</span></div><div class="b-team"><span class="b-name">...</span></div></div></div>`;
+    if(!m) return '';
     
-    // MAGIE : On utilise resolveTeam pour transformer "P01-1" ou "W:CL-QF1" en vrai nom d'équipe !
-    let t1 = resolveTeam(m.team1); 
-    let t2 = resolveTeam(m.team2);
+    let t1 = resolveTeam(m.team1); let t2 = resolveTeam(m.team2);
+    let s1 = m.score1 !== null ? m.score1 : '-'; let s2 = m.score2 !== null ? m.score2 : '-';
     
-    let s1 = m.score1 !== null ? m.score1 : '-';
-    let s2 = m.score2 !== null ? m.score2 : '-';
-    
-    if(m.tab1 !== null && m.tab2 !== null) {
-        s1 += ` <span style="font-size:0.7rem; color:#ef4444;">(${m.tab1})</span>`;
-        s2 += ` <span style="font-size:0.7rem; color:#ef4444;">(${m.tab2})</span>`;
-    }
+    let tab1Html = m.tab1 !== null ? `<span class="b-tab-score">(${m.tab1})</span>` : '';
+    let tab2Html = m.tab2 !== null ? `<span class="b-tab-score">(${m.tab2})</span>` : '';
 
     let w1 = '', w2 = '';
     if (m.score1 !== null && m.score2 !== null) {
@@ -341,8 +318,14 @@ function buildBracketNode(matchId, isPetiteFinale = false) {
         <div class="b-match-wrapper ${isPetiteFinale ? 'pf-match' : ''}">
             <div class="b-match">
                 <div class="b-label">${m.id}</div>
-                <div class="b-team ${w1}"><span class="b-name" title="${t1}">${t1}</span><span class="b-score">${s1}</span></div>
-                <div class="b-team ${w2}"><span class="b-name" title="${t2}">${t2}</span><span class="b-score">${s2}</span></div>
+                <div class="b-team ${w1}">
+                    <span class="b-name" title="${t1}">${t1}</span>
+                    <div class="b-score-container"><span class="b-score">${s1}</span>${tab1Html}</div>
+                </div>
+                <div class="b-team ${w2}">
+                    <span class="b-name" title="${t2}">${t2}</span>
+                    <div class="b-score-container"><span class="b-score">${s2}</span>${tab2Html}</div>
+                </div>
             </div>
         </div>
     `;
@@ -355,19 +338,14 @@ function renderBracket(config) {
     if (config.sf) { html += `<div class="b-round">`; config.sf.forEach(id => html += buildBracketNode(id)); html += `</div>`; }
     if (config.f) { html += `<div class="b-round">`; config.f.forEach(id => html += buildBracketNode(id)); html += `</div>`; }
     html += `</div>`;
-    
-    if (config.third) {
-        html += `<div class="petite-finale-wrapper"><div class="pf-line"></div><div class="pf-title">🥉 Petite Finale</div><div class="pf-container">${buildBracketNode(config.third, true)}</div></div>`;
-    }
+    if (config.third) { html += `<div class="petite-finale-wrapper"><div class="pf-line"></div><div class="pf-title">🥉 Petite Finale</div><div class="pf-container">${buildBracketNode(config.third, true)}</div></div>`; }
     return html + `</div>`;
 }
 
-// ================= AFFICHAGE ONGLET LEAGUE =================
 function renderLeagueTab(leagueId) {
-    const config = LEAGUES_CONFIG[leagueId];
+    const config = getLeagueConfig(leagueId);
     const app = document.getElementById(`content-${leagueId}`);
-    
-    if (!tournamentData.isSetup) { app.innerHTML = `<p style="text-align:center; padding: 20px;">Jouez d'abord les poules !</p>`; return; }
+    if (!tournamentData || !tournamentData.isSetup) { app.innerHTML = `<p style="text-align:center; padding: 20px;">Le tournoi n'est pas encore configuré !</p>`; return; }
 
     let html = `<div class="card"><h2>${config.title}</h2>`;
     html += `<div class="section-title">Arbre Principal</div>` + renderBracket(config.bracketMain);
@@ -382,31 +360,26 @@ function renderLeagueTab(leagueId) {
     order.forEach(step => {
         html += `<h3 style="color:#64748b; font-size:1rem; margin: 15px 0 10px;">${step}</h3>`;
         grouped[step].forEach(m => {
-            let t1 = resolveTeam(m.team1);
-            let t2 = resolveTeam(m.team2);
+            let t1 = resolveTeam(m.team1); let t2 = resolveTeam(m.team2); let ref = resolveTeam(m.referee);
             
             html += `
             <div class="modern-match-card">
-                <div class="modern-match-header"><span>⌚ ${m.time}</span><span>${m.id}</span></div>
+                <div class="modern-match-header"><span>⌚ ${m.time} | 📍 ${m.terrain}</span><span style="color: #d97706;">Arbitre: ${ref}</span></div>
                 <div class="modern-match-body">
                     <div class="modern-match-main">
-                        <div class="team-left ${t1.startsWith('Vainq') || t1.startsWith('Perd') ? 'placeholder' : ''}">${t1}</div>
+                        <div class="team-left ${t1.startsWith('Vainq') || t1.startsWith('Perd') || t1.includes('er Poule') || t1.includes('ème Poule') ? 'placeholder' : ''}">${t1}</div>
                         ${adminPassword ? `
                             <div class="modern-score-inputs">
                                 <input type="number" pattern="[0-9]*" id="fs1-${m.id}" value="${m.score1 !== null ? m.score1 : ''}" onblur="saveFinalScore('${m.id}', 'fs1-${m.id}', 'fs2-${m.id}', 'ft1-${m.id}', 'ft2-${m.id}')">
                                 <span class="score-divider">:</span>
                                 <input type="number" pattern="[0-9]*" id="fs2-${m.id}" value="${m.score2 !== null ? m.score2 : ''}" onblur="saveFinalScore('${m.id}', 'fs1-${m.id}', 'fs2-${m.id}', 'ft1-${m.id}', 'ft2-${m.id}')">
                             </div>
-                        ` : `
-                            <div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>
-                        `}
-                        <div class="team-right ${t2.startsWith('Vainq') || t2.startsWith('Perd') ? 'placeholder' : ''}">${t2}</div>
+                        ` : `<div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>`}
+                        <div class="team-right ${t2.startsWith('Vainq') || t2.startsWith('Perd') || t2.includes('er Poule') || t2.includes('ème Poule') ? 'placeholder' : ''}">${t2}</div>
                     </div>
                     ${adminPassword ? `
                         <div class="tab-section">
-                            Tirs au But : 
-                            <input type="number" pattern="[0-9]*" id="ft1-${m.id}" value="${m.tab1 !== null ? m.tab1 : ''}" onblur="saveFinalScore('${m.id}', 'fs1-${m.id}', 'fs2-${m.id}', 'ft1-${m.id}', 'ft2-${m.id}')"> - 
-                            <input type="number" pattern="[0-9]*" id="ft2-${m.id}" value="${m.tab2 !== null ? m.tab2 : ''}" onblur="saveFinalScore('${m.id}', 'fs1-${m.id}', 'fs2-${m.id}', 'ft1-${m.id}', 'ft2-${m.id}')">
+                            TAB : <input type="number" pattern="[0-9]*" id="ft1-${m.id}" value="${m.tab1 !== null ? m.tab1 : ''}" onblur="saveFinalScore('${m.id}', 'fs1-${m.id}', 'fs2-${m.id}', 'ft1-${m.id}', 'ft2-${m.id}')"> - <input type="number" pattern="[0-9]*" id="ft2-${m.id}" value="${m.tab2 !== null ? m.tab2 : ''}" onblur="saveFinalScore('${m.id}', 'fs1-${m.id}', 'fs2-${m.id}', 'ft1-${m.id}', 'ft2-${m.id}')">
                         </div>
                     ` : (m.tab1 !== null ? `<div class="tab-display">Vainqueur aux TAB (${m.tab1} - ${m.tab2})</div>` : '')}
                 </div>
@@ -419,12 +392,10 @@ function renderLeagueTab(leagueId) {
 // ================= CLASSEMENT GÉNÉRAL =================
 function renderClassement() {
     const app = document.getElementById('content-classement');
-    if (!tournamentData || !tournamentData.isSetup) {
-        app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ Classement Final</h2><p>Le classement apparaîtra ici au fil du tournoi.</p></div>`; return;
-    }
+    if (!tournamentData || !tournamentData.isSetup) { app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ Classement Final</h2><p>Le classement apparaîtra ici au fil du tournoi.</p></div>`; return; }
 
     let html = `<div class="card"><h2>🏆 Classement Général du Tournoi</h2><div class="ranking-container">`;
-    const rankMapping = [
+    let rankMapping = [
         { rank: 1, teamCode: 'W:CL-F', league: 'cl' }, { rank: 2, teamCode: 'L:CL-F', league: 'cl' },
         { rank: 3, teamCode: 'W:CL-3E', league: 'cl' }, { rank: 4, teamCode: 'L:CL-3E', league: 'cl' },
         { rank: 5, teamCode: 'W:CL-5E', league: 'cl' }, { rank: 6, teamCode: 'L:CL-5E', league: 'cl' },
@@ -437,9 +408,18 @@ function renderClassement() {
         { rank: 19, teamCode: 'W:CDL-3E', league: 'cdl' }, { rank: 20, teamCode: 'L:CDL-3E', league: 'cdl' }
     ];
 
+    if (tournamentData.teamCount === 24) {
+        rankMapping[18] = { rank: 19, teamCode: 'W:CDL-19E', league: 'cdl' };
+        rankMapping[19] = { rank: 20, teamCode: 'L:CDL-19E', league: 'cdl' };
+        rankMapping.push({ rank: 21, teamCode: 'W:CDL-21E', league: 'cdl' });
+        rankMapping.push({ rank: 22, teamCode: 'L:CDL-21E', league: 'cdl' });
+        rankMapping.push({ rank: 23, teamCode: 'W:CDL-23E', league: 'cdl' });
+        rankMapping.push({ rank: 24, teamCode: 'L:CDL-23E', league: 'cdl' });
+    }
+
     rankMapping.forEach(item => {
         let teamName = resolveTeam(item.teamCode);
-        let statusClass = (teamName.startsWith("Vainq.") || teamName.startsWith("Perd.")) ? "pending" : "confirmed";
+        let statusClass = (teamName.startsWith("Vainq.") || teamName.startsWith("Perd.") || teamName.includes("er Poule") || teamName.includes("ème Poule")) ? "pending" : "confirmed";
         if (statusClass === "pending") teamName = "En attente de résultat";
         
         let medal = item.rank === 1 ? '🏆' : (item.rank === 2 ? '🥈' : (item.rank === 3 ? '🥉' : ''));
@@ -449,40 +429,40 @@ function renderClassement() {
     app.innerHTML = html + `</div></div>`;
 }
 
-// ================= PLANNING GLOBAL ADMIN =================
+// ================= PLANNING GLOBAL ADMIN & DECALAGE =================
 function renderAdminSchedule() {
     const app = document.getElementById('content-admin');
     if (!adminPassword) return;
 
-    if (!tournamentData || !tournamentData.isSetup) {
-        app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return;
-    }
+    if (!tournamentData || !tournamentData.isSetup) { app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return; }
 
     let allMatches = [];
-    for (let p in tournamentData.matches) {
-        tournamentData.matches[p].forEach(m => { allMatches.push({ ...m, context: `Poule ${p}`, type: 'poule', poolId: p }); });
-    }
-
+    for (let p in tournamentData.matches) tournamentData.matches[p].forEach(m => { allMatches.push({ ...m, context: `Poule ${p}`, type: 'poule', poolId: p }); });
     tournamentData.finalsMatches.forEach(m => { allMatches.push({ ...m, context: m.step, type: 'final' }); });
-
     allMatches.sort((a, b) => a.time.localeCompare(b.time));
-    let groupedMatches = {};
-    allMatches.forEach(m => {
-        if (!groupedMatches[m.time]) groupedMatches[m.time] = [];
-        groupedMatches[m.time].push(m);
-    });
-
-    let html = `<div class="card"><h2 style="color:var(--danger); border-color:var(--danger);">📅 Emploi du temps global</h2>`;
     
-    for (let timeSlot in groupedMatches) {
-        html += `<h3 style="background:var(--primary); color:white; padding:8px 15px; border-radius:6px; margin: 20px 0 10px;">🕒 Créneau : ${timeSlot}</h3>`;
-        html += `<div class="pools-grid">`;
+    let groupedMatches = {};
+    allMatches.forEach(m => { if (!groupedMatches[m.time]) groupedMatches[m.time] = []; groupedMatches[m.time].push(m); });
 
+    let html = `
+        <div class="card" style="border-left: 5px solid var(--secondary); margin-bottom: 20px;">
+            <h2 style="color:var(--secondary);">⏱️ Décaler les Phases Finales</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                <div style="flex: 1;"><label>Nouvelle Reprise</label><input type="time" id="reschedule-start" value="14:00" style="width: 100%; padding: 8px;"></div>
+                <div style="flex: 1;"><label>Match (min)</label><input type="number" id="reschedule-duration" value="20" style="width: 100%; padding: 8px;"></div>
+                <div style="flex: 1;"><label>Pause</label><input type="number" id="reschedule-break" value="5" style="width: 100%; padding: 8px;"></div>
+            </div>
+            <button class="btn btn-primary" onclick="rescheduleFinals()">Recalculer les heures de l'aprem !</button>
+        </div>
+        <div class="card"><h2 style="color:var(--danger); border-color:var(--danger);">📅 Emploi du temps global</h2>`;
+        
+    for (let timeSlot in groupedMatches) {
+        html += `<h3 style="background:var(--primary); color:white; padding:8px 15px; border-radius:6px; margin: 20px 0 10px;">🕒 Créneau : ${timeSlot}</h3><div class="pools-grid">`;
         groupedMatches[timeSlot].forEach(m => {
             if (m.type === 'poule') {
                 html += `
                 <div class="modern-match-card">
-                    <div class="modern-match-header"><span>${m.context}</span><span style="color: #d97706;">Arbitre: ${m.referee}</span></div>
+                    <div class="modern-match-header"><span>${m.context} | 📍 ${m.terrain}</span><span style="color: #d97706;">Arbitre: ${m.referee}</span></div>
                     <div class="modern-match-body">
                         <div class="modern-match-main">
                             <div class="team-left">${m.team1}</div>
@@ -496,13 +476,17 @@ function renderAdminSchedule() {
                     </div>
                 </div>`;
             } else {
-                let t1 = resolveTeam(m.team1); let t2 = resolveTeam(m.team2);
-                let t1Style = t1.startsWith('Vainq') || t1.startsWith('Perd') ? 'color:#94a3b8; font-style:italic;' : '';
-                let t2Style = t2.startsWith('Vainq') || t2.startsWith('Perd') ? 'color:#94a3b8; font-style:italic;' : '';
+                let t1 = resolveTeam(m.team1); let t2 = resolveTeam(m.team2); let ref = resolveTeam(m.referee);
+                let t1Style = t1.startsWith('Vainq') || t1.startsWith('Perd') || t1.includes('Poule') ? 'color:#94a3b8; font-style:italic;' : '';
+                let t2Style = t2.startsWith('Vainq') || t2.startsWith('Perd') || t2.includes('Poule') ? 'color:#94a3b8; font-style:italic;' : '';
+                
+                let matchTitle = m.id.startsWith("CL") ? `⭐ LDC - ${m.context}` : (m.id.startsWith("EL") ? `🌍 Europa - ${m.context}` : `🏆 Coupe - ${m.context}`);
+
                 html += `
                 <div class="modern-match-card" style="border-left: 4px solid var(--danger);">
-                    <div class="modern-match-header"><span>Phase Finale (${m.id})</span><span>${m.context}</span></div>
+                    <div class="modern-match-header"><span>Phase Finale (${m.id}) | 📍 ${m.terrain}</span><span style="color: #d97706;">Arbitre: ${ref}</span></div>
                     <div class="modern-match-body">
+                        <div style="font-weight:900; color:var(--primary); margin-bottom:5px; text-align:center;">${matchTitle}</div>
                         <div class="modern-match-main">
                             <div class="team-left" style="${t1Style}">${t1}</div>
                             <div class="modern-score-inputs">
@@ -522,26 +506,30 @@ function renderAdminSchedule() {
         });
         html += `</div>`;
     }
-    html += `</div>`;
-    app.innerHTML = html;
+    app.innerHTML = html + `</div>`;
 }
 
-// ================= API CALLS =================
+// ================= APPELS SERVEUR =================
 async function submitSetup() {
+    let tc = parseInt(document.getElementById('setup-team-count').value);
+    let teamsPerPool = tc / 4;
     let pools = {};
-    for (let p of ['01', '02', '03', '04']) {
+    for (let p of ['A', 'B', 'C', 'D']) {
         let lines = [];
-        for (let i = 0; i < 5; i++) { let t = document.getElementById(`setup-${p}-${i}`).value.trim(); if (t) lines.push(t); }
-        if (lines.length !== 5) return alert(`⚠️ La poule ${p} doit avoir 5 équipes !`); pools[p] = lines;
+        for (let i = 0; i < teamsPerPool; i++) { let t = document.getElementById(`setup-${p}-${i}`).value.trim(); if (t) lines.push(t); }
+        if (lines.length !== teamsPerPool) return alert(`⚠️ La poule ${p} doit avoir ${teamsPerPool} équipes !`); pools[p] = lines;
     }
-    
-    await apiCall('/api/setup', 'POST', { 
-        pools, 
-        startTime: document.getElementById('setup-start').value || "09:00", 
-        finalsStartTime: document.getElementById('setup-finals-start').value || "14:00",
-        matchDuration: parseInt(document.getElementById('setup-duration').value || 20), 
-        breakDuration: parseInt(document.getElementById('setup-break').value || 5) 
-    });
+    await apiCall('/api/setup', 'POST', { pools, teamCount: tc, startTime: document.getElementById('setup-start').value || "09:00", finalsStartTime: document.getElementById('setup-finals-start').value || "14:00", matchDuration: parseInt(document.getElementById('setup-duration').value || 20), breakDuration: parseInt(document.getElementById('setup-break').value || 5) });
+    fetchData();
+}
+
+async function rescheduleFinals() {
+    let startTime = document.getElementById('reschedule-start').value;
+    let duration = document.getElementById('reschedule-duration').value;
+    let pause = document.getElementById('reschedule-break').value;
+    if(!startTime) return;
+    await apiCall('/api/reschedule-finals', 'POST', { finalsStartTime: startTime, matchDuration: parseInt(duration), breakDuration: parseInt(pause) });
+    alert("✅ Les heures des phases finales ont été décalées !");
     fetchData();
 }
 
