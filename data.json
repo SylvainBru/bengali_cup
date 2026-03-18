@@ -1,0 +1,403 @@
+{
+  "pools": {
+    "01": [
+      "\u00c9quipe 1",
+      "\u00c9quipe 2",
+      "\u00c9quipe 3",
+      "\u00c9quipe 4",
+      "\u00c9quipe 5"
+    ],
+    "02": [
+      "\u00c9quipe 6",
+      "\u00c9quipe 7",
+      "\u00c9quipe 8",
+      "\u00c9quipe 9",
+      "\u00c9quipe 10"
+    ],
+    "03": [
+      "\u00c9quipe 11",
+      "\u00c9quipe 12",
+      "\u00c9quipe 13",
+      "\u00c9quipe 14",
+      "\u00c9quipe 15"
+    ],
+    "04": [
+      "\u00c9quipe 16",
+      "\u00c9quipe 17",
+      "\u00c9quipe 18",
+      "\u00c9quipe 19",
+      "\u00c9quipe 20"
+    ]
+  },
+  "matches": {
+    "01": [
+      {
+        "id": "01-0",
+        "time": "09h00 - 09h20",
+        "team1": "\u00c9quipe 1",
+        "team2": "\u00c9quipe 2",
+        "referee": "\u00c9quipe 8",
+        "score1": 1,
+        "score2": 5
+      },
+      {
+        "id": "01-1",
+        "time": "09h25 - 09h45",
+        "team1": "\u00c9quipe 3",
+        "team2": "\u00c9quipe 4",
+        "referee": "\u00c9quipe 10",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-2",
+        "time": "09h50 - 10h10",
+        "team1": "\u00c9quipe 1",
+        "team2": "\u00c9quipe 5",
+        "referee": "\u00c9quipe 7",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-3",
+        "time": "10h15 - 10h35",
+        "team1": "\u00c9quipe 2",
+        "team2": "\u00c9quipe 3",
+        "referee": "\u00c9quipe 9",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-4",
+        "time": "10h40 - 11h00",
+        "team1": "\u00c9quipe 4",
+        "team2": "\u00c9quipe 5",
+        "referee": "\u00c9quipe 6",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-5",
+        "time": "11h05 - 11h25",
+        "team1": "\u00c9quipe 1",
+        "team2": "\u00c9quipe 3",
+        "referee": "\u00c9quipe 10",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-6",
+        "time": "11h30 - 11h50",
+        "team1": "\u00c9quipe 2",
+        "team2": "\u00c9quipe 4",
+        "referee": "\u00c9quipe 6",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-7",
+        "time": "11h55 - 12h15",
+        "team1": "\u00c9quipe 2",
+        "team2": "\u00c9quipe 5",
+        "referee": "\u00c9quipe 8",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-8",
+        "time": "12h20 - 12h40",
+        "team1": "\u00c9quipe 3",
+        "team2": "\u00c9quipe 5",
+        "referee": "\u00c9quipe 9",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "01-9",
+        "time": "12h45 - 13h05",
+        "team1": "\u00c9quipe 1",
+        "team2": "\u00c9quipe 4",
+        "referee": "\u00c9quipe 7",
+        "score1": null,
+        "score2": null
+      }
+    ],
+    "02": [
+      {
+        "id": "02-0",
+        "time": "09h00 - 09h20",
+        "team1": "\u00c9quipe 6",
+        "team2": "\u00c9quipe 7",
+        "referee": "\u00c9quipe 3",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-1",
+        "time": "09h25 - 09h45",
+        "team1": "\u00c9quipe 8",
+        "team2": "\u00c9quipe 9",
+        "referee": "\u00c9quipe 5",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-2",
+        "time": "09h50 - 10h10",
+        "team1": "\u00c9quipe 6",
+        "team2": "\u00c9quipe 10",
+        "referee": "\u00c9quipe 2",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-3",
+        "time": "10h15 - 10h35",
+        "team1": "\u00c9quipe 7",
+        "team2": "\u00c9quipe 8",
+        "referee": "\u00c9quipe 4",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-4",
+        "time": "10h40 - 11h00",
+        "team1": "\u00c9quipe 9",
+        "team2": "\u00c9quipe 10",
+        "referee": "\u00c9quipe 1",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-5",
+        "time": "11h05 - 11h25",
+        "team1": "\u00c9quipe 6",
+        "team2": "\u00c9quipe 8",
+        "referee": "\u00c9quipe 5",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-6",
+        "time": "11h30 - 11h50",
+        "team1": "\u00c9quipe 7",
+        "team2": "\u00c9quipe 9",
+        "referee": "\u00c9quipe 1",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-7",
+        "time": "11h55 - 12h15",
+        "team1": "\u00c9quipe 7",
+        "team2": "\u00c9quipe 10",
+        "referee": "\u00c9quipe 3",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-8",
+        "time": "12h20 - 12h40",
+        "team1": "\u00c9quipe 8",
+        "team2": "\u00c9quipe 10",
+        "referee": "\u00c9quipe 4",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "02-9",
+        "time": "12h45 - 13h05",
+        "team1": "\u00c9quipe 6",
+        "team2": "\u00c9quipe 9",
+        "referee": "\u00c9quipe 2",
+        "score1": null,
+        "score2": null
+      }
+    ],
+    "03": [
+      {
+        "id": "03-0",
+        "time": "09h00 - 09h20",
+        "team1": "\u00c9quipe 11",
+        "team2": "\u00c9quipe 12",
+        "referee": "\u00c9quipe 18",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-1",
+        "time": "09h25 - 09h45",
+        "team1": "\u00c9quipe 13",
+        "team2": "\u00c9quipe 14",
+        "referee": "\u00c9quipe 20",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-2",
+        "time": "09h50 - 10h10",
+        "team1": "\u00c9quipe 11",
+        "team2": "\u00c9quipe 15",
+        "referee": "\u00c9quipe 17",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-3",
+        "time": "10h15 - 10h35",
+        "team1": "\u00c9quipe 12",
+        "team2": "\u00c9quipe 13",
+        "referee": "\u00c9quipe 19",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-4",
+        "time": "10h40 - 11h00",
+        "team1": "\u00c9quipe 14",
+        "team2": "\u00c9quipe 15",
+        "referee": "\u00c9quipe 16",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-5",
+        "time": "11h05 - 11h25",
+        "team1": "\u00c9quipe 11",
+        "team2": "\u00c9quipe 13",
+        "referee": "\u00c9quipe 20",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-6",
+        "time": "11h30 - 11h50",
+        "team1": "\u00c9quipe 12",
+        "team2": "\u00c9quipe 14",
+        "referee": "\u00c9quipe 16",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-7",
+        "time": "11h55 - 12h15",
+        "team1": "\u00c9quipe 12",
+        "team2": "\u00c9quipe 15",
+        "referee": "\u00c9quipe 18",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-8",
+        "time": "12h20 - 12h40",
+        "team1": "\u00c9quipe 13",
+        "team2": "\u00c9quipe 15",
+        "referee": "\u00c9quipe 19",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "03-9",
+        "time": "12h45 - 13h05",
+        "team1": "\u00c9quipe 11",
+        "team2": "\u00c9quipe 14",
+        "referee": "\u00c9quipe 17",
+        "score1": null,
+        "score2": null
+      }
+    ],
+    "04": [
+      {
+        "id": "04-0",
+        "time": "09h00 - 09h20",
+        "team1": "\u00c9quipe 16",
+        "team2": "\u00c9quipe 17",
+        "referee": "\u00c9quipe 13",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-1",
+        "time": "09h25 - 09h45",
+        "team1": "\u00c9quipe 18",
+        "team2": "\u00c9quipe 19",
+        "referee": "\u00c9quipe 15",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-2",
+        "time": "09h50 - 10h10",
+        "team1": "\u00c9quipe 16",
+        "team2": "\u00c9quipe 20",
+        "referee": "\u00c9quipe 12",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-3",
+        "time": "10h15 - 10h35",
+        "team1": "\u00c9quipe 17",
+        "team2": "\u00c9quipe 18",
+        "referee": "\u00c9quipe 14",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-4",
+        "time": "10h40 - 11h00",
+        "team1": "\u00c9quipe 19",
+        "team2": "\u00c9quipe 20",
+        "referee": "\u00c9quipe 11",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-5",
+        "time": "11h05 - 11h25",
+        "team1": "\u00c9quipe 16",
+        "team2": "\u00c9quipe 18",
+        "referee": "\u00c9quipe 15",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-6",
+        "time": "11h30 - 11h50",
+        "team1": "\u00c9quipe 17",
+        "team2": "\u00c9quipe 19",
+        "referee": "\u00c9quipe 11",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-7",
+        "time": "11h55 - 12h15",
+        "team1": "\u00c9quipe 17",
+        "team2": "\u00c9quipe 20",
+        "referee": "\u00c9quipe 13",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-8",
+        "time": "12h20 - 12h40",
+        "team1": "\u00c9quipe 18",
+        "team2": "\u00c9quipe 20",
+        "referee": "\u00c9quipe 14",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "04-9",
+        "time": "12h45 - 13h05",
+        "team1": "\u00c9quipe 16",
+        "team2": "\u00c9quipe 19",
+        "referee": "\u00c9quipe 12",
+        "score1": null,
+        "score2": null
+      }
+    ]
+  },
+  "isSetup": true
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tournoi Live</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>🏆 Tournoi</h1>
+            <span id="admin-status" class="status-badge spectateur">Spectateur</span>
+        </div>
+        <div class="header-actions">
+            <button id="btn-login" class="btn btn-outline" onclick="login()">Admin</button>
+            <button id="btn-reset" class="btn btn-danger" onclick="resetTournament()" style="display:none;">Reset</button>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="info-section">
+            <details>
+                <summary>📖 Règles et Légende du classement</summary>
+                <div class="info-content">
+                    <div class="info-block">
+                        <h3>⚽ Attribution des points</h3>
+                        <ul>
+                            <li><b>Victoire :</b> 3 points</li>
+                            <li><b>Match Nul :</b> 1 point</li>
+                            <li><b>Défaite :</b> 0 point</li>
+                        </ul>
+                        <p class="tie-breaker"><i>En cas d'égalité, le départage se fait sur la différence de buts, puis sur les buts marqués.</i></p>
+                    </div>
+                    <div class="info-block">
+                        <h3>📊 Légende du tableau</h3>
+                        <div class="legend-grid">
+                            <div><b>Pts :</b> Points totaux</div>
+                            <div><b>J :</b> Matchs joués</div>
+                            <div><b>V :</b> Victoires</div>
+                            <div><b>N :</b> Matchs nuls</div>
+                            <div><b>D :</b> Défaites</div>
+                            <div><b>BP :</b> Buts pour (marqués)</div>
+                            <div><b>BC :</b> Buts contre (encaissés)</div>
+                            <div><b>Diff :</b> Différence de buts</div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <div id="app-content"></div>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
