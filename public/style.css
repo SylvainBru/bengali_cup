@@ -19,10 +19,41 @@ html, body {
 .container { padding: 10px; max-width: 1200px; margin: 0 auto; }
 
 /* HEADER */
-header { background-color: var(--primary); color: white; padding: 15px 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 100; }
-.header-title h1 { font-size: 1.2rem; margin-bottom: 5px; }
-.status-badge { font-size: 0.75rem; padding: 3px 8px; border-radius: 12px; font-weight: bold; }
-.status-badge.spectateur { background: rgba(255,255,255,0.2); }
+header { 
+    /* L'image de fond avec un dégradé bleu foncé transparent par dessus pour lire le texte */
+    background-image: linear-gradient(to right, rgba(3, 110, 28, 0.95), rgba(30, 58, 138, 0.6)), url('banner.png');
+    background-size: cover;
+    background-position: center;
+    color: white; 
+    padding: 25px 15px; /* Un peu plus haut pour faire effet bannière */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+    position: sticky; 
+    top: 0; 
+    z-index: 100; 
+    border-bottom: 4px solid var(--secondary); /* Petite ligne de couleur en bas */
+}
+
+.header-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.header-title h1 { 
+    font-size: 1.6rem; 
+    margin: 0; 
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Fait ressortir le texte */
+}
+
+.status-badge { font-size: 0.75rem; padding: 4px 10px; border-radius: 12px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+.status-badge.spectateur { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); backdrop-filter: blur(4px); }
 .status-badge.admin { background: var(--success); }
 
 /* BOUTONS & CARTES */
@@ -176,14 +207,62 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .league-el { border-left: 5px solid #38bdf8; } .league-el .rank-number { color: #38bdf8; }
 .league-cdl { border-left: 5px solid #f59e0b; } .league-cdl .rank-number { color: #f59e0b; }
 
-/* RÈGLES ET ONGLETS */
-.tabs-container { margin-bottom: 20px; border-bottom: 2px solid var(--border); overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.tabs { display: flex; gap: 5px; width: max-content; padding-bottom: 5px; }
-.tab-btn { padding: 12px 20px; background: transparent; border: none; font-weight: bold; font-size: 1.05rem; cursor: pointer; color: #64748b; border-bottom: 3px solid transparent; transition: 0.2s; }
-.tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+/* =========================================
+   NAVIGATION / ONGLETS (STYLE MOBILE "APP")
+   ========================================= */
+.tabs-container { 
+    margin-bottom: 20px; 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+    
+    /* Masquer la barre de défilement moche sur mobile */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* Masquer la barre pour Chrome, Safari et Opera */
+.tabs-container::-webkit-scrollbar { 
+    display: none; 
+}
+
+.tabs { 
+    display: flex; 
+    gap: 10px; 
+    width: max-content; 
+    padding: 5px 15px 15px 15px; /* Espace pour l'ombre des boutons */
+}
+
+/* Le nouveau design des boutons "Pilule" */
+.tab-btn { 
+    padding: 10px 16px; 
+    background: #ffffff; 
+    border: 1px solid var(--border); 
+    border-radius: 25px; /* Rend le bouton bien rond */
+    font-weight: 800; 
+    font-size: 0.9rem; 
+    cursor: pointer; 
+    color: #64748b; 
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Empêche le texte de se couper sur deux lignes */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Espace si tu as des emojis dans les titres */
+}
+
+/* L'onglet sélectionné ressort beaucoup mieux */
+.tab-btn.active { 
+    background: var(--primary); 
+    color: white; 
+    border-color: var(--primary); 
+    box-shadow: 0 4px 8px rgba(30, 58, 138, 0.3); /* Ombre bleutée */
+    transform: translateY(-2px); /* Soulève légèrement le bouton actif */
+}
+
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeIn 0.3s; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
 .info-section { margin-bottom: 20px; background: var(--card); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 details summary { padding: 12px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; font-size: 1rem; }
 details summary::-webkit-details-marker { display: none; }
