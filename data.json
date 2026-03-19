@@ -38,8 +38,8 @@
         "team1": "Équipe 1",
         "team2": "Équipe 2",
         "referee": "Équipe 8",
-        "score1": 1,
-        "score2": 1
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-2",
@@ -48,8 +48,8 @@
         "team1": "Équipe 3",
         "team2": "Équipe 4",
         "referee": "Équipe 10",
-        "score1": 2,
-        "score2": 2
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-3",
@@ -58,8 +58,8 @@
         "team1": "Équipe 1",
         "team2": "Équipe 5",
         "referee": "Équipe 7",
-        "score1": 2,
-        "score2": 2
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-4",
@@ -68,8 +68,8 @@
         "team1": "Équipe 2",
         "team2": "Équipe 3",
         "referee": "Équipe 9",
-        "score1": 2,
-        "score2": 1
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-5",
@@ -78,8 +78,8 @@
         "team1": "Équipe 4",
         "team2": "Équipe 5",
         "referee": "Équipe 6",
-        "score1": 1,
-        "score2": 2
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-6",
@@ -88,8 +88,8 @@
         "team1": "Équipe 1",
         "team2": "Équipe 3",
         "referee": "Équipe 10",
-        "score1": 1,
-        "score2": 1
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-7",
@@ -98,8 +98,8 @@
         "team1": "Équipe 2",
         "team2": "Équipe 4",
         "referee": "Équipe 6",
-        "score1": 1,
-        "score2": 1
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-8",
@@ -108,8 +108,8 @@
         "team1": "Équipe 2",
         "team2": "Équipe 5",
         "referee": "Équipe 8",
-        "score1": 1,
-        "score2": 1
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-9",
@@ -118,8 +118,8 @@
         "team1": "Équipe 3",
         "team2": "Équipe 5",
         "referee": "Équipe 9",
-        "score1": 1,
-        "score2": 1
+        "score1": null,
+        "score2": null
       },
       {
         "id": "A-10",
@@ -128,8 +128,8 @@
         "team1": "Équipe 1",
         "team2": "Équipe 4",
         "referee": "Équipe 7",
-        "score1": 1,
-        "score2": 1
+        "score1": null,
+        "score2": null
       }
     ],
     "B": [
