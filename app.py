@@ -38,7 +38,7 @@ def setup_tournament():
     teamCount = int(req.get('teamCount', 20))
     start_time_str = req.get('startTime', '09:00')
     finals_start_str = req.get('finalsStartTime', '14:00')
-    duration = int(req.get('matchDuration', 20))
+    duration = int(req.get('matchDuration', 15))
     pause = int(req.get('breakDuration', 5))
     
     data = {"pools": pools, "matches": {}, "finalsMatches": [], "isSetup": True, "teamCount": teamCount}
@@ -168,7 +168,7 @@ def reschedule_finals():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
     req = request.json
     finals_start_str = req.get('finalsStartTime', '14:00')
-    duration = int(req.get('matchDuration', 20))
+    duration = int(req.get('matchDuration', 15))
     pause = int(req.get('breakDuration', 5))
     
     data = read_db()

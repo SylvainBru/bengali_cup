@@ -5,129 +5,183 @@
       "Équipe 2",
       "Équipe 3",
       "Équipe 4",
-      "Équipe 5"
+      "Équipe 5",
+      "Équipe 6"
     ],
     "B": [
-      "Équipe 6",
       "Équipe 7",
       "Équipe 8",
       "Équipe 9",
-      "Équipe 10"
+      "Équipe 10",
+      "Équipe 11",
+      "Équipe 12"
     ],
     "C": [
-      "Équipe 11",
-      "Équipe 12",
       "Équipe 13",
       "Équipe 14",
-      "Équipe 15"
-    ],
-    "D": [
+      "Équipe 15",
       "Équipe 16",
       "Équipe 17",
-      "Équipe 18",
+      "Équipe 18"
+    ],
+    "D": [
       "Équipe 19",
-      "Équipe 20"
+      "Équipe 20",
+      "Équipe 21",
+      "Équipe 22",
+      "Équipe 23",
+      "Équipe 24"
     ]
   },
   "matches": {
     "A": [
       {
         "id": "A-1",
-        "time": "09h00 - 09h20",
+        "time": "08h50 - 09h05",
         "terrain": "Terrain 1",
         "team1": "Équipe 1",
         "team2": "Équipe 2",
-        "referee": "Équipe 8",
+        "referee": "Équipe 9",
         "score1": null,
         "score2": null
       },
       {
         "id": "A-2",
-        "time": "09h25 - 09h45",
+        "time": "09h10 - 09h25",
         "terrain": "Terrain 1",
         "team1": "Équipe 3",
         "team2": "Équipe 4",
-        "referee": "Équipe 10",
+        "referee": "Équipe 11",
         "score1": null,
         "score2": null
       },
       {
         "id": "A-3",
-        "time": "09h50 - 10h10",
+        "time": "09h30 - 09h45",
         "terrain": "Terrain 1",
-        "team1": "Équipe 1",
-        "team2": "Équipe 5",
+        "team1": "Équipe 5",
+        "team2": "Équipe 6",
         "referee": "Équipe 7",
         "score1": null,
         "score2": null
       },
       {
         "id": "A-4",
-        "time": "10h15 - 10h35",
+        "time": "09h50 - 10h05",
         "terrain": "Terrain 1",
-        "team1": "Équipe 2",
+        "team1": "Équipe 1",
         "team2": "Équipe 3",
-        "referee": "Équipe 9",
+        "referee": "Équipe 8",
         "score1": null,
         "score2": null
       },
       {
         "id": "A-5",
-        "time": "10h40 - 11h00",
+        "time": "10h10 - 10h25",
         "terrain": "Terrain 1",
-        "team1": "Équipe 4",
+        "team1": "Équipe 2",
         "team2": "Équipe 5",
-        "referee": "Équipe 6",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "A-6",
-        "time": "11h05 - 11h25",
-        "terrain": "Terrain 1",
-        "team1": "Équipe 1",
-        "team2": "Équipe 3",
         "referee": "Équipe 10",
         "score1": null,
         "score2": null
       },
       {
-        "id": "A-7",
-        "time": "11h30 - 11h50",
+        "id": "A-6",
+        "time": "10h30 - 10h45",
         "terrain": "Terrain 1",
-        "team1": "Équipe 2",
+        "team1": "Équipe 4",
+        "team2": "Équipe 6",
+        "referee": "Équipe 9",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "A-7",
+        "time": "10h50 - 11h05",
+        "terrain": "Terrain 1",
+        "team1": "Équipe 1",
         "team2": "Équipe 4",
-        "referee": "Équipe 6",
+        "referee": "Équipe 11",
         "score1": null,
         "score2": null
       },
       {
         "id": "A-8",
-        "time": "11h55 - 12h15",
+        "time": "11h10 - 11h25",
         "terrain": "Terrain 1",
-        "team1": "Équipe 2",
-        "team2": "Équipe 5",
+        "team1": "Équipe 3",
+        "team2": "Équipe 6",
         "referee": "Équipe 8",
         "score1": null,
         "score2": null
       },
       {
         "id": "A-9",
-        "time": "12h20 - 12h40",
+        "time": "11h30 - 11h45",
         "terrain": "Terrain 1",
-        "team1": "Équipe 3",
+        "team1": "Équipe 2",
+        "team2": "Équipe 6",
+        "referee": "Équipe 10",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "A-10",
+        "time": "11h50 - 12h05",
+        "terrain": "Terrain 1",
+        "team1": "Équipe 1",
+        "team2": "Équipe 5",
+        "referee": "Équipe 12",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "A-11",
+        "time": "12h10 - 12h25",
+        "terrain": "Terrain 1",
+        "team1": "Équipe 2",
+        "team2": "Équipe 3",
+        "referee": "Équipe 7",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "A-12",
+        "time": "12h30 - 12h45",
+        "terrain": "Terrain 1",
+        "team1": "Équipe 4",
         "team2": "Équipe 5",
         "referee": "Équipe 9",
         "score1": null,
         "score2": null
       },
       {
-        "id": "A-10",
-        "time": "12h45 - 13h05",
+        "id": "A-13",
+        "time": "12h50 - 13h05",
         "terrain": "Terrain 1",
         "team1": "Équipe 1",
+        "team2": "Équipe 6",
+        "referee": "Équipe 8",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "A-14",
+        "time": "13h10 - 13h25",
+        "terrain": "Terrain 1",
+        "team1": "Équipe 3",
+        "team2": "Équipe 5",
+        "referee": "Équipe 10",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "A-15",
+        "time": "13h30 - 13h45",
+        "terrain": "Terrain 1",
+        "team1": "Équipe 2",
         "team2": "Équipe 4",
-        "referee": "Équipe 7",
+        "referee": "Équipe 12",
         "score1": null,
         "score2": null
       }
@@ -135,101 +189,151 @@
     "B": [
       {
         "id": "B-1",
-        "time": "09h00 - 09h20",
+        "time": "08h50 - 09h05",
         "terrain": "Terrain 2",
-        "team1": "Équipe 6",
-        "team2": "Équipe 7",
+        "team1": "Équipe 7",
+        "team2": "Équipe 8",
         "referee": "Équipe 3",
         "score1": null,
         "score2": null
       },
       {
         "id": "B-2",
-        "time": "09h25 - 09h45",
+        "time": "09h10 - 09h25",
         "terrain": "Terrain 2",
-        "team1": "Équipe 8",
-        "team2": "Équipe 9",
+        "team1": "Équipe 9",
+        "team2": "Équipe 10",
         "referee": "Équipe 5",
         "score1": null,
         "score2": null
       },
       {
         "id": "B-3",
-        "time": "09h50 - 10h10",
+        "time": "09h30 - 09h45",
         "terrain": "Terrain 2",
-        "team1": "Équipe 6",
-        "team2": "Équipe 10",
-        "referee": "Équipe 2",
+        "team1": "Équipe 11",
+        "team2": "Équipe 12",
+        "referee": "Équipe 1",
         "score1": null,
         "score2": null
       },
       {
         "id": "B-4",
-        "time": "10h15 - 10h35",
+        "time": "09h50 - 10h05",
         "terrain": "Terrain 2",
         "team1": "Équipe 7",
-        "team2": "Équipe 8",
-        "referee": "Équipe 4",
+        "team2": "Équipe 9",
+        "referee": "Équipe 2",
         "score1": null,
         "score2": null
       },
       {
         "id": "B-5",
-        "time": "10h40 - 11h00",
+        "time": "10h10 - 10h25",
         "terrain": "Terrain 2",
-        "team1": "Équipe 9",
-        "team2": "Équipe 10",
-        "referee": "Équipe 1",
+        "team1": "Équipe 8",
+        "team2": "Équipe 11",
+        "referee": "Équipe 4",
         "score1": null,
         "score2": null
       },
       {
         "id": "B-6",
-        "time": "11h05 - 11h25",
+        "time": "10h30 - 10h45",
         "terrain": "Terrain 2",
-        "team1": "Équipe 6",
-        "team2": "Équipe 8",
-        "referee": "Équipe 5",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "B-7",
-        "time": "11h30 - 11h50",
-        "terrain": "Terrain 2",
-        "team1": "Équipe 7",
-        "team2": "Équipe 9",
-        "referee": "Équipe 1",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "B-8",
-        "time": "11h55 - 12h15",
-        "terrain": "Terrain 2",
-        "team1": "Équipe 7",
-        "team2": "Équipe 10",
+        "team1": "Équipe 10",
+        "team2": "Équipe 12",
         "referee": "Équipe 3",
         "score1": null,
         "score2": null
       },
       {
+        "id": "B-7",
+        "time": "10h50 - 11h05",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 7",
+        "team2": "Équipe 10",
+        "referee": "Équipe 5",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "B-8",
+        "time": "11h10 - 11h25",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 9",
+        "team2": "Équipe 12",
+        "referee": "Équipe 2",
+        "score1": null,
+        "score2": null
+      },
+      {
         "id": "B-9",
-        "time": "12h20 - 12h40",
+        "time": "11h30 - 11h45",
         "terrain": "Terrain 2",
         "team1": "Équipe 8",
-        "team2": "Équipe 10",
+        "team2": "Équipe 12",
         "referee": "Équipe 4",
         "score1": null,
         "score2": null
       },
       {
         "id": "B-10",
-        "time": "12h45 - 13h05",
+        "time": "11h50 - 12h05",
         "terrain": "Terrain 2",
-        "team1": "Équipe 6",
+        "team1": "Équipe 7",
+        "team2": "Équipe 11",
+        "referee": "Équipe 6",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "B-11",
+        "time": "12h10 - 12h25",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 8",
         "team2": "Équipe 9",
+        "referee": "Équipe 1",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "B-12",
+        "time": "12h30 - 12h45",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 10",
+        "team2": "Équipe 11",
+        "referee": "Équipe 3",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "B-13",
+        "time": "12h50 - 13h05",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 7",
+        "team2": "Équipe 12",
         "referee": "Équipe 2",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "B-14",
+        "time": "13h10 - 13h25",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 9",
+        "team2": "Équipe 11",
+        "referee": "Équipe 4",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "B-15",
+        "time": "13h30 - 13h45",
+        "terrain": "Terrain 2",
+        "team1": "Équipe 8",
+        "team2": "Équipe 10",
+        "referee": "Équipe 6",
         "score1": null,
         "score2": null
       }
@@ -237,101 +341,151 @@
     "C": [
       {
         "id": "C-1",
-        "time": "09h00 - 09h20",
+        "time": "08h50 - 09h05",
         "terrain": "Terrain 3",
-        "team1": "Équipe 11",
-        "team2": "Équipe 12",
-        "referee": "Équipe 18",
+        "team1": "Équipe 13",
+        "team2": "Équipe 14",
+        "referee": "Équipe 21",
         "score1": null,
         "score2": null
       },
       {
         "id": "C-2",
-        "time": "09h25 - 09h45",
+        "time": "09h10 - 09h25",
         "terrain": "Terrain 3",
-        "team1": "Équipe 13",
-        "team2": "Équipe 14",
-        "referee": "Équipe 20",
+        "team1": "Équipe 15",
+        "team2": "Équipe 16",
+        "referee": "Équipe 23",
         "score1": null,
         "score2": null
       },
       {
         "id": "C-3",
-        "time": "09h50 - 10h10",
+        "time": "09h30 - 09h45",
         "terrain": "Terrain 3",
-        "team1": "Équipe 11",
-        "team2": "Équipe 15",
-        "referee": "Équipe 17",
+        "team1": "Équipe 17",
+        "team2": "Équipe 18",
+        "referee": "Équipe 19",
         "score1": null,
         "score2": null
       },
       {
         "id": "C-4",
-        "time": "10h15 - 10h35",
+        "time": "09h50 - 10h05",
         "terrain": "Terrain 3",
-        "team1": "Équipe 12",
-        "team2": "Équipe 13",
-        "referee": "Équipe 19",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "C-5",
-        "time": "10h40 - 11h00",
-        "terrain": "Terrain 3",
-        "team1": "Équipe 14",
+        "team1": "Équipe 13",
         "team2": "Équipe 15",
-        "referee": "Équipe 16",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "C-6",
-        "time": "11h05 - 11h25",
-        "terrain": "Terrain 3",
-        "team1": "Équipe 11",
-        "team2": "Équipe 13",
         "referee": "Équipe 20",
         "score1": null,
         "score2": null
       },
       {
-        "id": "C-7",
-        "time": "11h30 - 11h50",
+        "id": "C-5",
+        "time": "10h10 - 10h25",
         "terrain": "Terrain 3",
-        "team1": "Équipe 12",
-        "team2": "Équipe 14",
-        "referee": "Équipe 16",
+        "team1": "Équipe 14",
+        "team2": "Équipe 17",
+        "referee": "Équipe 22",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-6",
+        "time": "10h30 - 10h45",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 16",
+        "team2": "Équipe 18",
+        "referee": "Équipe 21",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-7",
+        "time": "10h50 - 11h05",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 13",
+        "team2": "Équipe 16",
+        "referee": "Équipe 23",
         "score1": null,
         "score2": null
       },
       {
         "id": "C-8",
-        "time": "11h55 - 12h15",
+        "time": "11h10 - 11h25",
         "terrain": "Terrain 3",
-        "team1": "Équipe 12",
-        "team2": "Équipe 15",
-        "referee": "Équipe 18",
+        "team1": "Équipe 15",
+        "team2": "Équipe 18",
+        "referee": "Équipe 20",
         "score1": null,
         "score2": null
       },
       {
         "id": "C-9",
-        "time": "12h20 - 12h40",
+        "time": "11h30 - 11h45",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 14",
+        "team2": "Équipe 18",
+        "referee": "Équipe 22",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-10",
+        "time": "11h50 - 12h05",
         "terrain": "Terrain 3",
         "team1": "Équipe 13",
+        "team2": "Équipe 17",
+        "referee": "Équipe 24",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-11",
+        "time": "12h10 - 12h25",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 14",
         "team2": "Équipe 15",
         "referee": "Équipe 19",
         "score1": null,
         "score2": null
       },
       {
-        "id": "C-10",
-        "time": "12h45 - 13h05",
+        "id": "C-12",
+        "time": "12h30 - 12h45",
         "terrain": "Terrain 3",
-        "team1": "Équipe 11",
-        "team2": "Équipe 14",
-        "referee": "Équipe 17",
+        "team1": "Équipe 16",
+        "team2": "Équipe 17",
+        "referee": "Équipe 21",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-13",
+        "time": "12h50 - 13h05",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 13",
+        "team2": "Équipe 18",
+        "referee": "Équipe 20",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-14",
+        "time": "13h10 - 13h25",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 15",
+        "team2": "Équipe 17",
+        "referee": "Équipe 22",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "C-15",
+        "time": "13h30 - 13h45",
+        "terrain": "Terrain 3",
+        "team1": "Équipe 14",
+        "team2": "Équipe 16",
+        "referee": "Équipe 24",
         "score1": null,
         "score2": null
       }
@@ -339,101 +493,151 @@
     "D": [
       {
         "id": "D-1",
-        "time": "09h00 - 09h20",
+        "time": "08h50 - 09h05",
         "terrain": "Terrain 4",
-        "team1": "Équipe 16",
-        "team2": "Équipe 17",
-        "referee": "Équipe 13",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "D-2",
-        "time": "09h25 - 09h45",
-        "terrain": "Terrain 4",
-        "team1": "Équipe 18",
-        "team2": "Équipe 19",
+        "team1": "Équipe 19",
+        "team2": "Équipe 20",
         "referee": "Équipe 15",
         "score1": null,
         "score2": null
       },
       {
-        "id": "D-3",
-        "time": "09h50 - 10h10",
+        "id": "D-2",
+        "time": "09h10 - 09h25",
         "terrain": "Terrain 4",
-        "team1": "Équipe 16",
-        "team2": "Équipe 20",
-        "referee": "Équipe 12",
+        "team1": "Équipe 21",
+        "team2": "Équipe 22",
+        "referee": "Équipe 17",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-3",
+        "time": "09h30 - 09h45",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 23",
+        "team2": "Équipe 24",
+        "referee": "Équipe 13",
         "score1": null,
         "score2": null
       },
       {
         "id": "D-4",
-        "time": "10h15 - 10h35",
+        "time": "09h50 - 10h05",
         "terrain": "Terrain 4",
-        "team1": "Équipe 17",
-        "team2": "Équipe 18",
+        "team1": "Équipe 19",
+        "team2": "Équipe 21",
         "referee": "Équipe 14",
         "score1": null,
         "score2": null
       },
       {
         "id": "D-5",
-        "time": "10h40 - 11h00",
+        "time": "10h10 - 10h25",
         "terrain": "Terrain 4",
-        "team1": "Équipe 19",
-        "team2": "Équipe 20",
-        "referee": "Équipe 11",
+        "team1": "Équipe 20",
+        "team2": "Équipe 23",
+        "referee": "Équipe 16",
         "score1": null,
         "score2": null
       },
       {
         "id": "D-6",
-        "time": "11h05 - 11h25",
+        "time": "10h30 - 10h45",
         "terrain": "Terrain 4",
-        "team1": "Équipe 16",
-        "team2": "Équipe 18",
+        "team1": "Équipe 22",
+        "team2": "Équipe 24",
         "referee": "Équipe 15",
         "score1": null,
         "score2": null
       },
       {
         "id": "D-7",
-        "time": "11h30 - 11h50",
+        "time": "10h50 - 11h05",
         "terrain": "Terrain 4",
-        "team1": "Équipe 17",
-        "team2": "Équipe 19",
-        "referee": "Équipe 11",
+        "team1": "Équipe 19",
+        "team2": "Équipe 22",
+        "referee": "Équipe 17",
         "score1": null,
         "score2": null
       },
       {
         "id": "D-8",
-        "time": "11h55 - 12h15",
+        "time": "11h10 - 11h25",
         "terrain": "Terrain 4",
-        "team1": "Équipe 17",
-        "team2": "Équipe 20",
-        "referee": "Équipe 13",
-        "score1": null,
-        "score2": null
-      },
-      {
-        "id": "D-9",
-        "time": "12h20 - 12h40",
-        "terrain": "Terrain 4",
-        "team1": "Équipe 18",
-        "team2": "Équipe 20",
+        "team1": "Équipe 21",
+        "team2": "Équipe 24",
         "referee": "Équipe 14",
         "score1": null,
         "score2": null
       },
       {
-        "id": "D-10",
-        "time": "12h45 - 13h05",
+        "id": "D-9",
+        "time": "11h30 - 11h45",
         "terrain": "Terrain 4",
-        "team1": "Équipe 16",
-        "team2": "Équipe 19",
-        "referee": "Équipe 12",
+        "team1": "Équipe 20",
+        "team2": "Équipe 24",
+        "referee": "Équipe 16",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-10",
+        "time": "11h50 - 12h05",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 19",
+        "team2": "Équipe 23",
+        "referee": "Équipe 18",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-11",
+        "time": "12h10 - 12h25",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 20",
+        "team2": "Équipe 21",
+        "referee": "Équipe 13",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-12",
+        "time": "12h30 - 12h45",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 22",
+        "team2": "Équipe 23",
+        "referee": "Équipe 15",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-13",
+        "time": "12h50 - 13h05",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 19",
+        "team2": "Équipe 24",
+        "referee": "Équipe 14",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-14",
+        "time": "13h10 - 13h25",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 21",
+        "team2": "Équipe 23",
+        "referee": "Équipe 16",
+        "score1": null,
+        "score2": null
+      },
+      {
+        "id": "D-15",
+        "time": "13h30 - 13h45",
+        "terrain": "Terrain 4",
+        "team1": "Équipe 20",
+        "team2": "Équipe 22",
+        "referee": "Équipe 18",
         "score1": null,
         "score2": null
       }
@@ -451,7 +655,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h00 - 14h20",
+      "time": "14h00 - 14h15",
       "terrain": "Terrain 1"
     },
     {
@@ -465,8 +669,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h00 - 14h20",
+      "time": "14h00 - 14h15",
       "terrain": "Terrain 2"
+    },
+    {
+      "id": "CDL-QF1",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Quart de Finale",
+      "team1": "P-A-5",
+      "team2": "P-C-6",
+      "referee": "P-B-2",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "14h00 - 14h15",
+      "terrain": "Terrain 3"
     },
     {
       "id": "CL-QF2",
@@ -479,8 +697,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h00 - 14h20",
-      "terrain": "Terrain 3"
+      "time": "14h00 - 14h15",
+      "terrain": "Terrain 4"
     },
     {
       "id": "EL-QF2",
@@ -493,8 +711,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h00 - 14h20",
-      "terrain": "Terrain 4"
+      "time": "14h20 - 14h35",
+      "terrain": "Terrain 1"
+    },
+    {
+      "id": "CDL-QF2",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Quart de Finale",
+      "team1": "P-D-5",
+      "team2": "P-B-6",
+      "referee": "P-A-2",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "14h20 - 14h35",
+      "terrain": "Terrain 2"
     },
     {
       "id": "CL-QF3",
@@ -507,8 +739,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h25 - 14h45",
-      "terrain": "Terrain 1"
+      "time": "14h20 - 14h35",
+      "terrain": "Terrain 3"
     },
     {
       "id": "EL-QF3",
@@ -521,8 +753,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h25 - 14h45",
-      "terrain": "Terrain 2"
+      "time": "14h20 - 14h35",
+      "terrain": "Terrain 4"
+    },
+    {
+      "id": "CDL-QF3",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Quart de Finale",
+      "team1": "P-B-5",
+      "team2": "P-D-6",
+      "referee": "P-D-2",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "14h40 - 14h55",
+      "terrain": "Terrain 1"
     },
     {
       "id": "CL-QF4",
@@ -535,8 +781,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h25 - 14h45",
-      "terrain": "Terrain 3"
+      "time": "14h40 - 14h55",
+      "terrain": "Terrain 2"
     },
     {
       "id": "EL-QF4",
@@ -549,22 +795,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h25 - 14h45",
-      "terrain": "Terrain 4"
+      "time": "14h40 - 14h55",
+      "terrain": "Terrain 3"
     },
     {
-      "id": "CDL-SF1",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 20)",
-      "step": "Demi-Finale",
-      "team1": "P-A-5",
-      "team2": "P-C-5",
-      "referee": "P-D-2",
+      "id": "CDL-QF4",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Quart de Finale",
+      "team1": "P-C-5",
+      "team2": "P-A-6",
+      "referee": "P-C-2",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h50 - 15h10",
-      "terrain": "Terrain 1"
+      "time": "14h40 - 14h55",
+      "terrain": "Terrain 4"
     },
     {
       "id": "CL-C1",
@@ -577,8 +823,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h50 - 15h10",
-      "terrain": "Terrain 2"
+      "time": "15h00 - 15h15",
+      "terrain": "Terrain 1"
     },
     {
       "id": "EL-C1",
@@ -591,22 +837,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h50 - 15h10",
-      "terrain": "Terrain 3"
+      "time": "15h00 - 15h15",
+      "terrain": "Terrain 2"
     },
     {
-      "id": "CDL-SF2",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 20)",
-      "step": "Demi-Finale",
-      "team1": "P-D-5",
-      "team2": "P-B-5",
-      "referee": "P-C-2",
+      "id": "CDL-C1",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Match de Classement",
+      "team1": "L:CDL-QF1",
+      "team2": "L:CDL-QF2",
+      "referee": "P-B-3",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "14h50 - 15h10",
-      "terrain": "Terrain 4"
+      "time": "15h00 - 15h15",
+      "terrain": "Terrain 3"
     },
     {
       "id": "CL-C2",
@@ -619,8 +865,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h15 - 15h35",
-      "terrain": "Terrain 1"
+      "time": "15h00 - 15h15",
+      "terrain": "Terrain 4"
     },
     {
       "id": "EL-C2",
@@ -633,7 +879,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h15 - 15h35",
+      "time": "15h20 - 15h35",
+      "terrain": "Terrain 1"
+    },
+    {
+      "id": "CDL-C2",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Match de Classement",
+      "team1": "L:CDL-QF3",
+      "team2": "L:CDL-QF4",
+      "referee": "P-A-3",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 2"
     },
     {
@@ -647,7 +907,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h15 - 15h35",
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 3"
     },
     {
@@ -661,8 +921,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h15 - 15h35",
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 4"
+    },
+    {
+      "id": "CDL-SF1",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Demi-Finale",
+      "team1": "W:CDL-QF1",
+      "team2": "W:CDL-QF2",
+      "referee": "P-D-3",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "15h40 - 15h55",
+      "terrain": "Terrain 1"
     },
     {
       "id": "CL-SF2",
@@ -675,8 +949,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h40 - 16h00",
-      "terrain": "Terrain 1"
+      "time": "15h40 - 15h55",
+      "terrain": "Terrain 2"
     },
     {
       "id": "EL-SF2",
@@ -689,22 +963,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h40 - 16h00",
-      "terrain": "Terrain 2"
+      "time": "15h40 - 15h55",
+      "terrain": "Terrain 3"
     },
     {
-      "id": "CDL-3E",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 20)",
-      "step": "Places 19 et 20",
-      "team1": "L:CDL-SF1",
-      "team2": "L:CDL-SF2",
-      "referee": "P-A-2",
+      "id": "CDL-SF2",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Demi-Finale",
+      "team1": "W:CDL-QF3",
+      "team2": "W:CDL-QF4",
+      "referee": "P-C-3",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h40 - 16h00",
-      "terrain": "Terrain 3"
+      "time": "15h40 - 15h55",
+      "terrain": "Terrain 4"
     },
     {
       "id": "CL-7E",
@@ -717,8 +991,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "15h40 - 16h00",
-      "terrain": "Terrain 4"
+      "time": "16h00 - 16h15",
+      "terrain": "Terrain 1"
     },
     {
       "id": "EL-15E",
@@ -731,8 +1005,22 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h05 - 16h25",
-      "terrain": "Terrain 1"
+      "time": "16h00 - 16h15",
+      "terrain": "Terrain 2"
+    },
+    {
+      "id": "CDL-23E",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Places 23 et 24",
+      "team1": "L:CDL-C1",
+      "team2": "L:CDL-C2",
+      "referee": "P-A-4",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "16h00 - 16h15",
+      "terrain": "Terrain 3"
     },
     {
       "id": "CL-5E",
@@ -745,8 +1033,8 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h05 - 16h25",
-      "terrain": "Terrain 2"
+      "time": "16h00 - 16h15",
+      "terrain": "Terrain 4"
     },
     {
       "id": "EL-13E",
@@ -759,21 +1047,49 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h05 - 16h25",
-      "terrain": "Terrain 3"
+      "time": "16h20 - 16h35",
+      "terrain": "Terrain 1"
     },
     {
-      "id": "CDL-F",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 20)",
-      "step": "Finale Coupe de Ligue",
-      "team1": "W:CDL-SF1",
-      "team2": "W:CDL-SF2",
-      "referee": "P-B-2",
+      "id": "CDL-21E",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Places 21 et 22",
+      "team1": "W:CDL-C1",
+      "team2": "W:CDL-C2",
+      "referee": "P-B-4",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h05 - 16h25",
+      "time": "16h20 - 16h35",
+      "terrain": "Terrain 2"
+    },
+    {
+      "id": "CL-3E",
+      "phase": "🥇 Champions League (Places 1 à 8)",
+      "step": "Petite Finale",
+      "team1": "L:CL-SF1",
+      "team2": "L:CL-SF2",
+      "referee": "P-B-3",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "16h20 - 16h35",
+      "terrain": "Terrain 3"
+    },
+    {
+      "id": "CDL-19E",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Places 19 et 20",
+      "team1": "L:CDL-SF1",
+      "team2": "L:CDL-SF2",
+      "referee": "P-C-4",
+      "score1": null,
+      "score2": null,
+      "tab1": null,
+      "tab2": null,
+      "time": "16h20 - 16h35",
       "terrain": "Terrain 4"
     },
     {
@@ -787,21 +1103,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h30 - 16h50",
+      "time": "16h40 - 16h55",
       "terrain": "Terrain 1"
     },
     {
-      "id": "CL-3E",
-      "phase": "🥇 Champions League (Places 1 à 8)",
-      "step": "Petite Finale",
-      "team1": "L:CL-SF1",
-      "team2": "L:CL-SF2",
-      "referee": "P-B-3",
+      "id": "CDL-F",
+      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "step": "Finale Coupe de Ligue",
+      "team1": "W:CDL-SF1",
+      "team2": "W:CDL-SF2",
+      "referee": "P-D-4",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h30 - 16h50",
+      "time": "16h40 - 16h55",
       "terrain": "Terrain 2"
     },
     {
@@ -815,7 +1131,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h30 - 16h50",
+      "time": "16h40 - 16h55",
       "terrain": "Terrain 3"
     },
     {
@@ -829,10 +1145,10 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h55 - 17h15",
+      "time": "17h00 - 17h15",
       "terrain": "Terrain 1"
     }
   ],
   "isSetup": true,
-  "teamCount": 20
+  "teamCount": 24
 }
