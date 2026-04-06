@@ -109,10 +109,10 @@ function resolveTeam(code) {
         let poolId = code.substring(2, 3);
         let rank = parseInt(code.substring(4)) - 1;
         let st = calculateStandings(poolId);
-        let poolFinished = tournamentData.matches[poolId].every(m => m.score1 !== null && m.score2 !== null);
-        if (poolFinished && st[rank]) return st[rank].name;
         
-        // Correction "1er" et "ème"
+        // On affiche l'équipe instantanément, même si la poule n'est pas finie !
+        if (st[rank]) return st[rank].name;
+        
         let suffixe = rank === 0 ? "er" : "ème";
         return `${rank + 1}${suffixe} Poule ${poolId}`;
     }
@@ -154,9 +154,18 @@ function renderPoules() {
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <div style="flex: 1;"><label>Début Poules</label><input type="time" id="setup-start" value="09:00" style="width: 100%; padding: 8px;"></div>
                 <div style="flex: 1;"><label>Reprise Finales</label><input type="time" id="setup-finals-start" value="14:00" style="width: 100%; padding: 8px;"></div>
-                <div style="flex: 1;"><label>Match (min)</label><input type="number" id="setup-duration" value="20" style="width: 100%; padding: 8px;"></div>
+                <div style="flex: 1;"><label>Match (min)</label><input type="number" id="setup-duration" value="15" style="width: 100%; padding: 8px;"></div>
                 <div style="flex: 1;"><label>Pause (min)</label><input type="number" id="setup-break" value="5" style="width: 100%; padding: 8px;"></div>
             </div>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold;">Nombre de terrains :</label>
+                <select id="setup-terrains" style="width: 100%; padding: 8px; border-radius: 5px;">
+                    <option value="4">4 Terrains (Classique)</option>
+                    <option value="5">5 Terrains (Rapide)</option>
+                </select>
+            </div>
+            
             <div id="setup-pools-container"></div><button class="btn btn-primary" onclick="submitSetup()">Lancer le Tournoi Complet !</button></div>`;
         renderSetupForm(); return;
     }
@@ -334,8 +343,6 @@ function buildBracketNode(matchId, isPetiteFinale = false) {
     `;
 }
 
-
-
 function renderBracket(config) {
     if (!config) return '';
     
@@ -366,7 +373,6 @@ function renderBracket(config) {
     html += `</div>`;
     return html;
 }
-
 
 function renderLeagueTab(leagueId) {
     const config = getLeagueConfig(leagueId);
@@ -475,9 +481,10 @@ function renderAdminSchedule() {
             <h2 style="color:var(--secondary);">⏱️ Décaler les Phases Finales</h2>
             <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
                 <div style="flex: 1;"><label>Nouvelle Reprise</label><input type="time" id="reschedule-start" value="14:00" style="width: 100%; padding: 8px;"></div>
-                <div style="flex: 1;"><label>Match (min)</label><input type="number" id="reschedule-duration" value="20" style="width: 100%; padding: 8px;"></div>
+                <div style="flex: 1;"><label>Match (min)</label><input type="number" id="reschedule-duration" value="15" style="width: 100%; padding: 8px;"></div>
                 <div style="flex: 1;"><label>Pause</label><input type="number" id="reschedule-break" value="5" style="width: 100%; padding: 8px;"></div>
             </div>
+            
             <button class="btn btn-primary" onclick="rescheduleFinals()">Recalculer les heures de l'aprem !</button>
         </div>
         <div class="card"><h2 style="color:var(--danger); border-color:var(--danger);">📅 Emploi du temps global</h2>`;
@@ -545,7 +552,19 @@ async function submitSetup() {
         for (let i = 0; i < teamsPerPool; i++) { let t = document.getElementById(`setup-${p}-${i}`).value.trim(); if (t) lines.push(t); }
         if (lines.length !== teamsPerPool) return alert(`⚠️ La poule ${p} doit avoir ${teamsPerPool} équipes !`); pools[p] = lines;
     }
-    await apiCall('/api/setup', 'POST', { pools, teamCount: tc, startTime: document.getElementById('setup-start').value || "09:00", finalsStartTime: document.getElementById('setup-finals-start').value || "14:00", matchDuration: parseInt(document.getElementById('setup-duration').value || 20), breakDuration: parseInt(document.getElementById('setup-break').value || 5) });
+    
+    // NOUVEL AJOUT ICI POUR LES TERRAINS !
+    let payload = {
+        pools: pools, 
+        teamCount: tc,
+        startTime: document.getElementById('setup-start').value || "09:00",
+        finalsStartTime: document.getElementById('setup-finals-start').value || "14:00",
+        matchDuration: parseInt(document.getElementById('setup-duration').value || 20),
+        breakDuration: parseInt(document.getElementById('setup-break').value || 5),
+        terrainCount: parseInt(document.getElementById('setup-terrains').value || 4)
+    };
+    
+    await apiCall('/api/setup', 'POST', payload);
     fetchData();
 }
 

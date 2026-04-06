@@ -9,10 +9,11 @@ ADMIN_PASSWORD = 'admin'
 
 def read_db():
     if not os.path.exists(DB_FILE):
-        return {"pools": {}, "matches": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20}
+        return {"pools": {}, "matches": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20, "terrainCount": 4}
     with open(DB_FILE, 'r', encoding='utf-8') as f:
         data = json.load(f)
         if "teamCount" not in data: data["teamCount"] = 20
+        if "terrainCount" not in data: data["terrainCount"] = 4
         return data
 
 def write_db(data):
@@ -36,38 +37,132 @@ def setup_tournament():
     req = request.json
     pools = req.get('pools', {})
     teamCount = int(req.get('teamCount', 20))
+    terrainCount = int(req.get('terrainCount', 4)) # NOUVEAU: Choix du nombre de terrains
     start_time_str = req.get('startTime', '09:00')
     finals_start_str = req.get('finalsStartTime', '14:00')
     duration = int(req.get('matchDuration', 15))
     pause = int(req.get('breakDuration', 5))
     
-    data = {"pools": pools, "matches": {}, "finalsMatches": [], "isSetup": True, "teamCount": teamCount}
-    
-    # 1. MATCHS DE POULES
-    if teamCount == 20:
-        schedule_template = [[0,1,2], [2,3,4], [0,4,1], [1,2,3], [3,4,0], [0,2,4], [1,3,0], [1,4,2], [2,4,3], [0,3,1]]
-    else:
-        schedule_template = [[0,1,2], [2,3,4], [4,5,0], [0,2,1], [1,4,3], [3,5,2], [0,3,4], [2,5,1], [1,5,3], [0,4,5], [1,2,0], [3,4,2], [0,5,1], [2,4,3], [1,3,5]]
-
+    data = {"pools": pools, "matches": {}, "finalsMatches": [], "isSetup": True, "teamCount": teamCount, "terrainCount": terrainCount}
     start_t = datetime.strptime(start_time_str, "%H:%M")
     referee_mapping = {'A': 'B', 'B': 'A', 'C': 'D', 'D': 'C'}
-    terrain_mapping = {'A': 'Terrain 1', 'B': 'Terrain 2', 'C': 'Terrain 3', 'D': 'Terrain 4'}
+    
+    # ==========================================
+    # 1. MATCHS DE POULES
+    # ==========================================
+    if terrainCount == 4:
+        # LOGIQUE ORIGINALE (4 TERRAINS)
+        if teamCount == 20:
+            # 5 équipes : Chaque équipe joue 4 matchs et arbitre 2 fois.
+            # Espacement parfait garanti, aucun enchaînement.
+            schedule_template = [
+                [0,1,2], [2,3,4], [0,4,3], [1,2,4], [3,4,1], 
+                [0,2,3], [1,4,2], [0,3,1], [2,4,0], [1,3,0]
+            ]
+        else:
+            # 6 équipes : Chaque équipe joue 5 matchs et arbitre 2 ou 3 fois.
+            # L'espacement moyen est de 2 matchs de repos entre chaque apparition sur le terrain.
+            schedule_template = [
+                [0,1,2], [2,3,4], [4,5,0], [0,2,1], [1,4,3], 
+                [3,5,2], [2,4,5], [0,3,4], [1,5,0], [0,4,3], 
+                [2,5,1], [1,3,5], [0,5,4], [3,4,1], [1,2,0]
+            ]
+        terrain_mapping = {'A': 'Terrain 1', 'B': 'Terrain 2', 'C': 'Terrain 3', 'D': 'Terrain 4'}
 
-    for p, teams in pools.items():
-        data["matches"][p] = []
-        ref_teams = pools.get(referee_mapping.get(p), teams)
-        for i, mdef in enumerate(schedule_template):
-            ms = start_t + timedelta(minutes=(duration+pause) * i)
-            me = ms + timedelta(minutes=duration)
-            data["matches"][p].append({
-                "id": f"{p}-{i+1}",
-                "time": f"{ms.strftime('%Hh%M')} - {me.strftime('%Hh%M')}",
-                "terrain": terrain_mapping[p],
-                "team1": teams[mdef[0]], "team2": teams[mdef[1]], "referee": ref_teams[mdef[2]],
-                "score1": None, "score2": None
-            })
+        for p, teams in pools.items():
+            data["matches"][p] = []
+            ref_teams = pools.get(referee_mapping.get(p), teams)
+            for i, mdef in enumerate(schedule_template):
+                ms = start_t + timedelta(minutes=(duration+pause) * i)
+                me = ms + timedelta(minutes=duration)
+                data["matches"][p].append({
+                    "id": f"{p}-{i+1}",
+                    "time": f"{ms.strftime('%Hh%M')} - {me.strftime('%Hh%M')}",
+                    "terrain": terrain_mapping[p],
+                    "team1": teams[mdef[0]], "team2": teams[mdef[1]], "referee": ref_teams[mdef[2]],
+                    "score1": None, "score2": None
+                })
+    
+    elif terrainCount == 5:
+        # NOUVELLE LOGIQUE DYNAMIQUE (5 TERRAINS)
+        if teamCount == 20:
+            match_pairings = [
+                [0,1], [2,3], [0,4], [1,2], [3,4], 
+                [0,2], [1,4], [0,3], [2,4], [1,3]
+            ]
+        else:
+            match_pairings = [
+                [0,1], [2,3], [4,5], [0,2], [1,4], 
+                [3,5], [2,4], [0,3], [1,5], [0,4], 
+                [2,5], [1,3], [0,5], [3,4], [1,2]
+            ]
+               
+        queues = {p: [] for p in pools.keys()}
+        for p in pools.keys():
+            data["matches"][p] = []
+            for i, mdef in enumerate(match_pairings):
+                queues[p].append({
+                    "id": f"{p}-{i+1}", "t1": pools[p][mdef[0]], "t2": pools[p][mdef[1]], "pool": p
+                })
+                
+        t5_cycle = ['A', 'B', 'C', 'D']
+        t5_idx = 0
+        current_time = start_t
+        
+        while any(len(q) > 0 for q in queues.values()):
+            busy_teams = set()
+            matches_this_round = []
             
-    # 2. PHASES FINALES (Avec arbitres automatiques !)
+            round_terrains = [
+                ('Terrain 1', 'A'), ('Terrain 2', 'B'), 
+                ('Terrain 3', 'C'), ('Terrain 4', 'D'), 
+                ('Terrain 5', t5_cycle[t5_idx])
+            ]
+            t5_idx = (t5_idx + 1) % 4
+            
+            # ETAPE A: Assigner les matchs aux terrains
+            for terrain_name, target_pool in round_terrains:
+                pools_to_try = [target_pool] + ([p for p in ['A', 'B', 'C', 'D'] if p != target_pool] if terrain_name == 'Terrain 5' else [])
+                
+                for p in pools_to_try:
+                    match_found = False
+                    for i, m in enumerate(queues[p]):
+                        if m['t1'] not in busy_teams and m['t2'] not in busy_teams:
+                            busy_teams.add(m['t1'])
+                            busy_teams.add(m['t2'])
+                            matches_this_round.append({'queue_idx': i, 'pool': p, 'terrain': terrain_name, 'match_data': m})
+                            match_found = True
+                            break
+                    if match_found: break
+                        
+            # ETAPE B: Assigner les arbitres dynamiquement
+            for item in matches_this_round:
+                p = item['pool']
+                m = item['match_data']
+                ref_pool = referee_mapping[p]
+                
+                ref_team = next((cand for cand in pools[ref_pool] if cand not in busy_teams), pools[ref_pool][0])
+                busy_teams.add(ref_team)
+                
+                ms = current_time
+                me = current_time + timedelta(minutes=duration)
+                data["matches"][p].append({
+                    "id": m['id'],
+                    "time": f"{ms.strftime('%Hh%M')} - {me.strftime('%Hh%M')}",
+                    "terrain": item['terrain'],
+                    "team1": m['t1'], "team2": m['t2'], "referee": ref_team,
+                    "score1": None, "score2": None
+                })
+            
+            matches_this_round.sort(key=lambda x: x['queue_idx'], reverse=True)
+            for item in matches_this_round:
+                queues[item['pool']].pop(item['queue_idx'])
+                
+            current_time += timedelta(minutes=(duration+pause))
+            
+    # ==========================================
+    # 2. PHASES FINALES
+    # ==========================================
     def add_m(mid, phase, step, t1, t2, ref):
         return {"id": mid, "phase": phase, "step": step, "team1": t1, "team2": t2, "referee": ref, "score1": None, "score2": None, "tab1": None, "tab2": None, "time": "", "terrain": ""}
     
@@ -101,7 +196,7 @@ def setup_tournament():
         add_m("EL-F", "🥈 Europa League (Places 9 à 16)", "Finale Europa League", "W:EL-SF1", "W:EL-SF2", "P-D-4"),
     ]
 
-    # COUPE DE LA LIGUE (MIXÉE DANS LES SLOTS)
+    # COMPRESSION DES SLOTS FINALES SELON LE NOMBRE DE TERRAINS
     if teamCount == 20:
         fm += [
             add_m("CDL-SF1", "🥉 Coupe de la Ligue (Places 17 à 20)", "Demi-Finale", "P-A-5", "P-C-5", "P-D-2"),
@@ -109,17 +204,26 @@ def setup_tournament():
             add_m("CDL-3E", "🥉 Coupe de la Ligue (Places 17 à 20)", "Places 19 et 20", "L:CDL-SF1", "L:CDL-SF2", "P-A-2"),
             add_m("CDL-F", "🥉 Coupe de la Ligue (Places 17 à 20)", "Finale Coupe de Ligue", "W:CDL-SF1", "W:CDL-SF2", "P-B-2"),
         ]
-        # Mélange complet des Leagues + FINALE CL SEULE A LA FIN
-        slots = [
-            ["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"],
-            ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"],
-            ["CDL-SF1", "CL-C1", "EL-C1", "CDL-SF2"],
-            ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"],
-            ["CL-SF2", "EL-SF2", "CDL-3E", "CL-7E"],
-            ["EL-15E", "CL-5E", "EL-13E", "CDL-F"],
-            ["EL-11E", "CL-3E", "EL-F"],
-            ["CL-F"] # LA GRANDE FINALE TOUTE SEULE !
-        ]
+        if terrainCount == 4:
+            slots = [
+                ["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"],
+                ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"],
+                ["CDL-SF1", "CL-C1", "EL-C1", "CDL-SF2"],
+                ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"],
+                ["CL-SF2", "EL-SF2", "CDL-3E", "CL-7E"],
+                ["EL-15E", "CL-5E", "EL-13E", "CDL-F"],
+                ["EL-11E", "CL-3E", "EL-F"],
+                ["CL-F"] 
+            ]
+        else: # 5 Terrains -> Plus rapide !
+            slots = [
+                ["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"],
+                ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-SF1", "CDL-SF2"],
+                ["CL-C1", "CL-C2", "EL-C1", "EL-C2", "CL-SF1"],
+                ["CL-SF2", "EL-SF1", "EL-SF2", "CDL-3E", "CL-7E"],
+                ["EL-15E", "CL-5E", "EL-13E", "CDL-F", "EL-11E"],
+                ["CL-3E", "EL-F", "CL-F"]
+            ]
     else:
         fm += [
             add_m("CDL-QF1", "🥉 Coupe de la Ligue (Places 17 à 24)", "Quart de Finale", "P-A-5", "P-C-6", "P-B-2"),
@@ -135,21 +239,35 @@ def setup_tournament():
             add_m("CDL-19E", "🥉 Coupe de la Ligue (Places 17 à 24)", "Places 19 et 20", "L:CDL-SF1", "L:CDL-SF2", "P-C-4"),
             add_m("CDL-F", "🥉 Coupe de la Ligue (Places 17 à 24)", "Finale Coupe de Ligue", "W:CDL-SF1", "W:CDL-SF2", "P-D-4"),
         ]
-        slots = [
-            ["CL-QF1", "EL-QF1", "CDL-QF1", "CL-QF2"],
-            ["EL-QF2", "CDL-QF2", "CL-QF3", "EL-QF3"],
-            ["CDL-QF3", "CL-QF4", "EL-QF4", "CDL-QF4"],
-            ["CL-C1", "EL-C1", "CDL-C1", "CL-C2"],
-            ["EL-C2", "CDL-C2", "CL-SF1", "EL-SF1"],
-            ["CDL-SF1", "CL-SF2", "EL-SF2", "CDL-SF2"],
-            ["CL-7E", "EL-15E", "CDL-23E", "CL-5E"],
-            ["EL-13E", "CDL-21E", "CL-3E", "CDL-19E"],
-            ["EL-11E", "CDL-F", "EL-F"],
-            ["CL-F"] # LA GRANDE FINALE TOUTE SEULE !
-        ]
+        if terrainCount == 4:
+            slots = [
+                ["CL-QF1", "EL-QF1", "CDL-QF1", "CL-QF2"],
+                ["EL-QF2", "CDL-QF2", "CL-QF3", "EL-QF3"],
+                ["CDL-QF3", "CL-QF4", "EL-QF4", "CDL-QF4"],
+                ["CL-C1", "EL-C1", "CDL-C1", "CL-C2"],
+                ["EL-C2", "CDL-C2", "CL-SF1", "EL-SF1"],
+                ["CDL-SF1", "CL-SF2", "EL-SF2", "CDL-SF2"],
+                ["CL-7E", "EL-15E", "CDL-23E", "CL-5E"],
+                ["EL-13E", "CDL-21E", "CL-3E", "CDL-19E"],
+                ["EL-11E", "CDL-F", "EL-F"],
+                ["CL-F"]
+            ]
+        else: # 5 Terrains
+            slots = [
+                ["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"],
+                ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-QF1", "CDL-QF2"],
+                ["CDL-QF3", "CDL-QF4", "CL-C1", "CL-C2", "EL-C1"],
+                ["EL-C2", "CDL-C1", "CDL-C2", "CL-SF1", "CL-SF2"],
+                ["EL-SF1", "EL-SF2", "CDL-SF1", "CDL-SF2", "CL-7E"],
+                ["EL-15E", "CDL-23E", "CL-5E", "EL-13E", "CDL-21E"],
+                ["CL-3E", "CDL-19E", "EL-11E", "CDL-F", "EL-F"],
+                ["CL-F"]
+            ]
 
     f_start_t = datetime.strptime(finals_start_str, "%H:%M")
-    terrains = ['Terrain 1', 'Terrain 2', 'Terrain 3', 'Terrain 4']
+    terrains_list = ['Terrain 1', 'Terrain 2', 'Terrain 3', 'Terrain 4']
+    if terrainCount == 5: terrains_list.append('Terrain 5')
+        
     all_fm = {m['id']: m for m in fm}
     
     for i, slot in enumerate(slots):
@@ -157,7 +275,7 @@ def setup_tournament():
         me = ms + timedelta(minutes=duration)
         for j, mid in enumerate(slot):
             all_fm[mid]['time'] = f"{ms.strftime('%Hh%M')} - {me.strftime('%Hh%M')}"
-            all_fm[mid]['terrain'] = terrains[j] # La finale aura toujours le Terrain 1
+            all_fm[mid]['terrain'] = terrains_list[j]
             data["finalsMatches"].append(all_fm[mid])
 
     write_db(data)
@@ -175,30 +293,19 @@ def reschedule_finals():
     if not data.get("isSetup"): return jsonify({"error": "Non configuré"}), 400
     
     teamCount = data.get("teamCount", 20)
+    terrainCount = data.get("terrainCount", 4)
+    
+    # On récupère les mêmes slots que dans setup_tournament
     if teamCount == 20:
-        slots = [
-            ["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"],
-            ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"],
-            ["CDL-SF1", "CL-C1", "EL-C1", "CDL-SF2"],
-            ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"],
-            ["CL-SF2", "EL-SF2", "CDL-3E", "CL-7E"],
-            ["EL-15E", "CL-5E", "EL-13E", "CDL-F"],
-            ["EL-11E", "CL-3E", "EL-F"],
-            ["CL-F"]
-        ]
+        if terrainCount == 4:
+            slots = [["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"], ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"], ["CDL-SF1", "CL-C1", "EL-C1", "CDL-SF2"], ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"], ["CL-SF2", "EL-SF2", "CDL-3E", "CL-7E"], ["EL-15E", "CL-5E", "EL-13E", "CDL-F"], ["EL-11E", "CL-3E", "EL-F"], ["CL-F"]]
+        else:
+            slots = [["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"], ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-SF1", "CDL-SF2"], ["CL-C1", "CL-C2", "EL-C1", "EL-C2", "CL-SF1"], ["CL-SF2", "EL-SF1", "EL-SF2", "CDL-3E", "CL-7E"], ["EL-15E", "CL-5E", "EL-13E", "CDL-F", "EL-11E"], ["CL-3E", "EL-F", "CL-F"]]
     else:
-        slots = [
-            ["CL-QF1", "EL-QF1", "CDL-QF1", "CL-QF2"],
-            ["EL-QF2", "CDL-QF2", "CL-QF3", "EL-QF3"],
-            ["CDL-QF3", "CL-QF4", "EL-QF4", "CDL-QF4"],
-            ["CL-C1", "EL-C1", "CDL-C1", "CL-C2"],
-            ["EL-C2", "CDL-C2", "CL-SF1", "EL-SF1"],
-            ["CDL-SF1", "CL-SF2", "EL-SF2", "CDL-SF2"],
-            ["CL-7E", "EL-15E", "CDL-23E", "CL-5E"],
-            ["EL-13E", "CDL-21E", "CL-3E", "CDL-19E"],
-            ["EL-11E", "CDL-F", "EL-F"],
-            ["CL-F"]
-        ]
+        if terrainCount == 4:
+            slots = [["CL-QF1", "EL-QF1", "CDL-QF1", "CL-QF2"], ["EL-QF2", "CDL-QF2", "CL-QF3", "EL-QF3"], ["CDL-QF3", "CL-QF4", "EL-QF4", "CDL-QF4"], ["CL-C1", "EL-C1", "CDL-C1", "CL-C2"], ["EL-C2", "CDL-C2", "CL-SF1", "EL-SF1"], ["CDL-SF1", "CL-SF2", "EL-SF2", "CDL-SF2"], ["CL-7E", "EL-15E", "CDL-23E", "CL-5E"], ["EL-13E", "CDL-21E", "CL-3E", "CDL-19E"], ["EL-11E", "CDL-F", "EL-F"], ["CL-F"]]
+        else:
+            slots = [["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"], ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-QF1", "CDL-QF2"], ["CDL-QF3", "CDL-QF4", "CL-C1", "CL-C2", "EL-C1"], ["EL-C2", "CDL-C1", "CDL-C2", "CL-SF1", "CL-SF2"], ["EL-SF1", "EL-SF2", "CDL-SF1", "CDL-SF2", "CL-7E"], ["EL-15E", "CDL-23E", "CL-5E", "EL-13E", "CDL-21E"], ["CL-3E", "CDL-19E", "EL-11E", "CDL-F", "EL-F"], ["CL-F"]]
 
     f_start_t = datetime.strptime(finals_start_str, "%H:%M")
     for i, slot in enumerate(slots):
@@ -243,7 +350,7 @@ def save_score_finals():
 @app.route('/api/reset', methods=['POST'])
 def reset_tournament():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
-    with open(DB_FILE, 'w', encoding='utf-8') as f: json.dump({"pools": {}, "matches": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20}, f, indent=2)
+    with open(DB_FILE, 'w', encoding='utf-8') as f: json.dump({"pools": {}, "matches": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20, "terrainCount": 4}, f, indent=2)
     return jsonify({"success": True})
 
 if __name__ == '__main__':
