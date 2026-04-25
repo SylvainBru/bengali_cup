@@ -301,7 +301,7 @@ function renderMonEquipeMatches() {
                     <div class="team-right" style="${t2 === selectedTeam ? 'text-decoration:underline;' : ''}">${t2}</div>
                 </div>
                 ${(m.type === 'final' && m.tab1 !== null) ? `<div class="tab-display" style="text-align:center; width:100%; margin-top:5px; font-size:0.8rem;">TAB (${m.tab1} - ${m.tab2})</div>` : ''}
-                ${(!isPlaying && isRef) ? `<div style="font-size:0.85rem; color:#d97706; margin-top:8px; text-align:center; font-weight:bold;">Sifflez bien ce match ! 哨</div>` : ''}
+                ${(!isPlaying && isRef) ? `<div style="font-size:0.85rem; color:#d97706; margin-top:8px; text-align:center; font-weight:bold;">Sifflez bien ce match ! </div>` : ''}
             </div>
         </div>`;
     });
@@ -490,7 +490,20 @@ function renderAdminSchedule() {
         <div class="card"><h2 style="color:var(--danger); border-color:var(--danger);">📅 Emploi du temps global</h2>`;
         
     for (let timeSlot in groupedMatches) {
-        html += `<h3 style="background:var(--primary); color:white; padding:8px 15px; border-radius:6px; margin: 20px 0 10px;">🕒 Créneau : ${timeSlot}</h3><div class="pools-grid">`;
+        // Préparer l'affichage du créneau modifiable
+        let slotStartStr = timeSlot.split(' - ')[0].replace('h', ':');
+        let safeSlotId = timeSlot.replace(/\s+/g, '').replace(/-/g, '_'); // ID sûr pour le HTML
+
+        html += `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--primary); color:white; padding:8px 15px; border-radius:6px; margin: 20px 0 10px; flex-wrap:wrap; gap:10px;">
+            <h3 style="margin:0; font-size:1.1rem;">🕒 Créneau : ${timeSlot}</h3>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <label style="font-size:0.85rem; font-weight:normal;">Décaler à :</label>
+                <input type="time" id="delay-input-${safeSlotId}" value="${slotStartStr}" style="color:var(--text); padding:4px 8px; border-radius:4px; border:none; outline:none; font-weight:bold;">
+                <button class="btn btn-outline" style="padding:4px 10px; font-size:0.85rem; background:white; color:var(--primary); border:none;" onclick="delaySchedule('${timeSlot}', 'delay-input-${safeSlotId}')">Appliquer</button>
+            </div>
+        </div>
+        <div class="pools-grid">`;
         groupedMatches[timeSlot].forEach(m => {
             if (m.type === 'poule') {
                 html += `
@@ -590,7 +603,16 @@ async function saveFinalScore(matchId, id1 = `fs1-${matchId}`, id2 = `fs2-${matc
     let t1 = document.getElementById(idt1).value, t2 = document.getElementById(idt2).value;
     await apiCall('/api/score-finals', 'POST', { matchId, score1: s1, score2: s2, tab1: t1, tab2: t2 }); fetchData();
 }
+async function delaySchedule(originalSlot, inputId) {
+    let newStartTime = document.getElementById(inputId).value;
+    if (!newStartTime) return alert("Veuillez entrer une heure valide.");
+    
+    let confirmMsg = `Voulez-vous vraiment décaler ce créneau à ${newStartTime} ?\nCela décalera automatiquement TOUS les matchs prévus à cette heure ou après.`;
+    if (!confirm(confirmMsg)) return;
 
+    await apiCall('/api/delay', 'POST', { originalSlot: originalSlot, newStartTime: newStartTime });
+    fetchData(); // Rafraîchit les données pour tout le monde
+}
 async function resetTournament() {
     if (confirm("🚨 ATTENTION ! Cela va TOUT effacer (Poules et Finales). Sûr ?")) { await apiCall('/api/reset', 'POST'); fetchData(); }
 }

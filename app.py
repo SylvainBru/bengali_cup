@@ -319,6 +319,63 @@ def reschedule_finals():
     write_db(data)
     return jsonify({"success": True})
 
+@app.route('/api/delay', methods=['POST'])
+def delay_schedule():
+    if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
+    req = request.json
+    original_slot = req.get('originalSlot') # ex: "09h00 - 09h15"
+    new_start_time_str = req.get('newStartTime') # ex: "09:15"
+
+    if not original_slot or not new_start_time_str:
+        return jsonify({"error": "Paramètres manquants"}), 400
+
+    data = read_db()
+    if not data.get("isSetup"): return jsonify({"error": "Non configuré"}), 400
+
+    try:
+        # Extraire l'heure de début du créneau d'origine ("09h00")
+        orig_start_str = original_slot.split(' - ')[0]
+        orig_start_dt = datetime.strptime(orig_start_str, "%Hh%M")
+
+        # Analyser la nouvelle heure demandée par l'admin ("09:15")
+        new_start_dt = datetime.strptime(new_start_time_str, "%H:%M")
+
+        # Calculer le décalage (delta)
+        delta = new_start_dt - orig_start_dt
+
+        # Appliquer ce décalage à tous les matchs de poules concernés
+        for p in data["matches"]:
+            for m in data["matches"][p]:
+                m_start_str = m["time"].split(' - ')[0]
+                m_start_dt = datetime.strptime(m_start_str, "%Hh%M")
+                
+                # Si le match est prévu à cette heure-là ou plus tard, on le décale
+                if m_start_dt >= orig_start_dt:
+                    m_end_str = m["time"].split(' - ')[1]
+                    m_end_dt = datetime.strptime(m_end_str, "%Hh%M")
+                    
+                    new_m_start = m_start_dt + delta
+                    new_m_end = m_end_dt + delta
+                    m["time"] = f"{new_m_start.strftime('%Hh%M')} - {new_m_end.strftime('%Hh%M')}"
+
+        # Appliquer le même décalage aux matchs des phases finales
+        for m in data["finalsMatches"]:
+            m_start_str = m["time"].split(' - ')[0]
+            m_start_dt = datetime.strptime(m_start_str, "%Hh%M")
+            
+            if m_start_dt >= orig_start_dt:
+                m_end_str = m["time"].split(' - ')[1]
+                m_end_dt = datetime.strptime(m_end_str, "%Hh%M")
+                
+                new_m_start = m_start_dt + delta
+                new_m_end = m_end_dt + delta
+                m["time"] = f"{new_m_start.strftime('%Hh%M')} - {new_m_end.strftime('%Hh%M')}"
+
+        write_db(data)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/api/score', methods=['POST'])
 def save_score():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
