@@ -404,6 +404,22 @@ def save_score_finals():
             return jsonify({"success": True})
     return jsonify({"error": "Match non trouvé"}), 404
 
+@app.route('/api/simulate-poules', methods=['POST'])
+def simulate_poules():
+    if not is_admin(): return jsonify({"error": "Non autorisé"}), 403 #
+    data = read_db() #
+    import random
+    
+    # Parcours de toutes les poules et tous les matchs
+    for p in data["matches"]:
+        for m in data["matches"][p]:
+            # On ne remplit que si le score est vide pour ne pas écraser vos vrais résultats
+            if m["score1"] is None: m["score1"] = random.randint(0, 4)
+            if m["score2"] is None: m["score2"] = random.randint(0, 4)
+            
+    write_db(data) #
+    return jsonify({"success": True})
+
 @app.route('/api/reset', methods=['POST'])
 def reset_tournament():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403

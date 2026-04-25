@@ -1,5 +1,6 @@
 let adminPassword = localStorage.getItem('adminPwd') || null;
 let tournamentData = null;
+let openPools = new Set();
 
 const LEAGUES_CONFIG = {
     'cl': {
@@ -135,12 +136,35 @@ function renderSetupForm() {
     let tc = parseInt(document.getElementById('setup-team-count').value);
     let teamsPerPool = tc / 4;
     let setupHtml = '';
+    
+    // Vos vraies équipes extraites des captures d'écran
+    const defaultTeams = {
+        'A': ["Bru PM", "Pirates Rugueux", "Inazuma", "D&P", "FC Monjardin", "Les guêpes"],
+        'B': ["EKIP", "Les 6K", "Petru 3G", "Patacaisse", "Rocket mouette", "PM de jours comme de nuit"],
+        'C': ["Les Chills & Goals", "BFC Bourdon", "I need mémé", "Les Canocheurs", "Dreateam", "203"],
+        'D': ["La Vic-Team", "Morgnaule", "FC TANVAL", "Bru 5", "Les menaces imprévisibles", "Régionale royale du brabant wallon"]
+    };
+
     ['A', 'B', 'C', 'D'].forEach((p, idx) => {
         setupHtml += `<div class="setup-group" style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px;"><label><b>Poule ${p} (Terrain ${idx+1})</b></label>`;
-        for(let i=0; i<teamsPerPool; i++) setupHtml += `<div style="display:flex; align-items:center; margin-bottom:8px;"><span style="width:25px;">${i+1}.</span><input type="text" id="setup-${p}-${i}" value="Équipe ${(idx*teamsPerPool)+i+1}" style="flex:1; padding:8px;"></div>`;
+        for(let i=0; i<teamsPerPool; i++) {
+            // Si on a un nom par défaut on le met, sinon on retombe sur "Equipe X"
+            let defaultName = (defaultTeams[p] && defaultTeams[p][i]) ? defaultTeams[p][i] : `Équipe ${(idx*teamsPerPool)+i+1}`;
+            
+            setupHtml += `<div style="display:flex; align-items:center; margin-bottom:8px;"><span style="width:25px;">${i+1}.</span><input type="text" id="setup-${p}-${i}" value="${defaultName}" style="flex:1; padding:8px;"></div>`;
+        }
         setupHtml += `</div>`; 
     });
     document.getElementById('setup-pools-container').innerHTML = setupHtml;
+}
+
+function togglePoolMatches(poolId) {
+    if (openPools.has(poolId)) {
+        openPools.delete(poolId);
+    } else {
+        openPools.add(poolId);
+    }
+    renderPoules(); // On redessine pour mettre à jour l'affichage
 }
 
 function renderPoules() {
@@ -149,7 +173,7 @@ function renderPoules() {
         if (!adminPassword) { app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return; }
         app.innerHTML = `<div class="card"><h2>⚙️ Configuration Globale du Tournoi</h2>
             <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
-                <div style="flex: 1;"><label>Nombre d'équipes</label><select id="setup-team-count" onchange="renderSetupForm()" style="width: 100%; padding: 8px; font-weight:bold; border-radius:4px;"><option value="20">20 Équipes (5 par Poule)</option><option value="24">24 Équipes (6 par Poule)</option></select></div>
+                <div style="flex: 1;"><label>Nombre d'équipes</label><select id="setup-team-count" onchange="renderSetupForm()" style="width: 100%; padding: 8px; font-weight:bold; border-radius:4px;"><option value="20">20 Équipes (5 par Poule)</option><option value="24" selected>24 Équipes (6 par Poule)</option></select>
             </div>
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <div style="flex: 1;"><label>Début Poules</label><input type="time" id="setup-start" value="09:00" style="width: 100%; padding: 8px;"></div>
@@ -174,49 +198,58 @@ function renderPoules() {
     for (let poolId in tournamentData.pools) {
         let standings = calculateStandings(poolId);
         let matches = tournamentData.matches[poolId];
+        let isOpen = openPools.has(poolId); // Vérifie si cette poule est ouverte
         
         html += `
         <div class="card">
-            <h2>Poule ${poolId}</h2>
-            <div class="table-wrapper">
-                <table>
-                    <tr>
-                        <th>#</th><th class="team-name">Équipe</th>
-                        ${standings.map(s => `<th class="matrix-header-name" title="${s.name}">${s.name}</th>`).join('')}
-                        <th>Pts</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>Diff</th>
-                    </tr>
-                    ${standings.map((s1, idx1) => `
-                        <tr class="${idx1 < 2 ? 'qualif-cl' : (idx1 < 4 ? 'qualif-el' : 'qualif-cdl')}">
-                            <td><b>${idx1 + 1}</b></td>
-                            <td class="team-name">${s1.name}</td>
-                            ${standings.map((s2, idx2) => {
-                                if (idx1 === idx2) return `<td class="matrix-self"></td>`;
-                                let match = matches.find(m => (m.team1 === s1.name && m.team2 === s2.name) || (m.team2 === s1.name && m.team1 === s2.name));
-                                if (match && match.score1 !== null && match.score2 !== null) {
-                                    let scoreStr = match.team1 === s1.name ? `${match.score1} - ${match.score2}` : `${match.score2} - ${match.score1}`;
-                                    return `<td class="matrix-score">${scoreStr}</td>`;
-                                }
-                                return `<td class="matrix-empty">-</td>`;
-                            }).join('')}
-                            <td><b style="color:var(--primary); font-size:1.1rem;">${s1.Pts}</b></td>
-                            <td>${s1.J}</td><td>${s1.V}</td><td>${s1.N}</td><td>${s1.D}</td><td>${s1.BP}</td><td>${s1.BC}</td>
-                            <td><b>${s1.Diff > 0 ? '+'+s1.Diff : s1.Diff}</b></td>
+            <div onclick="togglePoolMatches('${poolId}')" style="cursor: pointer;" title="Cliquer pour voir/masquer les matchs">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 3px solid var(--secondary); margin-bottom: 15px;">
+                    <h2 style="border-bottom:none; margin-bottom:0;">Poule ${poolId}</h2>
+                    <span style="font-size: 0.8rem; color: var(--secondary); font-weight: bold;">
+                        ${isOpen ? '▲ Masquer les matchs' : '▼ Voir les matchs'}
+                    </span>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>#</th><th class="team-name">Équipe</th>
+                            ${standings.map(s => `<th class="matrix-header-name" title="${s.name}">${s.name}</th>`).join('')}
+                            <th>Pts</th><th>Diff</th>
                         </tr>
-                    `).join('')}
-                </table>
+                        ${standings.map((s1, idx1) => `
+                            <tr class="${idx1 < 2 ? 'qualif-cl' : (idx1 < 4 ? 'qualif-el' : 'qualif-cdl')}">
+                                <td><b>${idx1 + 1}</b></td>
+                                <td class="team-name">${s1.name}</td>
+                                ${standings.map((s2, idx2) => {
+                                    if (idx1 === idx2) return `<td class="matrix-self"></td>`;
+                                    let match = matches.find(m => (m.team1 === s1.name && m.team2 === s2.name) || (m.team2 === s1.name && m.team1 === s2.name));
+                                    if (match && match.score1 !== null && match.score2 !== null) {
+                                        let scoreStr = match.team1 === s1.name ? `${match.score1}-${match.score2}` : `${match.score2}-${match.score1}`;
+                                        return `<td class="matrix-score">${scoreStr}</td>`;
+                                    }
+                                    return `<td class="matrix-empty">-</td>`;
+                                }).join('')}
+                                <td><b>${s1.Pts}</b></td>
+                                <td><b>${s1.Diff > 0 ? '+'+s1.Diff : s1.Diff}</b></td>
+                            </tr>
+                        `).join('')}
+                    </table>
+                </div>
             </div>
-            <div class="matches-list">
+
+            <div class="matches-list" style="${isOpen ? 'display: block;' : 'display: none;'} margin-top: 15px;">
+                <div class="section-title" style="margin-top:0;">Calendrier des matchs</div>
                 ${matches.map(m => `
                     <div class="modern-match-card">
-                        <div class="modern-match-header"><span>⌚ ${m.time} | 📍 ${m.terrain}</span><span style="color: #d97706;">Arbitre: ${m.referee}</span></div>
+                        <div class="modern-match-header"><span>⌚ ${m.time} | 📍 ${m.terrain}</span></div>
                         <div class="modern-match-body">
                             <div class="modern-match-main">
                                 <div class="team-left">${m.team1}</div>
                                 ${adminPassword ? `
                                     <div class="modern-score-inputs">
-                                        <input type="number" pattern="[0-9]*" id="s1-${m.id}" value="${m.score1 !== null ? m.score1 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
+                                        <input type="number" id="s1-${m.id}" value="${m.score1 !== null ? m.score1 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
                                         <span class="score-divider">:</span>
-                                        <input type="number" pattern="[0-9]*" id="s2-${m.id}" value="${m.score2 !== null ? m.score2 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
+                                        <input type="number" id="s2-${m.id}" value="${m.score2 !== null ? m.score2 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
                                     </div>
                                 ` : `<div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>`}
                                 <div class="team-right">${m.team2}</div>
@@ -487,6 +520,17 @@ function renderAdminSchedule() {
             
             <button class="btn btn-primary" onclick="rescheduleFinals()">Recalculer les heures de l'aprem !</button>
         </div>
+
+        <div class="card" style="border-left: 5px solid #10b981; margin-bottom: 20px;">
+            <h2 style="color:#10b981;">🚀 Simulation Rapide</h2>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 10px;">
+                Terminer instantanément la phase de poules avec des scores aléatoires pour débloquer les tableaux de ligues.
+            </p>
+            <button class="btn" style="background-color: #10b981; color: white; width: 100%; padding: 12px; font-size: 1.05rem;" onclick="simulatePoules()">
+                Terminer tous les matchs de poules
+            </button>
+        </div>
+
         <div class="card"><h2 style="color:var(--danger); border-color:var(--danger);">📅 Emploi du temps global</h2>`;
         
     for (let timeSlot in groupedMatches) {
@@ -615,4 +659,14 @@ async function delaySchedule(originalSlot, inputId) {
 }
 async function resetTournament() {
     if (confirm("🚨 ATTENTION ! Cela va TOUT effacer (Poules et Finales). Sûr ?")) { await apiCall('/api/reset', 'POST'); fetchData(); }
+}
+
+async function simulatePoules() {
+    // La vérification de sécurité demandée
+    const confirmation = confirm("🎯 Voulez-vous simuler tous les scores de poules restants ?\n\nCela va générer des résultats aléatoires pour terminer la phase de poules et permettre l'affichage des vrais noms d'équipes dans les phases finales.");
+    
+    if (confirmation) {
+        await apiCall('/api/simulate-poules', 'POST'); //
+        fetchData(); // Rafraîchit l'affichage pour voir les noms apparaître partout
+    }
 }
