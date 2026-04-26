@@ -103,7 +103,7 @@ async function fetchData() {
         tournamentData = data;
         renderPoules(); renderMonEquipe();
         renderLeagueTab('cl'); renderLeagueTab('el'); renderLeagueTab('sl');
-        renderAdminSchedule(); renderClassement();
+        renderAdminSchedule(); renderClassement();renderSecondaryTournament();
     }
 }
 
@@ -552,6 +552,9 @@ function renderAdminSchedule() {
     allTeams.sort((a, b) => a.localeCompare(b));
     let teamOptions = allTeams.map(t => `<option value="${t}">${t}</option>`).join('');
 
+    // On récupère le chiffre actuel pour l'afficher dans la case
+    let arrowCount = tournamentData.arrowCount || 24;
+
     let html = `
         <div class="card" style="border-left: 5px solid var(--secondary); margin-bottom: 20px;">
             <h2 style="color:var(--secondary);">⏱️ Décaler les Phases Finales</h2>
@@ -595,6 +598,28 @@ function renderAdminSchedule() {
             <button class="btn" style="background-color: #8b5cf6; color: white; width: 100%; padding: 10px; font-size: 1.05rem;" onclick="renameTeam()">
                 Confirmer le changement
             </button>
+        </div>
+
+        <div class="card" style="border-left: 5px solid #f59e0b; margin-bottom: 20px;">
+            <h2 style="color:#f59e0b;">🎯 Scores Tournoi Flèches</h2>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 10px;">
+                <span style="font-weight: bold; color: #475569; font-size: 0.9rem;">Nombre de flèches par équipe :</span>
+                <div style="display: flex; gap: 5px;">
+                    <input type="number" id="admin-arrow-count" value="${arrowCount}" style="width: 70px; padding: 5px; border-radius: 4px; border: 1px solid #cbd5e1; text-align: center; font-weight:bold;">
+                    <button class="btn" style="background-color: white; color: #f59e0b; border: 1px solid #f59e0b; padding: 5px 10px;" onclick="updateArrowCount()">Modifier</button>
+                </div>
+            </div>
+            
+            <p style="font-size: 0.85rem; color: #64748b; margin-bottom:10px;">Sélectionnez une équipe et entrez son score TOTAL actuel.</p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <select id="secondary-team-select" style="flex:2; padding:10px; border-radius:6px; border:1px solid #cbd5e1;">
+                    <option value="">-- Choisir l'équipe --</option>
+                    ${teamOptions}
+                </select>
+                <input type="number" id="secondary-score-input" placeholder="Points" style="flex:1; padding:10px; border-radius:6px; border:1px solid #cbd5e1;">
+                <button class="btn" style="background:#f59e0b; color:white; padding: 10px 15px;" onclick="saveSecondaryScore()">Enregistrer</button>
+            </div>
         </div>
 
         <div class="card"><h2 style="color:var(--danger); border-color:var(--danger);">📅 Emploi du temps global</h2>`;
@@ -749,4 +774,75 @@ async function renameTeam() {
     await apiCall('/api/rename-team', 'POST', { oldName: oldName, newName: newName });
     alert("✅ L'équipe a été renommée avec succès !");
     fetchData(); // Rafraîchit l'affichage pour tout le monde
+}
+
+function renderSecondaryTournament() {
+    const app = document.getElementById('content-fleches');
+    if (!tournamentData) return;
+
+    let scores = tournamentData.secondaryScores || {};
+    let arrowCount = tournamentData.arrowCount || 15; // Changé la valeur par défaut à 15
+    
+    // On récupère toutes les équipes et on trie par score
+    let ranking = [];
+    for (let p in tournamentData.pools) {
+        tournamentData.pools[p].forEach(team => {
+            ranking.push({ name: team, score: scores[team] || 0 });
+        });
+    }
+    ranking.sort((a, b) => b.score - a.score);
+
+    let html = `
+        <div class="card" style="border-left: 5px solid #f59e0b;">
+            <h2 style="color:#f59e0b;">🎯 Le Défi des ${arrowCount} Fléchettes</h2>
+            <div style="background: #fffbeb; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fef3c7;">
+                <p style="margin-bottom: 10px;"><b>Le principe :</b> Chaque équipe dispose de <b>${arrowCount} fléchettes</b> pour réaliser le meilleur score possible sur la cible.</p>
+                <ul style="margin-left: 20px; margin-bottom: 12px; font-size: 0.95rem; line-height: 1.5; color: #451a03;">
+                    <li><b>Tireurs :</b> Il faut minimum <b>2 personnes différentes</b> de l'équipe pour lancer la série.</li>
+                    <li><b>Quand jouer ?</b> Aucun horaire imposé ! Rendez-vous au niveau du bar quand vous le souhaitez pour tenter votre chance.</li>
+                    <li><b>Améliorer son score :</b> Vous pouvez revenir à tout moment pour relancer une série complète de ${arrowCount} fléchettes et essayer de battre votre record.</li>
+                </ul>
+                <p style="font-size:0.9rem; color:#b45309; font-weight:bold; text-align:center;"><i>Le classement retient votre meilleur score et s'actualise en direct !</i></p>
+            </div>
+
+            <div class="ranking-container">
+                <h3 style="margin-bottom:15px;">📊 Classement des Équipes</h3>
+    `;
+
+    ranking.forEach((item, idx) => {
+        let medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : ''));
+        html += `
+            <div class="ranking-item" style="display:flex; justify-content:space-between; align-items:center; padding:10px 15px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-weight:900; width:30px;">${idx + 1}.</span>
+                    <span style="font-weight:bold;">${medal} ${item.name}</span>
+                </div>
+                <div style="background:var(--primary); color:white; padding:4px 12px; border-radius:15px; font-weight:900;">
+                    ${item.score} pts
+                </div>
+            </div>
+        `;
+    });
+
+    app.innerHTML = html + `</div></div>`;
+}
+
+async function saveSecondaryScore() {
+    let teamName = document.getElementById('secondary-team-select').value;
+    let score = document.getElementById('secondary-score-input').value;
+    
+    if (!teamName) return alert("Choisissez une équipe !");
+    
+    await apiCall('/api/secondary-score', 'POST', { teamName, score });
+    document.getElementById('secondary-score-input').value = ""; // Vide le champ
+    fetchData(); // Rafraîchit tout
+}
+
+async function updateArrowCount() {
+    let count = document.getElementById('admin-arrow-count').value;
+    if (!count || count <= 0) return alert("Veuillez entrer un nombre valide !");
+    
+    await apiCall('/api/settings/arrows', 'POST', { arrowCount: parseInt(count) });
+    alert("✅ Le nombre de flèches a été mis à jour !");
+    fetchData();
 }

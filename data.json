@@ -21,7 +21,7 @@
       "BFC Bourdon",
       "I need mémé",
       "Les Canocheurs",
-      "Dreamteam",
+      "Dreateam",
       "203"
     ],
     "D": [
@@ -363,7 +363,7 @@
         "id": "C-3",
         "time": "09h40 - 09h55",
         "terrain": "Terrain 3",
-        "team1": "Dreamteam",
+        "team1": "Dreateam",
         "team2": "203",
         "referee": "La Vic-Team",
         "score1": 0,
@@ -384,7 +384,7 @@
         "time": "10h20 - 10h35",
         "terrain": "Terrain 3",
         "team1": "BFC Bourdon",
-        "team2": "Dreamteam",
+        "team2": "Dreateam",
         "referee": "Bru 5",
         "score1": 0,
         "score2": 3
@@ -404,7 +404,7 @@
         "time": "11h00 - 11h15",
         "terrain": "Terrain 3",
         "team1": "I need mémé",
-        "team2": "Dreamteam",
+        "team2": "Dreateam",
         "referee": "Régionale royale du brabant wallon",
         "score1": 2,
         "score2": 0
@@ -434,7 +434,7 @@
         "time": "12h00 - 12h15",
         "terrain": "Terrain 3",
         "team1": "Les Chills & Goals",
-        "team2": "Dreamteam",
+        "team2": "Dreateam",
         "referee": "Bru 5",
         "score1": 3,
         "score2": 1
@@ -474,7 +474,7 @@
         "time": "13h20 - 13h35",
         "terrain": "Terrain 3",
         "team1": "Les Canocheurs",
-        "team2": "Dreamteam",
+        "team2": "Dreateam",
         "referee": "Morgnaule",
         "score1": 0,
         "score2": 4
@@ -507,7 +507,7 @@
         "terrain": "Terrain 4",
         "team1": "FC TANVAL",
         "team2": "Bru 5",
-        "referee": "Dreamteam",
+        "referee": "Dreateam",
         "score1": 2,
         "score2": 2
       },
@@ -567,7 +567,7 @@
         "terrain": "Terrain 4",
         "team1": "La Vic-Team",
         "team2": "Bru 5",
-        "referee": "Dreamteam",
+        "referee": "Dreateam",
         "score1": 0,
         "score2": 3
       },
@@ -617,7 +617,7 @@
         "terrain": "Terrain 4",
         "team1": "La Vic-Team",
         "team2": "Régionale royale du brabant wallon",
-        "referee": "Dreamteam",
+        "referee": "Dreateam",
         "score1": 4,
         "score2": 1
       },
@@ -1151,5 +1151,10 @@
   ],
   "isSetup": true,
   "teamCount": 24,
-  "terrainCount": 4
+  "terrainCount": 4,
+  "secondaryScores": {
+    "EKIP": 198,
+    "Les Canocheurs": 452
+  },
+  "arrowCount": 15
 }

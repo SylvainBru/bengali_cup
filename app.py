@@ -420,7 +420,6 @@ def simulate_poules():
     write_db(data) #
     return jsonify({"success": True})
 
-# Ajoutez ceci avec vos autres routes API (par exemple sous toggle-ranking ou simulate-poules)
 @app.route('/api/rename-team', methods=['POST'])
 def rename_team():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
@@ -446,6 +445,10 @@ def rename_team():
             if m["team1"] == old_name: m["team1"] = new_name
             if m["team2"] == old_name: m["team2"] = new_name
             if m["referee"] == old_name: m["referee"] = new_name
+
+    # 3. NOUVEAU : Transférer le score du tournoi de fléchettes s'il existe
+    if "secondaryScores" in data and old_name in data["secondaryScores"]:
+        data["secondaryScores"][new_name] = data["secondaryScores"].pop(old_name)
             
     write_db(data)
     return jsonify({"success": True})
@@ -453,7 +456,7 @@ def rename_team():
 @app.route('/api/reset', methods=['POST'])
 def reset_tournament():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
-    with open(DB_FILE, 'w', encoding='utf-8') as f: json.dump({"pools": {}, "matches": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20, "terrainCount": 4}, f, indent=2)
+    with open(DB_FILE, 'w', encoding='utf-8') as f: json.dump({"pools": {}, "matches": {}, "secondaryScores": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20, "terrainCount": 4}, f, indent=2)
     return jsonify({"success": True})
 
 @app.route('/api/verify-pwd', methods=['POST'])
@@ -462,5 +465,35 @@ def verify_pwd():
         return jsonify({"error": "Mot de passe invalide"}), 403
     return jsonify({"success": True})
 
+
+@app.route('/api/secondary-score', methods=['POST'])
+def save_secondary_score():
+    if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
+    req = request.json
+    team_name = req.get('teamName')
+    score = req.get('score')
+    
+    data = read_db()
+    if "secondaryScores" not in data: data["secondaryScores"] = {}
+    
+    # On enregistre le score (on peut soit écraser, soit additionner, ici on écrase avec la nouvelle valeur totale)
+    data["secondaryScores"][team_name] = int(score) if score != "" else 0
+    
+    write_db(data)
+    return jsonify({"success": True})
+@app.route('/api/settings/arrows', methods=['POST'])
+def update_arrow_count():
+    if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
+    req = request.json
+    count = int(req.get('arrowCount', 24))
+    
+    data = read_db()
+    data["arrowCount"] = count
+    write_db(data)
+    
+    return jsonify({"success": True})
+
+# Pensez aussi à modifier la fonction reset_tournament pour vider ces scores
+# Dans reset_tournament, ajoutez "secondaryScores": {} dans le json.dump
 if __name__ == '__main__':
     app.run(debug=True, port=3000, host='0.0.0.0')
