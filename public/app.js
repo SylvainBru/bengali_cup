@@ -18,14 +18,14 @@ const LEAGUES_CONFIG = {
 function getLeagueConfig(leagueId) {
     let teamCount = tournamentData ? tournamentData.teamCount : 20;
     let config = { ...LEAGUES_CONFIG[leagueId] };
-    if (leagueId === 'cdl') {
+    if (leagueId === 'sl') {
         if (teamCount === 24) {
-            config.title = "Coupe de la Ligue"; config.dbPhase = "🥉 Coupe de la Ligue (Places 17 à 24)";
-            config.bracketMain = { qf: ['CDL-QF1', 'CDL-QF2', 'CDL-QF3', 'CDL-QF4'], sf: ['CDL-SF1', 'CDL-SF2'], f: ['CDL-F'], third: 'CDL-19E' };
-            config.bracketPlace = { title: "Matchs de Classement (21ème à 24ème place)", sf: ['CDL-C1', 'CDL-C2'], f: ['CDL-21E'], third: 'CDL-23E' };
+            config.title = "Sunday League"; config.dbPhase = "🥉 Sunday League (Places 17 à 24)";
+            config.bracketMain = { qf: ['SL-QF1', 'SL-QF2', 'SL-QF3', 'SL-QF4'], sf: ['SL-SF1', 'SL-SF2'], f: ['SL-F'], third: 'SL-19E' };
+            config.bracketPlace = { title: "Matchs de Classement (21ème à 24ème place)", sf: ['SL-C1', 'SL-C2'], f: ['SL-21E'], third: 'SL-23E' };
         } else {
-            config.title = "Coupe de la Ligue"; config.dbPhase = "🥉 Coupe de la Ligue (Places 17 à 20)";
-            config.bracketMain = { sf: ['CDL-SF1', 'CDL-SF2'], f: ['CDL-F'], third: 'CDL-3E' };
+            config.title = "Sunday League"; config.dbPhase = "🥉 Sunday League (Places 17 à 20)";
+            config.bracketMain = { sf: ['SL-SF1', 'SL-SF2'], f: ['SL-F'], third: 'SL-3E' };
             config.bracketPlace = null;
         }
     }
@@ -82,7 +82,7 @@ async function fetchData() {
     if (data) {
         tournamentData = data;
         renderPoules(); renderMonEquipe();
-        renderLeagueTab('cl'); renderLeagueTab('el'); renderLeagueTab('cdl');
+        renderLeagueTab('cl'); renderLeagueTab('el'); renderLeagueTab('sl');
         renderAdminSchedule(); renderClassement();
     }
 }
@@ -233,7 +233,7 @@ function renderPoules() {
                             <th>Pts</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>Diff</th>
                         </tr>
                         ${standings.map((s1, idx1) => `
-                            <tr class="${idx1 < 2 ? 'qualif-cl' : (idx1 < 4 ? 'qualif-el' : 'qualif-cdl')}">
+                            <tr class="${idx1 < 2 ? 'qualif-cl' : (idx1 < 4 ? 'qualif-el' : 'qualif-sl')}">
                                 <td><b>${idx1 + 1}</b></td>
                                 <td class="team-name">${s1.name}</td>
                                 ${standings.map((s2, idx2) => {
@@ -486,17 +486,17 @@ function renderClassement() {
         { rank: 11, teamCode: 'W:EL-11E', league: 'el' }, { rank: 12, teamCode: 'L:EL-11E', league: 'el' },
         { rank: 13, teamCode: 'W:EL-13E', league: 'el' }, { rank: 14, teamCode: 'L:EL-13E', league: 'el' },
         { rank: 15, teamCode: 'W:EL-15E', league: 'el' }, { rank: 16, teamCode: 'L:EL-15E', league: 'el' },
-        { rank: 17, teamCode: 'W:CDL-F', league: 'cdl' }, { rank: 18, teamCode: 'L:CDL-F', league: 'cdl' },
-        { rank: 19, teamCode: 'W:CDL-3E', league: 'cdl' }, { rank: 20, teamCode: 'L:CDL-3E', league: 'cdl' }
+        { rank: 17, teamCode: 'W:SL-F', league: 'sl' }, { rank: 18, teamCode: 'L:SL-F', league: 'sl' },
+        { rank: 19, teamCode: 'W:SL-3E', league: 'sl' }, { rank: 20, teamCode: 'L:SL-3E', league: 'sl' }
     ];
 
     if (tournamentData.teamCount === 24) {
-        rankMapping[18] = { rank: 19, teamCode: 'W:CDL-19E', league: 'cdl' };
-        rankMapping[19] = { rank: 20, teamCode: 'L:CDL-19E', league: 'cdl' };
-        rankMapping.push({ rank: 21, teamCode: 'W:CDL-21E', league: 'cdl' });
-        rankMapping.push({ rank: 22, teamCode: 'L:CDL-21E', league: 'cdl' });
-        rankMapping.push({ rank: 23, teamCode: 'W:CDL-23E', league: 'cdl' });
-        rankMapping.push({ rank: 24, teamCode: 'L:CDL-23E', league: 'cdl' });
+        rankMapping[18] = { rank: 19, teamCode: 'W:SL-19E', league: 'sl' };
+        rankMapping[19] = { rank: 20, teamCode: 'L:SL-19E', league: 'sl' };
+        rankMapping.push({ rank: 21, teamCode: 'W:SL-21E', league: 'sl' });
+        rankMapping.push({ rank: 22, teamCode: 'L:SL-21E', league: 'sl' });
+        rankMapping.push({ rank: 23, teamCode: 'W:SL-23E', league: 'sl' });
+        rankMapping.push({ rank: 24, teamCode: 'L:SL-23E', league: 'sl' });
     }
 
     rankMapping.forEach(item => {

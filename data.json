@@ -43,7 +43,7 @@
         "team2": "Pirates Rugueux",
         "referee": "Petru 3G",
         "score1": 1,
-        "score2": 0
+        "score2": 1
       },
       {
         "id": "A-2",
@@ -52,8 +52,8 @@
         "team1": "Inazuma",
         "team2": "D&P",
         "referee": "Rocket mouette",
-        "score1": 1,
-        "score2": 4
+        "score1": 4,
+        "score2": 3
       },
       {
         "id": "A-3",
@@ -73,7 +73,7 @@
         "team2": "Inazuma",
         "referee": "Les 6K",
         "score1": 3,
-        "score2": 1
+        "score2": 3
       },
       {
         "id": "A-5",
@@ -82,8 +82,8 @@
         "team1": "Pirates Rugueux",
         "team2": "FC Monjardin",
         "referee": "Patacaisse",
-        "score1": 4,
-        "score2": 3
+        "score1": 2,
+        "score2": 1
       },
       {
         "id": "A-6",
@@ -93,7 +93,7 @@
         "team2": "Les guêpes",
         "referee": "Petru 3G",
         "score1": 3,
-        "score2": 0
+        "score2": 1
       },
       {
         "id": "A-7",
@@ -102,8 +102,8 @@
         "team1": "Inazuma",
         "team2": "FC Monjardin",
         "referee": "PM de jours comme de nuit",
-        "score1": 2,
-        "score2": 0
+        "score1": 0,
+        "score2": 2
       },
       {
         "id": "A-8",
@@ -113,7 +113,7 @@
         "team2": "D&P",
         "referee": "Rocket mouette",
         "score1": 1,
-        "score2": 1
+        "score2": 0
       },
       {
         "id": "A-9",
@@ -122,8 +122,8 @@
         "team1": "Pirates Rugueux",
         "team2": "Les guêpes",
         "referee": "EKIP",
-        "score1": 0,
-        "score2": 2
+        "score1": 3,
+        "score2": 3
       },
       {
         "id": "A-10",
@@ -132,8 +132,8 @@
         "team1": "Bru PM",
         "team2": "FC Monjardin",
         "referee": "Patacaisse",
-        "score1": 3,
-        "score2": 0
+        "score1": 2,
+        "score2": 4
       },
       {
         "id": "A-11",
@@ -142,8 +142,8 @@
         "team1": "Inazuma",
         "team2": "Les guêpes",
         "referee": "Les 6K",
-        "score1": 0,
-        "score2": 0
+        "score1": 3,
+        "score2": 1
       },
       {
         "id": "A-12",
@@ -152,8 +152,8 @@
         "team1": "Pirates Rugueux",
         "team2": "D&P",
         "referee": "PM de jours comme de nuit",
-        "score1": 1,
-        "score2": 0
+        "score1": 3,
+        "score2": 1
       },
       {
         "id": "A-13",
@@ -163,7 +163,7 @@
         "team2": "Les guêpes",
         "referee": "Rocket mouette",
         "score1": 3,
-        "score2": 2
+        "score2": 3
       },
       {
         "id": "A-14",
@@ -173,16 +173,16 @@
         "team2": "FC Monjardin",
         "referee": "Les 6K",
         "score1": 3,
-        "score2": 2
+        "score2": 4
       },
       {
         "id": "A-15",
-        "time": "14h40 - 14h55",
+        "time": "13h40 - 13h55",
         "terrain": "Terrain 1",
         "team1": "Pirates Rugueux",
         "team2": "Inazuma",
         "referee": "EKIP",
-        "score1": 2,
+        "score1": 0,
         "score2": 4
       }
     ],
@@ -194,8 +194,8 @@
         "team1": "EKIP",
         "team2": "Les 6K",
         "referee": "Inazuma",
-        "score1": 3,
-        "score2": 0
+        "score1": 4,
+        "score2": 3
       },
       {
         "id": "B-2",
@@ -204,8 +204,8 @@
         "team1": "Petru 3G",
         "team2": "Patacaisse",
         "referee": "FC Monjardin",
-        "score1": 2,
-        "score2": 1
+        "score1": 3,
+        "score2": 4
       },
       {
         "id": "B-3",
@@ -214,8 +214,8 @@
         "team1": "Rocket mouette",
         "team2": "PM de jours comme de nuit",
         "referee": "Bru PM",
-        "score1": 2,
-        "score2": 1
+        "score1": 0,
+        "score2": 4
       },
       {
         "id": "B-4",
@@ -224,8 +224,8 @@
         "team1": "EKIP",
         "team2": "Petru 3G",
         "referee": "Pirates Rugueux",
-        "score1": 2,
-        "score2": 0
+        "score1": 1,
+        "score2": 2
       },
       {
         "id": "B-5",
@@ -234,8 +234,8 @@
         "team1": "Les 6K",
         "team2": "Rocket mouette",
         "referee": "D&P",
-        "score1": 4,
-        "score2": 4
+        "score1": 2,
+        "score2": 0
       },
       {
         "id": "B-6",
@@ -244,7 +244,7 @@
         "team1": "Patacaisse",
         "team2": "PM de jours comme de nuit",
         "referee": "Inazuma",
-        "score1": 0,
+        "score1": 2,
         "score2": 2
       },
       {
@@ -254,7 +254,7 @@
         "team1": "Petru 3G",
         "team2": "Rocket mouette",
         "referee": "Les guêpes",
-        "score1": 0,
+        "score1": 3,
         "score2": 3
       },
       {
@@ -264,8 +264,8 @@
         "team1": "EKIP",
         "team2": "Patacaisse",
         "referee": "FC Monjardin",
-        "score1": 4,
-        "score2": 1
+        "score1": 2,
+        "score2": 3
       },
       {
         "id": "B-9",
@@ -274,7 +274,7 @@
         "team1": "Les 6K",
         "team2": "PM de jours comme de nuit",
         "referee": "Bru PM",
-        "score1": 2,
+        "score1": 4,
         "score2": 0
       },
       {
@@ -284,8 +284,8 @@
         "team1": "EKIP",
         "team2": "Rocket mouette",
         "referee": "D&P",
-        "score1": 1,
-        "score2": 2
+        "score1": 3,
+        "score2": 1
       },
       {
         "id": "B-11",
@@ -294,8 +294,8 @@
         "team1": "Petru 3G",
         "team2": "PM de jours comme de nuit",
         "referee": "Pirates Rugueux",
-        "score1": 2,
-        "score2": 1
+        "score1": 3,
+        "score2": 0
       },
       {
         "id": "B-12",
@@ -304,8 +304,8 @@
         "team1": "Les 6K",
         "team2": "Patacaisse",
         "referee": "Les guêpes",
-        "score1": 1,
-        "score2": 4
+        "score1": 2,
+        "score2": 2
       },
       {
         "id": "B-13",
@@ -314,8 +314,8 @@
         "team1": "EKIP",
         "team2": "PM de jours comme de nuit",
         "referee": "FC Monjardin",
-        "score1": 0,
-        "score2": 3
+        "score1": 2,
+        "score2": 0
       },
       {
         "id": "B-14",
@@ -324,18 +324,18 @@
         "team1": "Patacaisse",
         "team2": "Rocket mouette",
         "referee": "Pirates Rugueux",
-        "score1": 1,
-        "score2": 4
+        "score1": 0,
+        "score2": 0
       },
       {
         "id": "B-15",
-        "time": "14h40 - 14h55",
+        "time": "13h40 - 13h55",
         "terrain": "Terrain 2",
         "team1": "Les 6K",
         "team2": "Petru 3G",
         "referee": "Bru PM",
         "score1": 4,
-        "score2": 2
+        "score2": 3
       }
     ],
     "C": [
@@ -346,8 +346,8 @@
         "team1": "Les Chills & Goals",
         "team2": "BFC Bourdon",
         "referee": "FC TANVAL",
-        "score1": 4,
-        "score2": 4
+        "score1": 1,
+        "score2": 1
       },
       {
         "id": "C-2",
@@ -356,8 +356,8 @@
         "team1": "I need mémé",
         "team2": "Les Canocheurs",
         "referee": "Les menaces imprévisibles",
-        "score1": 4,
-        "score2": 0
+        "score1": 0,
+        "score2": 4
       },
       {
         "id": "C-3",
@@ -366,7 +366,7 @@
         "team1": "Dreateam",
         "team2": "203",
         "referee": "La Vic-Team",
-        "score1": 2,
+        "score1": 0,
         "score2": 2
       },
       {
@@ -376,8 +376,8 @@
         "team1": "Les Chills & Goals",
         "team2": "I need mémé",
         "referee": "Morgnaule",
-        "score1": 0,
-        "score2": 0
+        "score1": 4,
+        "score2": 2
       },
       {
         "id": "C-5",
@@ -386,8 +386,8 @@
         "team1": "BFC Bourdon",
         "team2": "Dreateam",
         "referee": "Bru 5",
-        "score1": 4,
-        "score2": 4
+        "score1": 0,
+        "score2": 3
       },
       {
         "id": "C-6",
@@ -397,7 +397,7 @@
         "team2": "203",
         "referee": "FC TANVAL",
         "score1": 3,
-        "score2": 4
+        "score2": 2
       },
       {
         "id": "C-7",
@@ -406,8 +406,8 @@
         "team1": "I need mémé",
         "team2": "Dreateam",
         "referee": "Régionale royale du brabant wallon",
-        "score1": 4,
-        "score2": 3
+        "score1": 2,
+        "score2": 0
       },
       {
         "id": "C-8",
@@ -416,8 +416,8 @@
         "team1": "Les Chills & Goals",
         "team2": "Les Canocheurs",
         "referee": "Les menaces imprévisibles",
-        "score1": 0,
-        "score2": 1
+        "score1": 3,
+        "score2": 0
       },
       {
         "id": "C-9",
@@ -426,8 +426,8 @@
         "team1": "BFC Bourdon",
         "team2": "203",
         "referee": "La Vic-Team",
-        "score1": 2,
-        "score2": 0
+        "score1": 1,
+        "score2": 1
       },
       {
         "id": "C-10",
@@ -436,7 +436,7 @@
         "team1": "Les Chills & Goals",
         "team2": "Dreateam",
         "referee": "Bru 5",
-        "score1": 0,
+        "score1": 3,
         "score2": 1
       },
       {
@@ -446,8 +446,8 @@
         "team1": "I need mémé",
         "team2": "203",
         "referee": "Morgnaule",
-        "score1": 4,
-        "score2": 3
+        "score1": 2,
+        "score2": 2
       },
       {
         "id": "C-12",
@@ -456,7 +456,7 @@
         "team1": "BFC Bourdon",
         "team2": "Les Canocheurs",
         "referee": "Régionale royale du brabant wallon",
-        "score1": 4,
+        "score1": 3,
         "score2": 2
       },
       {
@@ -466,7 +466,7 @@
         "team1": "Les Chills & Goals",
         "team2": "203",
         "referee": "Les menaces imprévisibles",
-        "score1": 0,
+        "score1": 3,
         "score2": 4
       },
       {
@@ -477,17 +477,17 @@
         "team2": "Dreateam",
         "referee": "Morgnaule",
         "score1": 0,
-        "score2": 0
+        "score2": 4
       },
       {
         "id": "C-15",
-        "time": "14h40 - 14h55",
+        "time": "13h40 - 13h55",
         "terrain": "Terrain 3",
         "team1": "BFC Bourdon",
         "team2": "I need mémé",
         "referee": "La Vic-Team",
-        "score1": 1,
-        "score2": 3
+        "score1": 2,
+        "score2": 2
       }
     ],
     "D": [
@@ -498,8 +498,8 @@
         "team1": "La Vic-Team",
         "team2": "Morgnaule",
         "referee": "I need mémé",
-        "score1": 4,
-        "score2": 3
+        "score1": 3,
+        "score2": 1
       },
       {
         "id": "D-2",
@@ -508,7 +508,7 @@
         "team1": "FC TANVAL",
         "team2": "Bru 5",
         "referee": "Dreateam",
-        "score1": 1,
+        "score1": 2,
         "score2": 2
       },
       {
@@ -518,7 +518,7 @@
         "team1": "Les menaces imprévisibles",
         "team2": "Régionale royale du brabant wallon",
         "referee": "Les Chills & Goals",
-        "score1": 1,
+        "score1": 2,
         "score2": 3
       },
       {
@@ -528,8 +528,8 @@
         "team1": "La Vic-Team",
         "team2": "FC TANVAL",
         "referee": "BFC Bourdon",
-        "score1": 4,
-        "score2": 3
+        "score1": 2,
+        "score2": 0
       },
       {
         "id": "D-5",
@@ -538,8 +538,8 @@
         "team1": "Morgnaule",
         "team2": "Les menaces imprévisibles",
         "referee": "Les Canocheurs",
-        "score1": 3,
-        "score2": 0
+        "score1": 0,
+        "score2": 2
       },
       {
         "id": "D-6",
@@ -548,8 +548,8 @@
         "team1": "Bru 5",
         "team2": "Régionale royale du brabant wallon",
         "referee": "I need mémé",
-        "score1": 2,
-        "score2": 3
+        "score1": 1,
+        "score2": 2
       },
       {
         "id": "D-7",
@@ -558,8 +558,8 @@
         "team1": "FC TANVAL",
         "team2": "Les menaces imprévisibles",
         "referee": "203",
-        "score1": 2,
-        "score2": 4
+        "score1": 3,
+        "score2": 2
       },
       {
         "id": "D-8",
@@ -568,8 +568,8 @@
         "team1": "La Vic-Team",
         "team2": "Bru 5",
         "referee": "Dreateam",
-        "score1": 4,
-        "score2": 2
+        "score1": 0,
+        "score2": 3
       },
       {
         "id": "D-9",
@@ -578,8 +578,8 @@
         "team1": "Morgnaule",
         "team2": "Régionale royale du brabant wallon",
         "referee": "Les Chills & Goals",
-        "score1": 2,
-        "score2": 0
+        "score1": 4,
+        "score2": 2
       },
       {
         "id": "D-10",
@@ -588,8 +588,8 @@
         "team1": "La Vic-Team",
         "team2": "Les menaces imprévisibles",
         "referee": "Les Canocheurs",
-        "score1": 3,
-        "score2": 2
+        "score1": 4,
+        "score2": 0
       },
       {
         "id": "D-11",
@@ -598,8 +598,8 @@
         "team1": "FC TANVAL",
         "team2": "Régionale royale du brabant wallon",
         "referee": "BFC Bourdon",
-        "score1": 1,
-        "score2": 2
+        "score1": 2,
+        "score2": 3
       },
       {
         "id": "D-12",
@@ -608,8 +608,8 @@
         "team1": "Morgnaule",
         "team2": "Bru 5",
         "referee": "203",
-        "score1": 4,
-        "score2": 2
+        "score1": 1,
+        "score2": 4
       },
       {
         "id": "D-13",
@@ -618,7 +618,7 @@
         "team1": "La Vic-Team",
         "team2": "Régionale royale du brabant wallon",
         "referee": "Dreateam",
-        "score1": 2,
+        "score1": 4,
         "score2": 1
       },
       {
@@ -628,18 +628,18 @@
         "team1": "Bru 5",
         "team2": "Les menaces imprévisibles",
         "referee": "BFC Bourdon",
-        "score1": 4,
-        "score2": 3
+        "score1": 3,
+        "score2": 2
       },
       {
         "id": "D-15",
-        "time": "14h40 - 14h55",
+        "time": "13h40 - 13h55",
         "terrain": "Terrain 4",
         "team1": "Morgnaule",
         "team2": "FC TANVAL",
         "referee": "Les Chills & Goals",
-        "score1": 1,
-        "score2": 3
+        "score1": 4,
+        "score2": 2
       }
     ]
   },
@@ -655,7 +655,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h00 - 16h15",
+      "time": "14h00 - 14h15",
       "terrain": "Terrain 1"
     },
     {
@@ -669,12 +669,12 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h00 - 16h15",
+      "time": "14h00 - 14h15",
       "terrain": "Terrain 2"
     },
     {
-      "id": "CDL-QF1",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-QF1",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Quart de Finale",
       "team1": "P-A-5",
       "team2": "P-C-6",
@@ -683,7 +683,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h00 - 16h15",
+      "time": "14h00 - 14h15",
       "terrain": "Terrain 3"
     },
     {
@@ -697,7 +697,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h00 - 16h15",
+      "time": "14h00 - 14h15",
       "terrain": "Terrain 4"
     },
     {
@@ -711,12 +711,12 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h20 - 16h35",
+      "time": "14h20 - 14h35",
       "terrain": "Terrain 1"
     },
     {
-      "id": "CDL-QF2",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-QF2",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Quart de Finale",
       "team1": "P-D-5",
       "team2": "P-B-6",
@@ -725,7 +725,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h20 - 16h35",
+      "time": "14h20 - 14h35",
       "terrain": "Terrain 2"
     },
     {
@@ -739,7 +739,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h20 - 16h35",
+      "time": "14h20 - 14h35",
       "terrain": "Terrain 3"
     },
     {
@@ -753,12 +753,12 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h20 - 16h35",
+      "time": "14h20 - 14h35",
       "terrain": "Terrain 4"
     },
     {
-      "id": "CDL-QF3",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-QF3",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Quart de Finale",
       "team1": "P-B-5",
       "team2": "P-D-6",
@@ -767,7 +767,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h40 - 16h55",
+      "time": "14h40 - 14h55",
       "terrain": "Terrain 1"
     },
     {
@@ -781,7 +781,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h40 - 16h55",
+      "time": "14h40 - 14h55",
       "terrain": "Terrain 2"
     },
     {
@@ -795,12 +795,12 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h40 - 16h55",
+      "time": "14h40 - 14h55",
       "terrain": "Terrain 3"
     },
     {
-      "id": "CDL-QF4",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-QF4",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Quart de Finale",
       "team1": "P-C-5",
       "team2": "P-A-6",
@@ -809,7 +809,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "16h40 - 16h55",
+      "time": "14h40 - 14h55",
       "terrain": "Terrain 4"
     },
     {
@@ -823,7 +823,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h00 - 17h15",
+      "time": "15h00 - 15h15",
       "terrain": "Terrain 1"
     },
     {
@@ -837,21 +837,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h00 - 17h15",
+      "time": "15h00 - 15h15",
       "terrain": "Terrain 2"
     },
     {
-      "id": "CDL-C1",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-C1",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Match de Classement",
-      "team1": "L:CDL-QF1",
-      "team2": "L:CDL-QF2",
+      "team1": "L:SL-QF1",
+      "team2": "L:SL-QF2",
       "referee": "P-B-3",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h00 - 17h15",
+      "time": "15h00 - 15h15",
       "terrain": "Terrain 3"
     },
     {
@@ -865,7 +865,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h00 - 17h15",
+      "time": "15h00 - 15h15",
       "terrain": "Terrain 4"
     },
     {
@@ -879,21 +879,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h20 - 17h35",
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 1"
     },
     {
-      "id": "CDL-C2",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-C2",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Match de Classement",
-      "team1": "L:CDL-QF3",
-      "team2": "L:CDL-QF4",
+      "team1": "L:SL-QF3",
+      "team2": "L:SL-QF4",
       "referee": "P-A-3",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h20 - 17h35",
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 2"
     },
     {
@@ -907,7 +907,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h20 - 17h35",
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 3"
     },
     {
@@ -921,21 +921,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h20 - 17h35",
+      "time": "15h20 - 15h35",
       "terrain": "Terrain 4"
     },
     {
-      "id": "CDL-SF1",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-SF1",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Demi-Finale",
-      "team1": "W:CDL-QF1",
-      "team2": "W:CDL-QF2",
+      "team1": "W:SL-QF1",
+      "team2": "W:SL-QF2",
       "referee": "P-D-3",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h40 - 17h55",
+      "time": "15h40 - 15h55",
       "terrain": "Terrain 1"
     },
     {
@@ -949,7 +949,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h40 - 17h55",
+      "time": "15h40 - 15h55",
       "terrain": "Terrain 2"
     },
     {
@@ -963,21 +963,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h40 - 17h55",
+      "time": "15h40 - 15h55",
       "terrain": "Terrain 3"
     },
     {
-      "id": "CDL-SF2",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-SF2",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Demi-Finale",
-      "team1": "W:CDL-QF3",
-      "team2": "W:CDL-QF4",
+      "team1": "W:SL-QF3",
+      "team2": "W:SL-QF4",
       "referee": "P-C-3",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "17h40 - 17h55",
+      "time": "15h40 - 15h55",
       "terrain": "Terrain 4"
     },
     {
@@ -991,7 +991,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h00 - 18h15",
+      "time": "16h00 - 16h15",
       "terrain": "Terrain 1"
     },
     {
@@ -1005,21 +1005,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h00 - 18h15",
+      "time": "16h00 - 16h15",
       "terrain": "Terrain 2"
     },
     {
-      "id": "CDL-23E",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-23E",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Places 23 et 24",
-      "team1": "L:CDL-C1",
-      "team2": "L:CDL-C2",
+      "team1": "L:SL-C1",
+      "team2": "L:SL-C2",
       "referee": "P-A-4",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h00 - 18h15",
+      "time": "16h00 - 16h15",
       "terrain": "Terrain 3"
     },
     {
@@ -1033,7 +1033,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h00 - 18h15",
+      "time": "16h00 - 16h15",
       "terrain": "Terrain 4"
     },
     {
@@ -1047,21 +1047,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h20 - 18h35",
+      "time": "16h20 - 16h35",
       "terrain": "Terrain 1"
     },
     {
-      "id": "CDL-21E",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-21E",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Places 21 et 22",
-      "team1": "W:CDL-C1",
-      "team2": "W:CDL-C2",
+      "team1": "W:SL-C1",
+      "team2": "W:SL-C2",
       "referee": "P-B-4",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h20 - 18h35",
+      "time": "16h20 - 16h35",
       "terrain": "Terrain 2"
     },
     {
@@ -1075,21 +1075,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h20 - 18h35",
+      "time": "16h20 - 16h35",
       "terrain": "Terrain 3"
     },
     {
-      "id": "CDL-19E",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-19E",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Places 19 et 20",
-      "team1": "L:CDL-SF1",
-      "team2": "L:CDL-SF2",
+      "team1": "L:SL-SF1",
+      "team2": "L:SL-SF2",
       "referee": "P-C-4",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h20 - 18h35",
+      "time": "16h20 - 16h35",
       "terrain": "Terrain 4"
     },
     {
@@ -1103,21 +1103,21 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h40 - 18h55",
+      "time": "16h40 - 16h55",
       "terrain": "Terrain 1"
     },
     {
-      "id": "CDL-F",
-      "phase": "🥉 Coupe de la Ligue (Places 17 à 24)",
+      "id": "SL-F",
+      "phase": "🥉 Sunday League (Places 17 à 24)",
       "step": "Finale Coupe de Ligue",
-      "team1": "W:CDL-SF1",
-      "team2": "W:CDL-SF2",
+      "team1": "W:SL-SF1",
+      "team2": "W:SL-SF2",
       "referee": "P-D-4",
       "score1": null,
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h40 - 18h55",
+      "time": "16h40 - 16h55",
       "terrain": "Terrain 2"
     },
     {
@@ -1131,7 +1131,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "18h40 - 18h55",
+      "time": "16h40 - 16h55",
       "terrain": "Terrain 3"
     },
     {
@@ -1145,7 +1145,7 @@
       "score2": null,
       "tab1": null,
       "tab2": null,
-      "time": "19h00 - 19h15",
+      "time": "17h00 - 17h15",
       "terrain": "Terrain 1"
     }
   ],

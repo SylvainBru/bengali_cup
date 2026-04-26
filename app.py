@@ -199,68 +199,68 @@ def setup_tournament():
     # COMPRESSION DES SLOTS FINALES SELON LE NOMBRE DE TERRAINS
     if teamCount == 20:
         fm += [
-            add_m("CDL-SF1", "🥉 Coupe de la Ligue (Places 17 à 20)", "Demi-Finale", "P-A-5", "P-C-5", "P-D-2"),
-            add_m("CDL-SF2", "🥉 Coupe de la Ligue (Places 17 à 20)", "Demi-Finale", "P-D-5", "P-B-5", "P-C-2"),
-            add_m("CDL-3E", "🥉 Coupe de la Ligue (Places 17 à 20)", "Places 19 et 20", "L:CDL-SF1", "L:CDL-SF2", "P-A-2"),
-            add_m("CDL-F", "🥉 Coupe de la Ligue (Places 17 à 20)", "Finale Coupe de Ligue", "W:CDL-SF1", "W:CDL-SF2", "P-B-2"),
+            add_m("SL-SF1", "🥉 Sunday League (Places 17 à 20)", "Demi-Finale", "P-A-5", "P-C-5", "P-D-2"),
+            add_m("SL-SF2", "🥉 Sunday League (Places 17 à 20)", "Demi-Finale", "P-D-5", "P-B-5", "P-C-2"),
+            add_m("SL-3E", "🥉 Sunday League (Places 17 à 20)", "Places 19 et 20", "L:SL-SF1", "L:SL-SF2", "P-A-2"),
+            add_m("SL-F", "🥉 Sunday League (Places 17 à 20)", "Finale Coupe de Ligue", "W:SL-SF1", "W:SL-SF2", "P-B-2"),
         ]
         if terrainCount == 4:
             slots = [
                 ["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"],
                 ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"],
-                ["CDL-SF1", "CL-C1", "EL-C1", "CDL-SF2"],
+                ["SL-SF1", "CL-C1", "EL-C1", "SL-SF2"],
                 ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"],
-                ["CL-SF2", "EL-SF2", "CDL-3E", "CL-7E"],
-                ["EL-15E", "CL-5E", "EL-13E", "CDL-F"],
+                ["CL-SF2", "EL-SF2", "SL-3E", "CL-7E"],
+                ["EL-15E", "CL-5E", "EL-13E", "SL-F"],
                 ["EL-11E", "CL-3E", "EL-F"],
                 ["CL-F"] 
             ]
         else: # 5 Terrains -> Plus rapide !
             slots = [
                 ["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"],
-                ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-SF1", "CDL-SF2"],
+                ["EL-QF2", "EL-QF3", "EL-QF4", "SL-SF1", "SL-SF2"],
                 ["CL-C1", "CL-C2", "EL-C1", "EL-C2", "CL-SF1"],
-                ["CL-SF2", "EL-SF1", "EL-SF2", "CDL-3E", "CL-7E"],
-                ["EL-15E", "CL-5E", "EL-13E", "CDL-F", "EL-11E"],
+                ["CL-SF2", "EL-SF1", "EL-SF2", "SL-3E", "CL-7E"],
+                ["EL-15E", "CL-5E", "EL-13E", "SL-F", "EL-11E"],
                 ["CL-3E", "EL-F", "CL-F"]
             ]
     else:
         fm += [
-            add_m("CDL-QF1", "🥉 Coupe de la Ligue (Places 17 à 24)", "Quart de Finale", "P-A-5", "P-C-6", "P-B-2"),
-            add_m("CDL-QF2", "🥉 Coupe de la Ligue (Places 17 à 24)", "Quart de Finale", "P-D-5", "P-B-6", "P-A-2"),
-            add_m("CDL-QF3", "🥉 Coupe de la Ligue (Places 17 à 24)", "Quart de Finale", "P-B-5", "P-D-6", "P-D-2"),
-            add_m("CDL-QF4", "🥉 Coupe de la Ligue (Places 17 à 24)", "Quart de Finale", "P-C-5", "P-A-6", "P-C-2"),
-            add_m("CDL-C1", "🥉 Coupe de la Ligue (Places 17 à 24)", "Match de Classement", "L:CDL-QF1", "L:CDL-QF2", "P-B-3"),
-            add_m("CDL-C2", "🥉 Coupe de la Ligue (Places 17 à 24)", "Match de Classement", "L:CDL-QF3", "L:CDL-QF4", "P-A-3"),
-            add_m("CDL-SF1", "🥉 Coupe de la Ligue (Places 17 à 24)", "Demi-Finale", "W:CDL-QF1", "W:CDL-QF2", "P-D-3"),
-            add_m("CDL-SF2", "🥉 Coupe de la Ligue (Places 17 à 24)", "Demi-Finale", "W:CDL-QF3", "W:CDL-QF4", "P-C-3"),
-            add_m("CDL-23E", "🥉 Coupe de la Ligue (Places 17 à 24)", "Places 23 et 24", "L:CDL-C1", "L:CDL-C2", "P-A-4"),
-            add_m("CDL-21E", "🥉 Coupe de la Ligue (Places 17 à 24)", "Places 21 et 22", "W:CDL-C1", "W:CDL-C2", "P-B-4"),
-            add_m("CDL-19E", "🥉 Coupe de la Ligue (Places 17 à 24)", "Places 19 et 20", "L:CDL-SF1", "L:CDL-SF2", "P-C-4"),
-            add_m("CDL-F", "🥉 Coupe de la Ligue (Places 17 à 24)", "Finale Coupe de Ligue", "W:CDL-SF1", "W:CDL-SF2", "P-D-4"),
+            add_m("SL-QF1", "🥉 Sunday League (Places 17 à 24)", "Quart de Finale", "P-A-5", "P-C-6", "P-B-2"),
+            add_m("SL-QF2", "🥉 Sunday League (Places 17 à 24)", "Quart de Finale", "P-D-5", "P-B-6", "P-A-2"),
+            add_m("SL-QF3", "🥉 Sunday League (Places 17 à 24)", "Quart de Finale", "P-B-5", "P-D-6", "P-D-2"),
+            add_m("SL-QF4", "🥉 Sunday League (Places 17 à 24)", "Quart de Finale", "P-C-5", "P-A-6", "P-C-2"),
+            add_m("SL-C1", "🥉 Sunday League (Places 17 à 24)", "Match de Classement", "L:SL-QF1", "L:SL-QF2", "P-B-3"),
+            add_m("SL-C2", "🥉 Sunday League (Places 17 à 24)", "Match de Classement", "L:SL-QF3", "L:SL-QF4", "P-A-3"),
+            add_m("SL-SF1", "🥉 Sunday League (Places 17 à 24)", "Demi-Finale", "W:SL-QF1", "W:SL-QF2", "P-D-3"),
+            add_m("SL-SF2", "🥉 Sunday League (Places 17 à 24)", "Demi-Finale", "W:SL-QF3", "W:SL-QF4", "P-C-3"),
+            add_m("SL-23E", "🥉 Sunday League (Places 17 à 24)", "Places 23 et 24", "L:SL-C1", "L:SL-C2", "P-A-4"),
+            add_m("SL-21E", "🥉 Sunday League (Places 17 à 24)", "Places 21 et 22", "W:SL-C1", "W:SL-C2", "P-B-4"),
+            add_m("SL-19E", "🥉 Sunday League (Places 17 à 24)", "Places 19 et 20", "L:SL-SF1", "L:SL-SF2", "P-C-4"),
+            add_m("SL-F", "🥉 Sunday League (Places 17 à 24)", "Finale Coupe de Ligue", "W:SL-SF1", "W:SL-SF2", "P-D-4"),
         ]
         if terrainCount == 4:
             slots = [
-                ["CL-QF1", "EL-QF1", "CDL-QF1", "CL-QF2"],
-                ["EL-QF2", "CDL-QF2", "CL-QF3", "EL-QF3"],
-                ["CDL-QF3", "CL-QF4", "EL-QF4", "CDL-QF4"],
-                ["CL-C1", "EL-C1", "CDL-C1", "CL-C2"],
-                ["EL-C2", "CDL-C2", "CL-SF1", "EL-SF1"],
-                ["CDL-SF1", "CL-SF2", "EL-SF2", "CDL-SF2"],
-                ["CL-7E", "EL-15E", "CDL-23E", "CL-5E"],
-                ["EL-13E", "CDL-21E", "CL-3E", "CDL-19E"],
-                ["EL-11E", "CDL-F", "EL-F"],
+                ["CL-QF1", "EL-QF1", "SL-QF1", "CL-QF2"],
+                ["EL-QF2", "SL-QF2", "CL-QF3", "EL-QF3"],
+                ["SL-QF3", "CL-QF4", "EL-QF4", "SL-QF4"],
+                ["CL-C1", "EL-C1", "SL-C1", "CL-C2"],
+                ["EL-C2", "SL-C2", "CL-SF1", "EL-SF1"],
+                ["SL-SF1", "CL-SF2", "EL-SF2", "SL-SF2"],
+                ["CL-7E", "EL-15E", "SL-23E", "CL-5E"],
+                ["EL-13E", "SL-21E", "CL-3E", "SL-19E"],
+                ["EL-11E", "SL-F", "EL-F"],
                 ["CL-F"]
             ]
         else: # 5 Terrains
             slots = [
                 ["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"],
-                ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-QF1", "CDL-QF2"],
-                ["CDL-QF3", "CDL-QF4", "CL-C1", "CL-C2", "EL-C1"],
-                ["EL-C2", "CDL-C1", "CDL-C2", "CL-SF1", "CL-SF2"],
-                ["EL-SF1", "EL-SF2", "CDL-SF1", "CDL-SF2", "CL-7E"],
-                ["EL-15E", "CDL-23E", "CL-5E", "EL-13E", "CDL-21E"],
-                ["CL-3E", "CDL-19E", "EL-11E", "CDL-F", "EL-F"],
+                ["EL-QF2", "EL-QF3", "EL-QF4", "SL-QF1", "SL-QF2"],
+                ["SL-QF3", "SL-QF4", "CL-C1", "CL-C2", "EL-C1"],
+                ["EL-C2", "SL-C1", "SL-C2", "CL-SF1", "CL-SF2"],
+                ["EL-SF1", "EL-SF2", "SL-SF1", "SL-SF2", "CL-7E"],
+                ["EL-15E", "SL-23E", "CL-5E", "EL-13E", "SL-21E"],
+                ["CL-3E", "SL-19E", "EL-11E", "SL-F", "EL-F"],
                 ["CL-F"]
             ]
 
@@ -298,14 +298,14 @@ def reschedule_finals():
     # On récupère les mêmes slots que dans setup_tournament
     if teamCount == 20:
         if terrainCount == 4:
-            slots = [["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"], ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"], ["CDL-SF1", "CL-C1", "EL-C1", "CDL-SF2"], ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"], ["CL-SF2", "EL-SF2", "CDL-3E", "CL-7E"], ["EL-15E", "CL-5E", "EL-13E", "CDL-F"], ["EL-11E", "CL-3E", "EL-F"], ["CL-F"]]
+            slots = [["CL-QF1", "EL-QF1", "CL-QF2", "EL-QF2"], ["CL-QF3", "EL-QF3", "CL-QF4", "EL-QF4"], ["SL-SF1", "CL-C1", "EL-C1", "SL-SF2"], ["CL-C2", "EL-C2", "CL-SF1", "EL-SF1"], ["CL-SF2", "EL-SF2", "SL-3E", "CL-7E"], ["EL-15E", "CL-5E", "EL-13E", "SL-F"], ["EL-11E", "CL-3E", "EL-F"], ["CL-F"]]
         else:
-            slots = [["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"], ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-SF1", "CDL-SF2"], ["CL-C1", "CL-C2", "EL-C1", "EL-C2", "CL-SF1"], ["CL-SF2", "EL-SF1", "EL-SF2", "CDL-3E", "CL-7E"], ["EL-15E", "CL-5E", "EL-13E", "CDL-F", "EL-11E"], ["CL-3E", "EL-F", "CL-F"]]
+            slots = [["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"], ["EL-QF2", "EL-QF3", "EL-QF4", "SL-SF1", "SL-SF2"], ["CL-C1", "CL-C2", "EL-C1", "EL-C2", "CL-SF1"], ["CL-SF2", "EL-SF1", "EL-SF2", "SL-3E", "CL-7E"], ["EL-15E", "CL-5E", "EL-13E", "SL-F", "EL-11E"], ["CL-3E", "EL-F", "CL-F"]]
     else:
         if terrainCount == 4:
-            slots = [["CL-QF1", "EL-QF1", "CDL-QF1", "CL-QF2"], ["EL-QF2", "CDL-QF2", "CL-QF3", "EL-QF3"], ["CDL-QF3", "CL-QF4", "EL-QF4", "CDL-QF4"], ["CL-C1", "EL-C1", "CDL-C1", "CL-C2"], ["EL-C2", "CDL-C2", "CL-SF1", "EL-SF1"], ["CDL-SF1", "CL-SF2", "EL-SF2", "CDL-SF2"], ["CL-7E", "EL-15E", "CDL-23E", "CL-5E"], ["EL-13E", "CDL-21E", "CL-3E", "CDL-19E"], ["EL-11E", "CDL-F", "EL-F"], ["CL-F"]]
+            slots = [["CL-QF1", "EL-QF1", "SL-QF1", "CL-QF2"], ["EL-QF2", "SL-QF2", "CL-QF3", "EL-QF3"], ["SL-QF3", "CL-QF4", "EL-QF4", "SL-QF4"], ["CL-C1", "EL-C1", "SL-C1", "CL-C2"], ["EL-C2", "SL-C2", "CL-SF1", "EL-SF1"], ["SL-SF1", "CL-SF2", "EL-SF2", "SL-SF2"], ["CL-7E", "EL-15E", "SL-23E", "CL-5E"], ["EL-13E", "SL-21E", "CL-3E", "SL-19E"], ["EL-11E", "SL-F", "EL-F"], ["CL-F"]]
         else:
-            slots = [["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"], ["EL-QF2", "EL-QF3", "EL-QF4", "CDL-QF1", "CDL-QF2"], ["CDL-QF3", "CDL-QF4", "CL-C1", "CL-C2", "EL-C1"], ["EL-C2", "CDL-C1", "CDL-C2", "CL-SF1", "CL-SF2"], ["EL-SF1", "EL-SF2", "CDL-SF1", "CDL-SF2", "CL-7E"], ["EL-15E", "CDL-23E", "CL-5E", "EL-13E", "CDL-21E"], ["CL-3E", "CDL-19E", "EL-11E", "CDL-F", "EL-F"], ["CL-F"]]
+            slots = [["CL-QF1", "CL-QF2", "CL-QF3", "CL-QF4", "EL-QF1"], ["EL-QF2", "EL-QF3", "EL-QF4", "SL-QF1", "SL-QF2"], ["SL-QF3", "SL-QF4", "CL-C1", "CL-C2", "EL-C1"], ["EL-C2", "SL-C1", "SL-C2", "CL-SF1", "CL-SF2"], ["EL-SF1", "EL-SF2", "SL-SF1", "SL-SF2", "CL-7E"], ["EL-15E", "SL-23E", "CL-5E", "EL-13E", "SL-21E"], ["CL-3E", "SL-19E", "EL-11E", "SL-F", "EL-F"], ["CL-F"]]
 
     f_start_t = datetime.strptime(finals_start_str, "%H:%M")
     for i, slot in enumerate(slots):

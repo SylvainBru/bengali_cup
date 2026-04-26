@@ -95,7 +95,7 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
     background: rgba(255,255,255,0.5); 
     white-space: nowrap; /* LA LIGNE MAGIQUE : Empêche le score de se couper en deux */
 }.matrix-empty { color: #cbd5e1; }
-.qualif-cl { background-color: #d1fae5 !important; } .qualif-el { background-color: #e0f2fe !important; } .qualif-cdl { background-color: #ffedd5 !important; }
+.qualif-cl { background-color: #d1fae5 !important; } .qualif-el { background-color: #e0f2fe !important; } .qualif-sl { background-color: #ffedd5 !important; }
 
 /* ZONE DE SAISIE MODERNE (POULES & FINALES) */
 .modern-match-card { background: white; border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); overflow: hidden; }
@@ -218,7 +218,7 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .rank-team { font-size: 1.1rem; font-weight: bold; flex: 1; color: var(--primary); }
 .league-cl { border-left: 5px solid #10b981; } .league-cl .rank-number { color: #10b981; }
 .league-el { border-left: 5px solid #38bdf8; } .league-el .rank-number { color: #38bdf8; }
-.league-cdl { border-left: 5px solid #f59e0b; } .league-cdl .rank-number { color: #f59e0b; }
+.league-sl { border-left: 5px solid #f59e0b; } .league-sl .rank-number { color: #f59e0b; }
 
 /* =========================================
    NAVIGATION / ONGLETS (STYLE MOBILE "APP")
