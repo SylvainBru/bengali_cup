@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__, static_folder='public', static_url_path='')
 DB_FILE = 'data.json'
-ADMIN_PASSWORD = 'admin'
+ADMIN_PASSWORD = 'PIOVLV'
 
 def read_db():
     if not os.path.exists(DB_FILE):
@@ -420,10 +420,46 @@ def simulate_poules():
     write_db(data) #
     return jsonify({"success": True})
 
+# Ajoutez ceci avec vos autres routes API (par exemple sous toggle-ranking ou simulate-poules)
+@app.route('/api/rename-team', methods=['POST'])
+def rename_team():
+    if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
+    req = request.json
+    old_name = req.get('oldName')
+    new_name = req.get('newName')
+    
+    if not old_name or not new_name:
+        return jsonify({"error": "Paramètres manquants"}), 400
+        
+    data = read_db()
+    if not data.get("isSetup"): return jsonify({"error": "Non configuré"}), 400
+    
+    # 1. Remplacer dans la liste des poules
+    for p in data["pools"]:
+        for i in range(len(data["pools"][p])):
+            if data["pools"][p][i] == old_name:
+                data["pools"][p][i] = new_name
+                
+    # 2. Remplacer dans l'historique de tous les matchs (joueurs et arbitres)
+    for p in data["matches"]:
+        for m in data["matches"][p]:
+            if m["team1"] == old_name: m["team1"] = new_name
+            if m["team2"] == old_name: m["team2"] = new_name
+            if m["referee"] == old_name: m["referee"] = new_name
+            
+    write_db(data)
+    return jsonify({"success": True})
+
 @app.route('/api/reset', methods=['POST'])
 def reset_tournament():
     if not is_admin(): return jsonify({"error": "Non autorisé"}), 403
     with open(DB_FILE, 'w', encoding='utf-8') as f: json.dump({"pools": {}, "matches": {}, "isSetup": False, "finalsMatches": [], "teamCount": 20, "terrainCount": 4}, f, indent=2)
+    return jsonify({"success": True})
+
+@app.route('/api/verify-pwd', methods=['POST'])
+def verify_pwd():
+    if not is_admin(): 
+        return jsonify({"error": "Mot de passe invalide"}), 403
     return jsonify({"success": True})
 
 if __name__ == '__main__':

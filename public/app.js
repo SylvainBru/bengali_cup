@@ -44,9 +44,29 @@ function switchTab(tabId) {
     document.getElementById(`content-${tabId}`).classList.add('active');
 }
 
-function login() {
-    if (adminPassword) { adminPassword = null; localStorage.removeItem('adminPwd'); fetchData(); } 
-    else { const pwd = prompt("Mot de passe Admin :"); if (pwd) { adminPassword = pwd; localStorage.setItem('adminPwd', pwd); fetchData(); } }
+async function login() {
+    if (adminPassword) { 
+        adminPassword = null; 
+        localStorage.removeItem('adminPwd'); 
+        fetchData(); 
+    } 
+    else { 
+        const pwd = prompt("Mot de passe Admin :"); 
+        if (pwd) { 
+            // 1. On stocke le mot de passe temporairement pour le test
+            adminPassword = pwd; 
+            
+            // 2. On fait un appel API express pour vérifier si le serveur l'accepte
+            const check = await apiCall('/api/verify-pwd', 'POST');
+            
+            // 3. Si c'est bon, on sauvegarde et on débloque l'interface
+            if (check && check.success) {
+                localStorage.setItem('adminPwd', pwd); 
+                fetchData();
+            }
+            // (Si c'est faux, la fonction apiCall gère déjà l'alerte "Mot de passe invalide" et remet adminPassword à null)
+        } 
+    }
 }
 
 function updateHeader() {
@@ -526,6 +546,12 @@ function renderAdminSchedule() {
     let groupedMatches = {};
     allMatches.forEach(m => { if (!groupedMatches[m.time]) groupedMatches[m.time] = []; groupedMatches[m.time].push(m); });
 
+    // Préparation de la liste des équipes pour le menu déroulant
+    let allTeams = [];
+    for (let p in tournamentData.pools) allTeams = allTeams.concat(tournamentData.pools[p]);
+    allTeams.sort((a, b) => a.localeCompare(b));
+    let teamOptions = allTeams.map(t => `<option value="${t}">${t}</option>`).join('');
+
     let html = `
         <div class="card" style="border-left: 5px solid var(--secondary); margin-bottom: 20px;">
             <h2 style="color:var(--secondary);">⏱️ Décaler les Phases Finales</h2>
@@ -545,6 +571,29 @@ function renderAdminSchedule() {
             </p>
             <button class="btn" style="background-color: #10b981; color: white; width: 100%; padding: 12px; font-size: 1.05rem;" onclick="simulatePoules()">
                 Terminer tous les matchs de poules
+            </button>
+        </div>
+
+        <div class="card" style="border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
+            <h2 style="color:#8b5cf6;">✏️ Renommer une équipe</h2>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 10px;">
+                Modifiez le nom d'une équipe en direct. Les résultats, l'historique et le calendrier sont conservés.
+            </p>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+                <div style="flex: 1;">
+                    <label style="font-weight:bold; font-size:0.85rem;">Ancienne équipe</label>
+                    <select id="rename-old" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                        <option value="">-- Choisir l'équipe --</option>
+                        ${teamOptions}
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label style="font-weight:bold; font-size:0.85rem;">Nouveau nom</label>
+                    <input type="text" id="rename-new" placeholder="Ex: Les Nouveaux" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+                </div>
+            </div>
+            <button class="btn" style="background-color: #8b5cf6; color: white; width: 100%; padding: 10px; font-size: 1.05rem;" onclick="renameTeam()">
+                Confirmer le changement
             </button>
         </div>
 
@@ -686,4 +735,18 @@ async function simulatePoules() {
         await apiCall('/api/simulate-poules', 'POST'); //
         fetchData(); // Rafraîchit l'affichage pour voir les noms apparaître partout
     }
+}
+
+async function renameTeam() {
+    let oldName = document.getElementById('rename-old').value;
+    let newName = document.getElementById('rename-new').value.trim();
+    
+    if (!oldName || !newName) return alert("Veuillez sélectionner une équipe et entrer un nouveau nom !");
+    
+    let confirmMsg = `Voulez-vous vraiment renommer "${oldName}" en "${newName}" ?\nTous les scores et matchs resteront intacts.`;
+    if (!confirm(confirmMsg)) return;
+
+    await apiCall('/api/rename-team', 'POST', { oldName: oldName, newName: newName });
+    alert("✅ L'équipe a été renommée avec succès !");
+    fetchData(); // Rafraîchit l'affichage pour tout le monde
 }
