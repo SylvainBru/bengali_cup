@@ -106,17 +106,32 @@ function calculateStandings(poolId) {
 
 function resolveTeam(code) {
     if (!code) return "...";
+    
+    // CAS 1 : C'est une équipe venant d'une poule (ex: P-A-1)
     if (code.startsWith("P-")) {
         let poolId = code.substring(2, 3);
         let rank = parseInt(code.substring(4)) - 1;
-        let st = calculateStandings(poolId);
-        
-        // On affiche l'équipe instantanément, même si la poule n'est pas finie !
-        if (st[rank]) return st[rank].name;
         
         let suffixe = rank === 0 ? "er" : "ème";
-        return `${rank + 1}${suffixe} Poule ${poolId}`;
+        let placeholder = `${rank + 1}${suffixe} Poule ${poolId}`;
+
+        // NOUVEAUTÉ : Vérifier si tous les matchs de cette poule sont bien terminés (scores non nuls)
+        let poolMatches = tournamentData.matches[poolId];
+        let isPoolFinished = poolMatches && poolMatches.every(m => m.score1 !== null && m.score2 !== null);
+
+        // Si la poule n'est pas finie, on affiche le texte générique pour garder le suspense
+        if (!isPoolFinished) {
+            return placeholder;
+        }
+
+        // Si la poule est finie, on calcule le classement final et on affiche le vrai nom
+        let st = calculateStandings(poolId);
+        if (st[rank]) return st[rank].name;
+        
+        return placeholder;
     }
+    
+    // CAS 2 : C'est une équipe venant d'un match de phase finale (ex: W:CL-QF1 ou L:CL-QF1)
     if (code.startsWith("W:") || code.startsWith("L:")) {
         let matchId = code.substring(2);
         let m = tournamentData.finalsMatches.find(x => x.id === matchId);
@@ -124,6 +139,7 @@ function resolveTeam(code) {
             let winnerCode = null; let loserCode = null;
             if (m.score1 > m.score2 || (m.tab1 !== null && m.tab1 > m.tab2)) { winnerCode = m.team1; loserCode = m.team2; } 
             else if (m.score2 > m.score1 || (m.tab2 !== null && m.tab2 > m.tab1)) { winnerCode = m.team2; loserCode = m.team1; }
+            
             if (winnerCode && loserCode) return code.startsWith("W:") ? resolveTeam(winnerCode) : resolveTeam(loserCode);
         }
         return code.startsWith("W:") ? `Vainq. ${matchId}` : `Perd. ${matchId}`;

@@ -88,8 +88,13 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .team-name { text-align: left; font-weight: bold; white-space: nowrap; padding-left: 10px; }
 .matrix-header-name { writing-mode: vertical-rl; transform: rotate(180deg); height: 110px; text-align: left; padding: 10px 5px; white-space: nowrap; font-size: 0.8rem; color: var(--primary); }
 .matrix-self { background-color: #475569 !important; }
-.matrix-score { font-weight: 900; font-size: 0.95rem; color: var(--primary); background: rgba(255,255,255,0.5); }
-.matrix-empty { color: #cbd5e1; }
+.matrix-score { 
+    font-weight: 900; 
+    font-size: 0.95rem; 
+    color: var(--primary); 
+    background: rgba(255,255,255,0.5); 
+    white-space: nowrap; /* LA LIGNE MAGIQUE : Empêche le score de se couper en deux */
+}.matrix-empty { color: #cbd5e1; }
 .qualif-cl { background-color: #d1fae5 !important; } .qualif-el { background-color: #e0f2fe !important; } .qualif-cdl { background-color: #ffedd5 !important; }
 
 /* ZONE DE SAISIE MODERNE (POULES & FINALES) */
@@ -100,25 +105,26 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 .team-left { flex: 1; text-align: right; font-weight: bold; font-size: 0.95rem; color: var(--primary); word-break: break-word;}
 .team-right { flex: 1; text-align: left; font-weight: bold; font-size: 0.95rem; color: var(--primary); word-break: break-word;}
 /* FORCE L'AFFICHAGE HORIZONTAL DES SCORES (ADMIN) */
+/* FORCE L'AFFICHAGE HORIZONTAL DES SCORES (ADMIN) */
 .modern-score-inputs { 
     display: flex; 
-    flex-direction: row !important; /* <-- La magie est ici aussi */
+    flex-direction: row !important; 
     align-items: center; 
     justify-content: center; 
     gap: 8px; 
     background: #e2e8f0; 
     padding: 8px 12px; 
     border-radius: 10px; 
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); 
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    /* Les deux lignes magiques ajoutées : */
+    flex-shrink: 0; 
+    white-space: nowrap;
 }
-.modern-score-inputs input { width: 45px; height: 45px; text-align: center; font-size: 1.3rem; font-weight: 900; border: 2px solid transparent; border-radius: 8px; outline: none; transition: 0.2s; background: white; color: var(--text); }
-.modern-score-inputs input:focus { border-color: var(--secondary); transform: scale(1.05); box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2); }
-.score-divider { font-weight: 900; color: #64748b; font-size: 1.2rem; }
 
 /* FORCE L'AFFICHAGE HORIZONTAL DES SCORES (SPECTATEUR) */
 .modern-score-display { 
     display: flex; 
-    flex-direction: row !important; /* <-- La magie est ici */
+    flex-direction: row !important; 
     align-items: center; 
     justify-content: center;
     background: #f8fafc; 
@@ -126,7 +132,14 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
     border-radius: 8px; 
     border: 1px solid #e2e8f0; 
     gap: 10px;
+    /* Les deux lignes magiques ajoutées : */
+    flex-shrink: 0; 
+    white-space: nowrap;
 }
+.modern-score-inputs input { width: 45px; height: 45px; text-align: center; font-size: 1.3rem; font-weight: 900; border: 2px solid transparent; border-radius: 8px; outline: none; transition: 0.2s; background: white; color: var(--text); }
+.modern-score-inputs input:focus { border-color: var(--secondary); transform: scale(1.05); box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2); }
+.score-divider { font-weight: 900; color: #64748b; font-size: 1.2rem; }
+
 
 .score-box-wrapper {
     display: flex;
@@ -264,11 +277,46 @@ th { background: #f8fafc; color: #475569; font-weight: 700; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 .info-section { margin-bottom: 20px; background: var(--card); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-details summary { padding: 12px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; font-size: 1rem; }
+/* Rend le titre cliquable flexible pour aligner la flèche à droite */
+details summary { 
+    padding: 12px; 
+    font-weight: bold; 
+    color: var(--primary); 
+    cursor: pointer; 
+    list-style: none; 
+    font-size: 1rem; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
 details summary::-webkit-details-marker { display: none; }
+
+/* Ajoute la flèche vers le bas par défaut */
+details summary::after {
+    content: '▼';
+    font-size: 0.85rem;
+    color: var(--secondary); /* Utilise votre bleu clair */
+    font-weight: bold;
+}
+
+/* Change la flèche vers le haut quand la section est ouverte */
+details[open] summary::after {
+    content: '▲';
+}
 .info-content { padding: 0 15px 15px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 15px; }
 .info-block { flex: 1; min-width: 150px; font-size: 0.9rem; }
 .info-block h3 { color: var(--secondary); margin: 10px 0; font-size: 0.95rem;}
 .color-legend { list-style: none; }
 .color-legend li { display: flex; align-items: center; margin-bottom: 5px; }
 .color-box { width: 14px; height: 14px; border: 1px solid #cbd5e1; border-radius: 3px; margin-right: 8px; }
+
+/* Style pour le plan du site dans les règles */
+.site-plan-img {
+    width: 100%;
+    max-width: 700px; /* Limite la taille sur grand écran */
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
