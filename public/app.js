@@ -173,7 +173,7 @@ function renderPoules() {
         if (!adminPassword) { app.innerHTML = `<div class="card" style="text-align:center;"><h2>⏳ En attente...</h2><p>Le tournoi n'a pas commencé.</p></div>`; return; }
         app.innerHTML = `<div class="card"><h2>⚙️ Configuration Globale du Tournoi</h2>
             <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
-                <div style="flex: 1;"><label>Nombre d'équipes</label><select id="setup-team-count" onchange="renderSetupForm()" style="width: 100%; padding: 8px; font-weight:bold; border-radius:4px;"><option value="20">20 Équipes (5 par Poule)</option><option value="24" selected>24 Équipes (6 par Poule)</option></select>
+                <div style="flex: 1;"><label>Nombre d'équipes</label><select id="setup-team-count" onchange="renderSetupForm()" style="width: 100%; padding: 8px; font-weight:bold; border-radius:4px;"><option value="20">20 Équipes (5 par Poule)</option><option value="24" selected>24 Équipes (6 par Poule)</option></select></div>
             </div>
             <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
                 <div style="flex: 1;"><label>Début Poules</label><input type="time" id="setup-start" value="09:00" style="width: 100%; padding: 8px;"></div>
@@ -203,9 +203,9 @@ function renderPoules() {
         html += `
         <div class="card">
             <div onclick="togglePoolMatches('${poolId}')" style="cursor: pointer;" title="Cliquer pour voir/masquer les matchs">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 3px solid var(--secondary); margin-bottom: 15px;">
-                    <h2 style="border-bottom:none; margin-bottom:0;">Poule ${poolId}</h2>
-                    <span style="font-size: 0.8rem; color: var(--secondary); font-weight: bold;">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 3px solid var(--secondary); margin-bottom: 15px; padding-bottom: 8px;">
+                    <h2 style="border-bottom:none; margin-bottom:0; padding-bottom:0;">Poule ${poolId}</h2>
+                    <span style="font-size: 0.85rem; color: var(--secondary); font-weight: bold; background: #e0e7ff; padding: 4px 10px; border-radius: 20px;">
                         ${isOpen ? '▲ Masquer les matchs' : '▼ Voir les matchs'}
                     </span>
                 </div>
@@ -214,7 +214,7 @@ function renderPoules() {
                         <tr>
                             <th>#</th><th class="team-name">Équipe</th>
                             ${standings.map(s => `<th class="matrix-header-name" title="${s.name}">${s.name}</th>`).join('')}
-                            <th>Pts</th><th>Diff</th>
+                            <th>Pts</th><th>J</th><th>V</th><th>N</th><th>D</th><th>BP</th><th>BC</th><th>Diff</th>
                         </tr>
                         ${standings.map((s1, idx1) => `
                             <tr class="${idx1 < 2 ? 'qualif-cl' : (idx1 < 4 ? 'qualif-el' : 'qualif-cdl')}">
@@ -229,7 +229,8 @@ function renderPoules() {
                                     }
                                     return `<td class="matrix-empty">-</td>`;
                                 }).join('')}
-                                <td><b>${s1.Pts}</b></td>
+                                <td><b style="color:var(--primary); font-size:1.1rem;">${s1.Pts}</b></td>
+                                <td>${s1.J}</td><td>${s1.V}</td><td>${s1.N}</td><td>${s1.D}</td><td>${s1.BP}</td><td>${s1.BC}</td>
                                 <td><b>${s1.Diff > 0 ? '+'+s1.Diff : s1.Diff}</b></td>
                             </tr>
                         `).join('')}
@@ -241,15 +242,15 @@ function renderPoules() {
                 <div class="section-title" style="margin-top:0;">Calendrier des matchs</div>
                 ${matches.map(m => `
                     <div class="modern-match-card">
-                        <div class="modern-match-header"><span>⌚ ${m.time} | 📍 ${m.terrain}</span></div>
+                        <div class="modern-match-header"><span>⌚ ${m.time} | 📍 ${m.terrain}</span><span style="color: #d97706;">Arbitre: ${m.referee}</span></div>
                         <div class="modern-match-body">
                             <div class="modern-match-main">
                                 <div class="team-left">${m.team1}</div>
                                 ${adminPassword ? `
                                     <div class="modern-score-inputs">
-                                        <input type="number" id="s1-${m.id}" value="${m.score1 !== null ? m.score1 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
+                                        <input type="number" pattern="[0-9]*" id="s1-${m.id}" value="${m.score1 !== null ? m.score1 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
                                         <span class="score-divider">:</span>
-                                        <input type="number" id="s2-${m.id}" value="${m.score2 !== null ? m.score2 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
+                                        <input type="number" pattern="[0-9]*" id="s2-${m.id}" value="${m.score2 !== null ? m.score2 : ''}" onblur="saveScore('${poolId}', '${m.id}', 's1-${m.id}', 's2-${m.id}')">
                                     </div>
                                 ` : `<div class="modern-score-display"><span class="score-box">${m.score1 !== null ? m.score1 : '-'}</span><span class="score-divider">:</span><span class="score-box">${m.score2 !== null ? m.score2 : '-'}</span></div>`}
                                 <div class="team-right">${m.team2}</div>
