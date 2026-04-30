@@ -354,7 +354,7 @@ function renderMonEquipeMatches() {
 
         let matchTitle = m.type === 'poule' ? `📋 Match de ${m.context}` : 
             (m.id.startsWith("CL") ? `⭐ LDC - ${m.context}` : 
-            (m.id.startsWith("EL") ? `🌍 Europa - ${m.context}` : `🏆 Coupe - ${m.context}`));
+            (m.id.startsWith("EL") ? `🌍 Europa - ${m.context}` : `🏆 Sunday - ${m.context}`));
 
         html += `
         <div class="modern-match-card" style="${borderStyle}">
@@ -661,7 +661,7 @@ function renderAdminSchedule() {
                 let t1Style = t1.startsWith('Vainq') || t1.startsWith('Perd') || t1.includes('Poule') ? 'color:#94a3b8; font-style:italic;' : '';
                 let t2Style = t2.startsWith('Vainq') || t2.startsWith('Perd') || t2.includes('Poule') ? 'color:#94a3b8; font-style:italic;' : '';
                 
-                let matchTitle = m.id.startsWith("CL") ? `⭐ LDC - ${m.context}` : (m.id.startsWith("EL") ? `🌍 Europa - ${m.context}` : `🏆 Coupe - ${m.context}`);
+                let matchTitle = m.id.startsWith("CL") ? `⭐ LDC - ${m.context}` : (m.id.startsWith("EL") ? `🌍 Europa - ${m.context}` : `🏆 Sunday - ${m.context}`);
 
                 html += `
                 <div class="modern-match-card" style="border-left: 4px solid var(--danger);">
